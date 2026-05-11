@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>道友请留步 · 开箱攻略</title>
+<style>
+:root {
+  --bg: #0a0e17;
+  --surface: #111827;
+  --surface2: #1a2235;
+  --border: #1e2d45;
+  --text: #c8d6e5;
+  --text-dim: #6b7c93;
+  --gold: #f0c060;
+  --purple: #c084fc;
+  --orange: #fb923c;
+  --red: #f87171;
+  --indigo: #818cf8;
+  --cyan: #22d3ee;
+  --pink: #f472b6;
+  --green: #4ade80;
+  --amber: #fbbf24;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  line-height: 1.7;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+nav {
+  width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  padding: 20px 0;
+  z-index: 10;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+nav h1 {
+  font-size: 18px;
+  text-align: center;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+nav a {
+  display: block;
+  padding: 8px 24px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 14px;
+  transition: .15s;
+  border-left: 3px solid transparent;
+}
+nav a:hover, nav a.active { color: var(--text); border-left-color: var(--gold); background: var(--surface2); }
+nav a sub { display: block; font-size: 12px; color: var(--text-dim); margin-top: -2px; }
+
+/* Main */
+main {
+  margin-left: 260px;
+  padding: 40px 48px;
+  max-width: 900px;
+  width: 100%;
+}
+
+section { margin-bottom: 48px; }
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+h2 .icon { font-size: 28px; }
+
+h3 {
+  font-size: 17px;
+  margin: 20px 0 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Quality badges */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.badge-xh { background: linear-gradient(135deg, #f0c060, #e8960c); color: #1a1a1a; }
+.badge-ll { background: linear-gradient(135deg, #c084fc, #7c3aed); color: #fff; }
+.badge-jx { background: linear-gradient(135deg, #fb923c, #ea580c); color: #fff; }
+.badge-ct { background: linear-gradient(135deg, #f87171, #dc2626); color: #fff; }
+.badge-zx { background: linear-gradient(135deg, #818cf8, #4f46e5); color: #fff; }
+.badge-qy { background: linear-gradient(135deg, #22d3ee, #0891b2); color: #1a1a1a; }
+.badge-hc { background: linear-gradient(135deg, #f472b6, #db2777); color: #fff; }
+.badge-zj { background: linear-gradient(135deg, #94a3b8, #475569); color: #fff; }
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 10px 0;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: var(--gold);
+}
+
+/* Route list */
+.route {
+  list-style: none;
+  padding: 0;
+}
+.route li {
+  padding: 6px 0 6px 24px;
+  position: relative;
+  font-size: 14px;
+}
+.route li::before {
+  content: "→";
+  position: absolute;
+  left: 4px;
+  color: var(--gold);
+  font-weight: 700;
+}
+.route li.sub { padding-left: 36px; font-size: 13px; color: var(--text-dim); }
+.route li.sub::before { content: "·"; left: 18px; color: var(--text-dim); }
+
+/* Arrow flow */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  margin: 6px 0;
+}
+.flow .step {
+  background: var(--surface2);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.flow .arrow { color: var(--gold); font-weight: 700; }
+
+/* Info box */
+.info {
+  background: rgba(240,192,96,.08);
+  border-left: 3px solid var(--gold);
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: #e8c876;
+}
+
+.warn {
+  background: rgba(248,113,113,.08);
+  border-left: 3px solid var(--red);
+  padding: 10px 14px;
+  margin: 8px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: #fca5a5;
+}
+
+/* Priority list */
+.prio {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+}
+.prio li {
+  padding: 3px 0;
+  color: var(--text-dim);
+}
+.prio li b { color: var(--text); }
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 8px 0;
+}
+th, td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+th { color: var(--text-dim); font-weight: 600; font-size: 12px; text-transform: uppercase; }
+td { color: var(--text); }
+
+/* Search */
+#search {
+  width: 100%;
+  padding: 10px 16px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 14px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: .2s;
+}
+#search:focus { border-color: var(--gold); }
+#search::placeholder { color: var(--text-dim); }
+
+.hidden { display: none !important; }
+.highlight { background: rgba(240,192,96,.2); padding: 0 2px; border-radius: 2px; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  nav { display: none; }
+  main { margin-left: 0; padding: 20px 16px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <h1>🧧 道友开箱攻略</h1>
+  <a href="#shenxian">一、神仙</a>
+  <a href="#tianshu">二、天书</a>
+  <a href="#xingji">三、星姬</a>
+  <a href="#huanxian">四、幻仙</a>
+  <a href="#chongwu">五、宠物</a>
+  <a href="#lingwu">六、灵武</a>
+  <a href="#yuanshen">七、元神</a>
+  <a href="#fabao">八、法宝</a>
+  <a href="#zhuangbei">九、装备</a>
+  <a href="#duoxuan">十、道具多选箱</a>
+  <a href="#about" style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px; font-size:12px;">📋 更新：2026-05-09<br>来源：笑语@TapTap</a>
+</nav>
+
+<main>
+
+<input type="text" id="search" placeholder="🔍 搜索开箱内容…（例如：曦幻宠物、琉璃天书、5选箱…）" autofocus>
+
+<!-- ========== 一、神仙 ========== -->
+<section id="shenxian">
+<h2><span class="icon">👤</span>一、神仙</h2>
+<p style="color:var(--text-dim);font-size:13px;margin-bottom:12px;">品质后面的数字代表神仙出来的顺序与强度。琉璃品质排第一的就是琉璃一，数字越大越强。</p>
+
+<h3><span class="badge badge-xh">曦幻</span> 品质</h3>
+
+<div class="card">
+  <div class="card-title">2选箱 — 老区</div>
+  <div class="flow">
+    <span class="step">曦幻二 1星</span><span class="arrow">→</span>
+    <span class="step">1+1星</span><span class="arrow">→</span>
+    <span class="step">3+1星</span><span class="arrow">→</span>
+    <span class="step">3+3星</span><span class="arrow">→</span>
+    <span class="step">5+3星</span><span class="arrow">→</span>
+    <span class="step">5+5星</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">2选箱 — 新区（3个月以内）/ 白嫖半年内</div>
+  <div class="flow">
+    <span class="step">曦幻二 3星</span><span class="arrow">→</span>
+    <span class="step">3+1星</span><span class="arrow">→</span>
+    <span class="step">3+3星</span><span class="arrow">→</span>
+    <span class="step">5+3星</span><span class="arrow">→</span>
+    <span class="step">5+5星</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">1选箱</div>
+  <div class="flow">
+    <span class="step">主族3星</span><span class="arrow">→</span>
+    <span class="step">副族3星</span><span class="arrow">→</span>
+    <span class="step">主族5星</span><span class="arrow">→</span>
+    <span class="step">副族5星</span>
+  </div>
+  <div class="warn">⚠️ 1选箱不要1+1开！</div>
+</div>
+
+<div class="info">💡 白嫖曦幻一可考虑不开副族（曦幻二还是要开副），阵容多空位等曦幻三。已经开了副族0星曦幻一的照常升副。</div>
+<div class="info">💡 纯族要转副族：把主族琉璃三转为欧冶子，或主角转道。</div>
+
+<h3><span class="badge badge-ll">琉璃</span>及以下</h3>
+<p>上阵就升星，没上阵就开四族图鉴。三选箱优先神仙三，二选箱优先神仙二。</p>
+</section>
+
+<!-- ========== 二、天书 ========== -->
+<section id="tianshu">
+<h2><span class="icon">📖</span>二、天书</h2>
+<div class="warn">⚠️ 天书箱子在不能完整开出天书前最好不要打开，打开后无法回头。</div>
+
+<h3><span class="badge badge-ll">琉璃</span>天书</h3>
+<p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">强度排序（未来会有变化）</p>
+<table>
+  <tr><th>位置</th><th>排序</th></tr>
+  <tr><td>主核</td><td>幻沙 ＞ 龙脉 ＞ 仙凡 ＞ 万妖 ≈ 五行 ＞ 无常</td></tr>
+  <tr><td>副核</td><td>幻沙 ＞＞ 龙脉 ＞ 仙凡 ≈ 无常 ≥ 万妖 ＞ 五行</td></tr>
+  <tr><td>三核开外</td><td>万妖/无常核度下降后跌幅比其他书少，低核度时最强</td></tr>
+</table>
+
+<div class="card" style="margin-top:12px;">
+  <div class="card-title">白嫖开箱</div>
+  <p style="font-size:13px;color:var(--text-dim);">第一本用12345选箱集中开，憋不住可用6选箱（能不用最好不用）</p>
+  <ul class="route" style="margin-top:8px;">
+    <li><b>有1选白嫖</b>：第一本开<span style="color:var(--gold)">五行</span>，后面无常与幻沙（先别开碎片，等后续测试）</li>
+    <li><b>无1、2选白嫖</b>：第一本开<span style="color:var(--gold)">万妖</span>，后面幻沙与仙凡（有2选就当没有）</li>
+    <li><b>无3选/只有15片3选</b>：第一本开<span style="color:var(--gold)">仙凡</span></li>
+  </ul>
+</div>
+
+<h3><span class="badge badge-jx">金霄</span>天书</h3>
+<div class="flow" style="margin:8px 0;">
+  <span class="step">苍龙</span><span class="arrow">→</span>
+  <span class="step">饕餮</span><span class="arrow">→</span>
+  <span class="step">梵象</span><span class="arrow">→</span>
+  <span class="step">蝶梦</span><span class="arrow">→</span>
+  <span class="step">神骏</span><span class="arrow">→</span>
+  <span class="step">玄龟</span>
+</div>
+
+<h3><span class="badge badge-ct">赤魇</span>天书</h3>
+<table>
+  <tr><th>箱子</th><th>优先级</th></tr>
+  <tr><td>6选箱</td><td>鬼神 ＞ 两仪 ＞ 白鹿</td></tr>
+  <tr><td>4选箱</td><td>白鹿 ＞ 紫霄 ＞ 灵幡</td></tr>
+  <tr><td>2选箱</td><td>灵幡 ＞ 金羽</td></tr>
+</table>
+<div class="info">紫霄实际最弱，为不浪费4选箱才优先灵幡。提前开书：6选+4选开白鹿，<b>或</b>4选+2选开灵幡（二选一，不要两本都开）。</div>
+
+<h3><span class="badge badge-zx">紫虚</span>天书</h3>
+<div class="flow" style="margin:8px 0;">
+  <span class="step">水镜</span><span class="arrow">→</span>
+  <span class="step">万仞</span><span class="arrow">→</span>
+  <span class="step">白泽</span><span class="arrow">→</span>
+  <span class="step">贪狼</span><span class="arrow">→</span>
+  <span class="step">随便</span>
+</div>
+<div class="info">前三核用不上紫书，可水镜后开文曲图鉴。对手有幻沙书则紫虚及以下所有书技能无效。</div>
+
+<h3><span class="badge badge-qy">青曜</span> · <span class="badge badge-hc">幻彩</span> · <span class="badge badge-zj">紫金/金</span></h3>
+<table>
+  <tr><td>青曜</td><td>开阎罗 → 开图鉴。对手有苍龙/幻沙则技能无效</td></tr>
+  <tr><td>幻彩</td><td>开万古 → 开图鉴</td></tr>
+  <tr><td>紫金/金</td><td>开涅槃 → 开图鉴</td></tr>
+</table>
+</section>
+
+<!-- ========== 三、星姬 ========== -->
+<section id="xingji">
+<h2><span class="icon">⭐</span>三、星姬</h2>
+<div class="info">💰 白嫖可在主题活动用2张30额度（或1张30+两个6元）换10碎片补升星缺口，不补会卡3星。牛鹿平均升需4张30额度。</div>
+
+<h3><span class="badge badge-xh">曦幻</span>与<span class="badge badge-ll">琉璃</span> 星姬</h3>
+
+<div class="card">
+  <div class="card-title">(1) 没有犴鼠 或 犴鼠≤2星</div>
+  <ul class="route">
+    <li><b>曦幻箱</b>：鼠星高先开1牛，否则先开1鹿 → 1鹿1牛 → 鹿牛以3/5/7星为节点平均升星，优先鹿</li>
+    <li><b>琉璃4选箱</b>：1鼠（上不了阵就0鼠后0犴）→ 0犴 → 一直升鼠</li>
+    <li class="sub">1鼠与鹿可共同上阵，不必在意都属月。升鼠不浪费碎片在犴上方便后续传灵</li>
+    <li><b>琉璃2选箱</b>：开完图鉴后一直升燕；蛇比燕高2星就升蛇</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">(2) 有≥3星鼠</div>
+  <ul class="route">
+    <li><b>曦幻箱</b>：一直单升牛到5星（3星后可开鹿图鉴），再升鹿</li>
+    <li><b>琉璃4选箱</b>：一直单升鼠，直到被鹿换下阵</li>
+  </ul>
+</div>
+
+<div class="card">
+  <div class="card-title">(3) 有≥3星犴</div>
+  <ul class="route">
+    <li><b>曦幻箱</b>：一直单升鹿到5星（3星后可开牛图鉴），再升牛</li>
+    <li><b>琉璃4选箱</b>：一直单升犴，直到被牛换下阵</li>
+  </ul>
+</div>
+
+<h3><span class="badge badge-jx">金霄</span>及以下</h3>
+<p>开完图鉴后单升；有九天星魂/星陨石等高级材料则开完图鉴后只选材料。</p>
+</section>
+
+<!-- ========== 四、幻仙 ========== -->
+<section id="huanxian">
+<h2><span class="icon">🧚</span>四、幻仙</h2>
+
+<h3><span class="badge badge-ll">琉璃</span>幻仙</h3>
+<table>
+  <tr><th>箱子</th><th>开法</th></tr>
+  <tr><td>6选箱</td><td>开<span style="color:var(--gold)">白泽</span></td></tr>
+  <tr><td>5选箱</td><td>开<span style="color:var(--gold)">腾蛇</span>。白嫖腾蛇3星后可用5选开1星谛听拿光环</td></tr>
+  <tr><td>4选箱</td><td>谛听、毕方哪个能合成就开哪个，都能优先谛听</td></tr>
+  <tr><td>3选箱</td><td>开<span style="color:var(--gold)">毕方</span></td></tr>
+  <tr><td>2选箱</td><td>1星天狗 → 0星应龙 → 一直升天狗</td></tr>
+</table>
+<div class="info">新区短期开1星应龙更强，但长远还是天狗。</div>
+
+<h3><span class="badge badge-jx">金霄</span>幻仙</h3>
+<table>
+  <tr><th>箱子</th><th>开法</th></tr>
+  <tr><td>5/6选箱</td><td>1星赑屃 → 1星青鸾 → 5星赑屃 → 5星青鸾</td></tr>
+  <tr><td>1/2/3/4选箱</td><td>1星三兔 → 开完图鉴 → 5星三兔 → 5星诸犍 → 5星风生 → 5星猲狙</td></tr>
+</table>
+<div class="info">新手村内或刚出村可先1星青鸾（主副核比赑屃强）。三兔炮灰位强于青鸾，前二三核打不过青鸾。</div>
+
+<h3><span class="badge badge-ct">赤魇</span>及以下</h3>
+<p>开完图鉴后随便升 → 单升5星去协阵。新手村内可先1星夔牛（比任何0星金霄强）再开图鉴。</p>
+</section>
+
+<!-- ========== 五、宠物 ========== -->
+<section id="chongwu">
+<h2><span class="icon">🐾</span>五、宠物</h2>
+
+<h3><span class="badge badge-xh">曦幻</span>宠物 <span style="font-size:12px;color:var(--green);">🆕 5.9更新</span></h3>
+<div class="card">
+  <div class="card-title">核心规则</div>
+  <p>已有0星猫的白嫖：拿20碎片开猫，其他无论什么情况都开鲨。6月不会出新的曦幻宠物。鲨只有1星比猫强，后续升星提升与猫差不多。</p>
+</div>
+
+<div class="card" style="border-color: var(--gold);">
+  <div class="card-title">🐱 (1) 已有0星猫的白嫖路线</div>
+  <div class="flow" style="margin-top:8px;">
+    <span class="step">5月宠物：拿20鲨碎片开猫</span>
+  </div>
+  <div class="flow">
+    <span class="step" style="background:rgba(240,192,96,.15);">5月神石：1星猫 余80鲨</span>
+  </div>
+  <div class="flow">
+    <span class="step">6月宠物：1星鲨 余10碎片</span>
+  </div>
+  <div class="flow">
+    <span class="step" style="background:rgba(240,192,96,.15);">6月神石：余50猫、10鲨</span>
+  </div>
+  <div class="flow">
+    <span class="step">7月宠物：0星新宠物</span>
+  </div>
+  <div class="flow">
+    <span class="step" style="background:rgba(240,192,96,.15);">7月神石：2星猫</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">🦈 (2) 没有猫的白嫖路线</div>
+  <div class="flow" style="margin-top:8px;">
+    <span class="step">5月宠物：0星鲨</span>
+    <span class="arrow">→</span>
+    <span class="step" style="background:rgba(240,192,96,.15);">5月神石：余50猫</span>
+    <span class="arrow">→</span>
+    <span class="step">6月宠物：1星鲨余30</span>
+    <span class="arrow">→</span>
+    <span class="step" style="background:rgba(240,192,96,.15);">6月神石：0星猫</span>
+    <span class="arrow">→</span>
+    <span class="step">7月宠物：0新宠物</span>
+    <span class="arrow">→</span>
+    <span class="step" style="background:rgba(240,192,96,.15);">7月神石：1星猫</span>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-title">(3) 6月才第一次接入宠物活动</div>
+  <p>二选箱开<b style="color:var(--gold)">猫</b>（开猫可升1星，开鲨升不了1星）。</p>
+</div>
+
+<h3><span class="badge badge-ll">琉璃</span>宠物</h3>
+<table>
+  <tr><th>箱子</th><th>开法</th></tr>
+  <tr><td>5/6选箱</td><td>1狮 → 1狼 → 3狮 → 3狼 → 5狮 → 5狼</td></tr>
+  <tr><td>3/4选箱</td><td>1貔 → 1蝶 → 3貔 → 3蝶 → 5貔 → 5蝶</td></tr>
+  <tr><td>1/2选箱</td><td>1鹰 → 1豚 → 5鹰 → 5豚（豚上不了阵只开0星）</td></tr>
+</table>
+
+<h3><span class="badge badge-jx">金霄</span>宠物</h3>
+<table>
+  <tr><th>箱子</th><th>开法</th></tr>
+  <tr><td>5/6选箱</td><td>1牡丹 → 1鹭 → 5牡丹 → 5鹭（鹭上不了阵只开0星）</td></tr>
+  <tr><td>1/2/3/4选箱</td><td>开图鉴后平均升星</td></tr>
+</table>
+
+<h3><span class="badge badge-ct">赤魇</span>及以下</h3>
+<p>全部开图鉴后随便升星。新手村内可先升1星熊猫或1星莲再开图鉴（没更高品质优先熊猫，有更高品质优先莲）。</p>
+</section>
+
+<!-- ========== 六、灵武 ========== -->
+<section id="lingwu">
+<h2><span class="icon">⚔️</span>六、灵武</h2>
+<div class="info">💡 通用原则：最强的放阵容最右边上阵 → 剩下品质星级最高的6个护佑神仙 → 最后才协力/附灵。</div>
+
+<h3><span class="badge badge-ll">琉璃</span>灵武</h3>
+<table>
+  <tr><th>箱子</th><th>开法</th></tr>
+  <tr><td>4/5选箱</td><td>1星烛 → 1星刃 → 刃烛平均升星优先烛</td></tr>
+  <tr><td>2/3选箱</td><td>1星篌 → 1星将 → 1星伞 → 篌将平均升星优先篌，伞不用管</td></tr>
+</table>
+
+<h3><span class="badge badge-jx">金霄</span>灵武</h3>
+<table>
+  <tr><th>箱子</th><th>开法</th></tr>
+  <tr><td>5选箱</td><td>1星剑 → 0星符 → 一直开剑</td></tr>
+  <tr><td>4选及以下</td><td>开完图鉴后平均升星</td></tr>
+</table>
+<div class="info">新手村有高于金霄品质灵武的，可先1星符（护佑比剑强）。后续接到星姬或灵武活动后符基本废了，剑护佑与共鸣各有一个无限级效果还有用。</div>
+
+<h3><span class="badge badge-ct">赤魇</span>及以下</h3>
+<p>开完图鉴后平均升星。新手村可先升1星杵或1星鼎再开图鉴（没更高品质优先杵，有更高品质优先鼎）。</p>
+</section>
+
+<!-- ========== 七、元神 ========== -->
+<section id="yuanshen">
+<h2><span class="icon">💎</span>七、元神</h2>
+<div class="info">💡 元神上阵 ＞ 固元，聚神要平均升。</div>
+
+<h3><span class="badge badge-xh">曦幻</span>元神</h3>
+<table>
+  <tr><th>主核强度</th><th>开法</th></tr>
+  <tr><td>5星曦幻一 / 3星红莲</td><td>升5星元神后，每有2星开下一个2星</td></tr>
+  <tr><td>3~4星曦幻一 / 2星红莲</td><td>升3星元神后，每有2星开下一个2星</td></tr>
+  <tr><td>≤3星曦幻一 / 1星红莲</td><td>每有2星就开下一个2星</td></tr>
+</table>
+
+<div class="warn">⚠️ <b>别开多个1星！</b>6个1星（1020碎片）不如4个2星（1080碎片），属性更集中，差距不止2个识神技能。</div>
+
+<div class="info">💡 神练石不够洗两个元神：升3星元神后每有2星开下个2星。3星比2+1星强一点，但2+1星多一个元神可洗新神练，洗完反超。</div>
+<div class="info">💡 主核越强越应单升；主核越弱越应开多个元神。只有曦幻神仙佩戴才能激活识神技能，目前阵容仅1~3个曦幻神仙，别开多了。</div>
+<div class="info">💡 元神开箱对神仙星级要求随版本变：现在要求曦幻一 → 4月后曦幻二 → 8月后曦幻三。</div>
+
+<h4>元神星级替换</h4>
+<table>
+  <tr><th>条件</th><th>0星曦幻</th><th>1星曦幻</th></tr>
+  <tr><td>无新神炼</td><td>换3星琉璃</td><td>换4~5星琉璃</td></tr>
+  <tr><td>有4个新神炼</td><td>换4~5星琉璃</td><td>换5星琉璃</td></tr>
+</table>
+<div class="info">炮灰0换5可但不建议：掉道行，pve变弱。</div>
+
+<h3><span class="badge badge-ll">琉璃</span><span class="badge badge-jx">金霄</span><span class="badge badge-ct">赤魇</span>元神</h3>
+<p>每有1星就开下一个1星 → 6个1星后平均升星。</p>
+
+<h3><span class="badge badge-zx">紫虚</span>元神</h3>
+<p>开3~5个1星后平均升星，先升1后开0。有1个琉璃元神开5个紫虚、有2个开4个、有3个开3个，以此类推。</p>
+
+<h3><span class="badge badge-qy">青曜</span>及以下</h3>
+<p>开完图鉴后重生为碎片给高品质元神吞；有上阵空位优先上阵。</p>
+</section>
+
+<!-- ========== 八、法宝 ========== -->
+<section id="fabao">
+<h2><span class="icon">🔮</span>八、法宝</h2>
+<div class="info">💡 攻击防御法宝平均升星，优先攻击。精炼主核升满后，其他5单位平均升。</div>
+
+<h3><span class="badge badge-ll">琉璃</span>法宝</h3>
+<table>
+  <tr><th>阶段</th><th>开法</th></tr>
+  <tr><td>新区</td><td>单位能出手两次（神仙+幻仙活1.5~2回合）就给一对1星 → 按核度5星升</td></tr>
+  <tr><td>老区满档</td><td>主副核都3星后按核度5星升</td></tr>
+  <tr><td>老区其他</td><td>每有1星开下个1星 → 12个1星后以3/5星为节点平均升主副核 → 按核度5星升</td></tr>
+</table>
+<div class="info">对局十几回合且三核配置接近主副核，可平均升主副三核。</div>
+
+<h3><span class="badge badge-jx">金霄</span>/<span class="badge badge-ct">赤魇</span>法宝</h3>
+<p>全体装上1星后（秒死也装），或给更高品质法宝化灵1阶后，再平均升主副核 → 按核度5星升。</p>
+
+<h3>法宝替换规则</h3>
+<div class="warn">双1星新法宝即可替换双5星老法宝。新法宝<b>完全吞噬</b>老法宝才能替换。金霄法宝有赤魇化灵则0星琉璃不能换任意星级金霄。</div>
+
+<h3><span class="badge badge-zx">紫虚</span>及以下</h3>
+<p>按核度单升，其他单位0星不用升。</p>
+</section>
+
+<!-- ========== 九、装备 ========== -->
+<section id="zhuangbei">
+<h2><span class="icon">🛡️</span>九、装备</h2>
+<div class="info">💡 高品质装备0星/0阶即可替换低品质满星/满阶。</div>
+
+<h3><span class="badge badge-xh">曦幻</span>装备</h3>
+<p style="font-size:13px;color:var(--text-dim);">从上往下代表开启顺序，数字=化神阶数，优先武器护符。</p>
+<div class="card">
+  <ol style="padding-left:20px;font-size:14px;line-height:2;">
+    <li>主核1</li>
+    <li>主核11</li>
+    <li>主核11，副核11，三核11</li>
+    <li>主核111，副核11，三核11</li>
+    <li>主核1111，副核11，三核11</li>
+    <li>主核1111，副核1111，三核1111</li>
+    <li>主核1111，副核1111，三核1111，四核0，五核0，六核0</li>
+    <li>主核2211，副核2211，三核2211，四核0，五核0，六核0</li>
+    <li>主核2211，副核2211，三核2211，四核000，五核000，六核000（先四核3个0，再五核3个0）</li>
+    <li>按核度排序升满</li>
+  </ol>
+</div>
+
+<h3><span class="badge badge-ll">琉璃</span>装备</h3>
+<p>优先给曦幻装备回响：武器/护符回响5阶后（更建议，碎片花费更少），或武器/护符/盔甲/鞋子回响3阶后，再给下一单位。佩戴升1111阶化神。主副三核都弄好后按核度排序升满。</p>
+
+<h3><span class="badge badge-jx">金霄</span>装备</h3>
+<p>优先给琉璃装备回响（方式同琉璃装备）。全体都装上满阶金霄装备后才熔铸。</p>
+
+<h3><span class="badge badge-ct">赤魇</span>及以下</h3>
+<p>升满一套再开下一套，三套升满后给四五六核各一套0阶，多余给更高品质装备熔铸，四个部位平均开。</p>
+</section>
+
+<!-- ========== 十、道具多选箱 ========== -->
+<section id="duoxuan">
+<h2><span class="icon">📦</span>十、道具多选箱</h2>
+
+<h3><span class="badge badge-ll">琉璃</span>多选箱</h3>
+<table>
+  <tr><th>箱子</th><th>优先级</th></tr>
+  <tr><td>琉璃1选箱</td><td>幻仙 ＞ 宠物 ＞ 灵武 ＞ 元神</td></tr>
+  <tr><td>多宝密藏</td><td>毕方 ＞ 神仙</td></tr>
+  <tr><td>天魔奖励</td><td>篌 ＞ 将 ＞ 元神</td></tr>
+</table>
+
+<h3><span class="badge badge-jx">金霄</span>多选箱</h3>
+<table>
+  <tr><th>箱子</th><th>优先级</th></tr>
+  <tr><td>1选箱</td><td>1兔 ＞ 开图鉴 ＞ 兔 ＞ 龙 ＞ 钺 ＞ 元神</td></tr>
+  <tr><td>2选箱</td><td>1兔 ＞ 开图鉴 ＞ 兔 ＞ 羚 ＞ 盏 ＞ 元神</td></tr>
+  <tr><td>3选箱</td><td>1兔 ＞ 开图鉴 ＞ 兔 ＞ 豹 ＞ 盏 ＞ 其他</td></tr>
+  <tr><td>4选箱</td><td>1兔 ＞ 1符 ＞ 开图鉴 ＞ 兔 ＞ 诸犍 ＞ 鲸 ＞ 其他</td></tr>
+  <tr><td>5选箱</td><td>只开赑屃一直到5星 ＞ 牡丹 ＞ 剑 ＞ 其他</td></tr>
+  <tr><td>6选箱</td><td>只开赑屃一直到5星 ＞ 牡丹 ＞ 剑 ＞ 青鸾 ＞ 鹭 ＞ 其他</td></tr>
+</table>
+
+<h3><span class="badge badge-ct">赤魇</span>以下多选箱</h3>
+<p>先开图鉴，优先级：幻仙 ＞ 宠物 ＞ 灵武 ＞ 元神。图鉴全开后 <b>只开元神</b>。</p>
+</section>
+
+<section id="about" style="text-align:center;padding-top:40px;border-top:1px solid var(--border);color:var(--text-dim);font-size:12px;">
+  <p>📋 最后更新：2026-05-09 · 来源：笑语@TapTap</p>
+  <p style="margin-top:8px;">此页面为本地HTML文件，可直接用浏览器打开查看，无需每次询问AI。</p>
+</section>
+
+</main>
+
+<script>
+// Search
+const search = document.getElementById('search');
+const sections = document.querySelectorAll('section');
+const allText = document.querySelectorAll('h2,h3,.card,p,td,li,.flow,.info,.warn');
+
+search.addEventListener('input', () => {
+  const q = search.value.trim().toLowerCase();
+  allText.forEach(el => {
+    el.querySelectorAll('.highlight').forEach(h => {
+      h.replaceWith(...h.childNodes);
+    });
+  });
+  if (!q) {
+    sections.forEach(s => s.classList.remove('hidden'));
+    document.querySelectorAll('.card').forEach(c => c.style.borderColor = '');
+    return;
+  }
+  sections.forEach(s => {
+    const txt = s.textContent.toLowerCase();
+    s.classList.toggle('hidden', !txt.includes(q));
+  });
+  // Highlight matches
+  document.querySelectorAll('section:not(.hidden) .card').forEach(card => {
+    if (card.textContent.toLowerCase().includes(q)) {
+      card.style.borderColor = 'var(--gold)';
+    }
+  });
+  // Find first visible section and scroll to it
+  const first = document.querySelector('section:not(.hidden)');
+  if (first && q.length >= 2) first.scrollIntoView({ behavior:'smooth', block:'start' });
+});
+
+// Sidebar active state
+const navLinks = document.querySelectorAll('nav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const id = e.target.id;
+      const link = document.querySelector(`nav a[href="#${id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

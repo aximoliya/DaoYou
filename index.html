@@ -250,18 +250,202 @@ td { color: var(--text); }
 
 /* Mobile */
 @media (max-width: 768px) {
-  nav { display: none; }
+  nav {
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 280px;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+  nav.open { transform: translateX(0); }
+
   main { margin-left: 0; padding: 20px 16px; }
+
+  .nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 99;
+  }
+  .nav-overlay.show { display: block; }
+
+  .hamburger {
+    display: flex;
+    position: fixed;
+    top: 12px; right: 12px;
+    z-index: 101;
+    width: 40px; height: 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: .15s;
+  }
+  .hamburger:hover { border-color: var(--gold); }
 }
+
+@media (min-width: 769px) {
+  .hamburger, .nav-overlay { display: none; }
+}
+
+/* ===== Tier Filter Bar ===== */
+#tier-bar {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 16px;
+}
+.tier-btn {
+  padding: 4px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: pointer;
+  transition: .15s;
+  font-weight: 600;
+}
+.tier-btn:hover { border-color: var(--gold); color: var(--text); }
+.tier-btn.active { background: var(--gold); color: #1a1a1a; border-color: var(--gold); }
+.tier-btn.reset { border-style: dashed; }
+
+.tier-hidden { display: none !important; }
+
+/* ===== Search Nav ===== */
+.search-wrap {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px;
+}
+.search-wrap #search { margin-bottom: 0; flex: 1; }
+#search-count {
+  font-size: 12px; color: var(--text-dim);
+  white-space: nowrap; min-width: 60px; text-align: right;
+  display: none;
+}
+#search-count.visible { display: inline; }
+.search-nav-btn {
+  width: 28px; height: 28px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  display: none;
+  align-items: center; justify-content: center;
+  transition: .15s;
+}
+.search-nav-btn.visible { display: flex; }
+.search-nav-btn:hover { border-color: var(--gold); }
+.search-nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+mark.search-hit {
+  background: var(--gold);
+  color: #1a1a1a;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+mark.search-hit.current {
+  background: var(--red);
+  color: #fff;
+}
+
+/* ===== Floating TOC ===== */
+#toc-panel {
+  position: fixed;
+  right: 12px; top: 50%;
+  transform: translateY(-50%);
+  width: 180px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 10px;
+  z-index: 50;
+  font-size: 12px;
+  display: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+#toc-panel.show { display: block; opacity: 1; }
+#toc-panel .toc-title {
+  font-size: 10px; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--text-dim);
+  margin-bottom: 8px; font-weight: 700;
+}
+#toc-panel a {
+  display: block;
+  padding: 3px 8px;
+  color: var(--text-dim);
+  text-decoration: none;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  transition: .15s;
+  border-left: 2px solid transparent;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#toc-panel a:hover, #toc-panel a.active {
+  color: var(--text);
+  border-left-color: var(--gold);
+  background: var(--surface2);
+}
+
+@media (max-width: 768px) {
+  #toc-panel { display: none !important; }
+}
+
+/* ===== Smart Collapse ===== */
+.collapse-toggle {
+  display: inline-flex;
+  align-items: center; gap: 4px;
+  cursor: pointer;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 600;
+  margin-left: 6px;
+  user-select: none;
+  padding: 1px 6px;
+  border-radius: 4px;
+  transition: .15s;
+}
+.collapse-toggle:hover { background: var(--surface2); }
+.collapse-toggle .icon-chevron {
+  display: inline-block;
+  transition: transform 0.25s;
+  font-size: 10px;
+}
+.collapse-toggle.open .icon-chevron { transform: rotate(90deg); }
+.collapse-summary {
+  color: var(--text-dim);
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+.collapse-body { display: none; }
+.collapse-body.open { display: block; }
+
 </style>
 </head>
 <body>
 
-<nav>
+<button class="hamburger" id="hamburger" aria-label="菜单">☰</button>
+<div class="nav-overlay" id="overlay"></div>
+
+<nav id="nav">
   <h1>🧧 道友攻略总览</h1>
 
   <div class="nav-group-label">养成系统</div>
   <a href="#shencang" style="color:var(--gold);">神藏系统</a>
+  <a href="#shop">商店购买</a>
 
   <div class="nav-group-label" style="margin-top:12px;">开箱攻略</div>
   <a href="#shenxian">一、神仙</a>
@@ -276,10 +460,27 @@ td { color: var(--text); }
   <a href="#duoxuan">十、道具多选箱</a>
   <a href="#about" style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px; font-size:12px;">📋 更新：2026-05-12<br>来源：笑语@TapTap</a>
 </nav>
+<div id="toc-panel"><div class="toc-title">📑 本节目录</div></div>
 
 <main>
 
-<input type="text" id="search" placeholder="🔍 搜索攻略…（例如：神藏、琉璃天书、曦幻宠物、5选箱…）" autofocus>
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="🔍 搜索攻略…（例如：神藏、琉璃天书、5选箱…）" autofocus>
+  <span id="search-count"></span>
+  <button class="search-nav-btn" id="search-prev" title="上一个">▲</button>
+  <button class="search-nav-btn" id="search-next" title="下一个">▼</button>
+</div>
+
+<div id="tier-bar">
+  <button class="tier-btn reset active" data-tier="all">全部</button>
+  <button class="tier-btn" data-tier="xh">曦幻</button>
+  <button class="tier-btn" data-tier="ll">琉璃</button>
+  <button class="tier-btn" data-tier="jx">金霄</button>
+  <button class="tier-btn" data-tier="ct">赤魇</button>
+  <button class="tier-btn" data-tier="zx">紫虚</button>
+  <button class="tier-btn" data-tier="qy">青曜</button>
+  <button class="tier-btn" data-tier="hc">幻彩</button>
+</div>
 
 <!-- ========== 🆕 神藏系统 ========== -->
 <section id="shencang">
@@ -333,6 +534,59 @@ td { color: var(--text); }
 </div>
 </section>
 
+<!-- ========== 商店购买 ========== -->
+<section id="shop">
+<h2><span class="icon">🛒</span>商店购买 <span style="font-size:12px;color:var(--green);">🆕 4.19更新</span></h2>
+<div class="info">📋 来源：<a href="https://www.taptap.cn/moment/129892352314574380" target="_blank" style="color:var(--gold);">笑语@TapTap</a> · 精华 · 57万浏览 · 日常商店购买优先级</div>
+
+<div class="card"><div class="card-title">🏪 商城</div><p>体力丹法力丹<b style="color:var(--gold)">买满</b>、除魔令10个。紫虚以上品质法相还要买太虚神晶。110级后体力丹每天10个，130级后法力丹每天10个。</p></div>
+
+<div class="card"><div class="card-title">👤 神仙店铺</div><p>图鉴令 ＞ 高级培养丹 ＞ 青曜神仙 ＞ 其它。<span style="color:var(--red);">前期不要买神仙。</span></p></div>
+
+<div class="card"><div class="card-title">⚔️ 竞技宝库</div><p>盘古斧 ＞ 其它神器 ＞ 法相石 ＞ 星沙。</p></div>
+
+<div class="card"><div class="card-title">🏛️ 奇观商店</div><p>VIP等级高，或玩了两个月后还能保持20万以上元宝才买机巧令。</p></div>
+
+<div class="card"><div class="card-title">🐉 驭灵商店</div><p>买打折的，之后随便。</p></div>
+
+<div class="card"><div class="card-title">🛡️ 装备宝库</div><p>只买紫金及以上品质装备，不买锻造石精炼石。</p></div>
+
+<div class="card"><div class="card-title">🏠 仙盟店铺</div><p>天机令、天机玉、唤灵符、法宝精炼原胚。多余币买神器、幻化、法相合成符。神器买完后才把法相石加入日常。橙/红/金/紫金法相精华等太虚幻境送（合成符要买），幻彩/青曜法相等110级洞天白嫖，<span style="color:var(--red);">幻彩/青曜合成符千万别买。</span></p></div>
+
+<div class="card"><div class="card-title">⚡ 盟战店铺</div><p>法相精华 ＞ 聚灵石、五行玉 ＞ 灵修石。</p></div>
+
+<div class="card"><div class="card-title">🎖️ 战功宝库</div><p>高级培养丹 ＞ 金元神 ＞ 金神仙（前期战功不够可不买）。</p></div>
+
+<div class="card"><div class="card-title">⛏️ 地宫商店</div><p>火折子 ≈ 聚灵石 ＞ 地宫古币 ＞ 其它不买。</p></div>
+
+<div class="card"><div class="card-title">📖 志怪店铺</div><p>红·志·怪、金·志·怪，花元宝的别买。</p></div>
+
+<div class="card"><div class="card-title">🔮 天机宝库</div><p>志怪金丹 ＞ 红·志·怪。<span style="color:var(--gold);">两个金丹一定要每天买。</span></p></div>
+
+<div class="card"><div class="card-title">💎 元神商店</div><p>按元神品质从高往低买 ＞ 元神精华 ＞ 其他。元神优先开图鉴。</p></div>
+
+<div class="card"><div class="card-title">⚔️ 灵武店铺</div><p>按照灵武品质从高往低买。</p></div>
+
+<div class="card"><div class="card-title">🔒 封灵宝库</div><p>神霄探宝图、炼魂玉、启灵木 ＞ 普通探宝图、凝神砂。万能碎片只买赤魇品质。</p></div>
+
+<div class="card"><div class="card-title">🐾 宠物店铺</div><p>按宠物品质从高往低买。先把所有宠物全换一遍凑图鉴。</p></div>
+
+<h3>封神宝库</h3>
+<div class="card"><div class="card-title">封神商店</div><p>买最高品质的四种法宝，刚玩货币不够就只用买一种。</p></div>
+<div class="card"><div class="card-title">登仙商店</div><p>天书品质从高往低买 ＞ 紫虚天赋书 ＞ 其他。能买到的天书全拥有后才买天赋书，刚开启没天书买就把货币存着。</p></div>
+
+<div class="card"><div class="card-title">🌀 气海宝库</div><p>混沌珠 ＞ 灵光 ＞ 转生符 ＞ 其它。赤魇元婴：土 ≈ 木 ≥ 火 ≥ 水 ≈ 雷 ≥ 风，低品质元婴无优先级。</p></div>
+
+<div class="card"><div class="card-title">☁️ 苍穹店铺</div><p>元神 ＞ 金色器魂录 ＞ 仙
+
+... [OUTPUT TRUNCATED - 2256 chars omitted out of 52256 total] ...
+
+
+<div class="card"><div class="card-title">万界币</div><p>琉璃元神 ＞ 金霄灵武 ＞ 除了天灵晶凝神砂外的资源 ＞ 天灵晶凝神砂 ＞ 赤魇灵武。</p></div>
+<div class="card"><div class="card-title">界域令</div><p>金霄、赤魇元婴，能忍的话最好换金霄元婴。</p></div>
+<div class="card"><div class="card-title">元宝</div><p>琉璃灵武。拓纹纸只有幻化毕业后能长期保持20万以上元宝才买。</p></div>
+</section>
+
 <!-- ========== 一、神仙 ========== -->
 <section id="shenxian">
 <h2><span class="icon">👤</span>一、神仙</h2>
@@ -340,9 +594,9 @@ td { color: var(--text); }
 
 <h3><span class="badge badge-xh">曦幻</span> 品质</h3>
 
-<div class="card">
+<div class="card" data-tiers="ll xh">
   <div class="card-title">2选箱 — 老区</div>
-  <div class="flow">
+  <div class="flow" data-tiers="ll xh">
     <span class="step">曦幻二 1星</span><span class="arrow">→</span>
     <span class="step">1+1星</span><span class="arrow">→</span>
     <span class="step">3+1星</span><span class="arrow">→</span>
@@ -352,9 +606,9 @@ td { color: var(--text); }
   </div>
 </div>
 
-<div class="card">
+<div class="card" data-tiers="ll xh">
   <div class="card-title">2选箱 — 新区（3个月以内）/ 白嫖半年内</div>
-  <div class="flow">
+  <div class="flow" data-tiers="ll xh">
     <span class="step">曦幻二 3星</span><span class="arrow">→</span>
     <span class="step">3+1星</span><span class="arrow">→</span>
     <span class="step">3+3星</span><span class="arrow">→</span>
@@ -363,19 +617,19 @@ td { color: var(--text); }
   </div>
 </div>
 
-<div class="card">
+<div class="card" data-tiers="ll xh">
   <div class="card-title">1选箱</div>
-  <div class="flow">
+  <div class="flow" data-tiers="ll xh">
     <span class="step">主族3星</span><span class="arrow">→</span>
     <span class="step">副族3星</span><span class="arrow">→</span>
     <span class="step">主族5星</span><span class="arrow">→</span>
     <span class="step">副族5星</span>
   </div>
-  <div class="warn">⚠️ 1选箱不要1+1开！</div>
+  <div class="warn" data-tiers="ll xh">⚠️ 1选箱不要1+1开！</div>
 </div>
 
-<div class="info">💡 白嫖曦幻一可考虑不开副族（曦幻二还是要开副），阵容多空位等曦幻三。已经开了副族0星曦幻一的照常升副。</div>
-<div class="info">💡 纯族要转副族：把主族琉璃三转为欧冶子，或主角转道。</div>
+<div class="info" data-tiers="ll xh">💡 白嫖曦幻一可考虑不开副族（曦幻二还是要开副），阵容多空位等曦幻三。已经开了副族0星曦幻一的照常升副。</div>
+<div class="info" data-tiers="ll xh">💡 纯族要转副族：把主族琉璃三转为欧冶子，或主角转道。</div>
 
 <h3><span class="badge badge-ll">琉璃</span>及以下</h3>
 <p>上阵就升星，没上阵就开四族图鉴。三选箱优先神仙三，二选箱优先神仙二。</p>
@@ -388,17 +642,17 @@ td { color: var(--text); }
 
 <h3><span class="badge badge-ll">琉璃</span>天书</h3>
 <p style="font-size:13px;color:var(--text-dim);margin-bottom:8px;">强度排序（未来会有变化）</p>
-<table>
+<table data-tiers="jx ll">
   <tr><th>位置</th><th>排序</th></tr>
   <tr><td>主核</td><td>幻沙 ＞ 龙脉 ＞ 仙凡 ＞ 万妖 ≈ 五行 ＞ 无常</td></tr>
   <tr><td>副核</td><td>幻沙 ＞＞ 龙脉 ＞ 仙凡 ≈ 无常 ≥ 万妖 ＞ 五行</td></tr>
   <tr><td>三核开外</td><td>万妖/无常核度下降后跌幅比其他书少，低核度时最强</td></tr>
 </table>
 
-<div class="card" style="margin-top:12px;">
+<div class="card" data-tiers="jx ll" style="margin-top:12px;">
   <div class="card-title">白嫖开箱</div>
   <p style="font-size:13px;color:var(--text-dim);">第一本用12345选箱集中开，憋不住可用6选箱（能不用最好不用）</p>
-  <ul class="route" style="margin-top:8px;">
+  <ul class="route" data-tiers="jx ll" style="margin-top:8px;">
     <li><b>有1选白嫖</b>：第一本开<span style="color:var(--gold)">五行</span>，后面无常与幻沙（先别开碎片，等后续测试）</li>
     <li><b>无1、2选白嫖</b>：第一本开<span style="color:var(--gold)">万妖</span>，后面幻沙与仙凡（有2选就当没有）</li>
     <li><b>无3选/只有15片3选</b>：第一本开<span style="color:var(--gold)">仙凡</span></li>
@@ -406,7 +660,7 @@ td { color: var(--text); }
 </div>
 
 <h3><span class="badge badge-jx">金霄</span>天书</h3>
-<div class="flow" style="margin:8px 0;">
+<div class="flow" data-tiers="ct jx" style="margin:8px 0;">
   <span class="step">苍龙</span><span class="arrow">→</span>
   <span class="step">饕餮</span><span class="arrow">→</span>
   <span class="step">梵象</span><span class="arrow">→</span>
@@ -416,26 +670,26 @@ td { color: var(--text); }
 </div>
 
 <h3><span class="badge badge-ct">赤魇</span>天书</h3>
-<table>
+<table data-tiers="ct zx">
   <tr><th>箱子</th><th>优先级</th></tr>
   <tr><td>6选箱</td><td>鬼神 ＞ 两仪 ＞ 白鹿</td></tr>
   <tr><td>4选箱</td><td>白鹿 ＞ 紫霄 ＞ 灵幡</td></tr>
   <tr><td>2选箱</td><td>灵幡 ＞ 金羽</td></tr>
 </table>
-<div class="info">紫霄实际最弱，为不浪费4选箱才优先灵幡。提前开书：6选+4选开白鹿，<b>或</b>4选+2选开灵幡（二选一，不要两本都开）。</div>
+<div class="info" data-tiers="ct zx">紫霄实际最弱，为不浪费4选箱才优先灵幡。提前开书：6选+4选开白鹿，<b>或</b>4选+2选开灵幡（二选一，不要两本都开）。</div>
 
 <h3><span class="badge badge-zx">紫虚</span>天书</h3>
-<div class="flow" style="margin:8px 0;">
+<div class="flow" data-tiers="hc qy zj zx" style="margin:8px 0;">
   <span class="step">水镜</span><span class="arrow">→</span>
   <span class="step">万仞</span><span class="arrow">→</span>
   <span class="step">白泽</span><span class="arrow">→</span>
   <span class="step">贪狼</span><span class="arrow">→</span>
   <span class="step">随便</span>
 </div>
-<div class="info">前三核用不上紫书，可水镜后开文曲图鉴。对手有幻沙书则紫虚及以下所有书技能无效。</div>
+<div class="info" data-tiers="hc qy zj zx">前三核用不上紫书，可水镜后开文曲图鉴。对手有幻沙书则紫虚及以下所有书技能无效。</div>
 
 <h3><span class="badge badge-qy">青曜</span> · <span class="badge badge-hc">幻彩</span> · <span class="badge badge-zj">紫金/金</span></h3>
-<table>
+<table data-tiers="hc ll qy xh zj">
   <tr><td>青曜</td><td>开阎罗 → 开图鉴。对手有苍龙/幻沙则技能无效</td></tr>
   <tr><td>幻彩</td><td>开万古 → 开图鉴</td></tr>
   <tr><td>紫金/金</td><td>开涅槃 → 开图鉴</td></tr>
@@ -449,9 +703,9 @@ td { color: var(--text); }
 
 <h3><span class="badge badge-xh">曦幻</span>与<span class="badge badge-ll">琉璃</span> 星姬</h3>
 
-<div class="card">
+<div class="card" data-tiers="jx ll xh">
   <div class="card-title">(1) 没有犴鼠 或 犴鼠≤2星</div>
-  <ul class="route">
+  <ul class="route" data-tiers="jx ll xh">
     <li><b>曦幻箱</b>：鼠星高先开1牛，否则先开1鹿 → 1鹿1牛 → 鹿牛以3/5/7星为节点平均升星，优先鹿</li>
     <li><b>琉璃4选箱</b>：1鼠（上不了阵就0鼠后0犴）→ 0犴 → 一直升鼠</li>
     <li class="sub">1鼠与鹿可共同上阵，不必在意都属月。升鼠不浪费碎片在犴上方便后续传灵</li>
@@ -459,17 +713,17 @@ td { color: var(--text); }
   </ul>
 </div>
 
-<div class="card">
+<div class="card" data-tiers="jx ll xh">
   <div class="card-title">(2) 有≥3星鼠</div>
-  <ul class="route">
+  <ul class="route" data-tiers="jx ll xh">
     <li><b>曦幻箱</b>：一直单升牛到5星（3星后可开鹿图鉴），再升鹿</li>
     <li><b>琉璃4选箱</b>：一直单升鼠，直到被鹿换下阵</li>
   </ul>
 </div>
 
-<div class="card">
+<div class="card" data-tiers="jx ll xh">
   <div class="card-title">(3) 有≥3星犴</div>
-  <ul class="route">
+  <ul class="route" data-tiers="jx ll xh">
     <li><b>曦幻箱</b>：一直单升鹿到5星（3星后可开牛图鉴），再升牛</li>
     <li><b>琉璃4选箱</b>：一直单升犴，直到被牛换下阵</li>
   </ul>
@@ -484,7 +738,7 @@ td { color: var(--text); }
 <h2><span class="icon">🧚</span>四、幻仙</h2>
 
 <h3><span class="badge badge-ll">琉璃</span>幻仙</h3>
-<table>
+<table data-tiers="jx ll">
   <tr><th>箱子</th><th>开法</th></tr>
   <tr><td>6选箱</td><td>开<span style="color:var(--gold)">白泽</span></td></tr>
   <tr><td>5选箱</td><td>开<span style="color:var(--gold)">腾蛇</span>。白嫖腾蛇3星后可用5选开1星谛听拿光环</td></tr>
@@ -492,15 +746,15 @@ td { color: var(--text); }
   <tr><td>3选箱</td><td>开<span style="color:var(--gold)">毕方</span></td></tr>
   <tr><td>2选箱</td><td>1星天狗 → 0星应龙 → 一直升天狗</td></tr>
 </table>
-<div class="info">新区短期开1星应龙更强，但长远还是天狗。</div>
+<div class="info" data-tiers="jx ll">新区短期开1星应龙更强，但长远还是天狗。</div>
 
 <h3><span class="badge badge-jx">金霄</span>幻仙</h3>
-<table>
+<table data-tiers="ct jx">
   <tr><th>箱子</th><th>开法</th></tr>
   <tr><td>5/6选箱</td><td>1星赑屃 → 1星青鸾 → 5星赑屃 → 5星青鸾</td></tr>
   <tr><td>1/2/3/4选箱</td><td>1星三兔 → 开完图鉴 → 5星三兔 → 5星诸犍 → 5星风生 → 5星猲狙</td></tr>
 </table>
-<div class="info">新手村内或刚出村可先1星青鸾（主副核比赑屃强）。三兔炮灰位强于青鸾，前二三核打不过青鸾。</div>
+<div class="info" data-tiers="ct jx">新手村内或刚出村可先1星青鸾（主副核比赑屃强）。三兔炮灰位强于青鸾，前二三核打不过青鸾。</div>
 
 <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
 <p>开完图鉴后随便升 → 单升5星去协阵。新手村内可先1星夔牛（比任何0星金霄强）再开图鉴。</p>
@@ -511,36 +765,36 @@ td { color: var(--text); }
 <h2><span class="icon">🐾</span>五、宠物</h2>
 
 <h3><span class="badge badge-xh">曦幻</span>宠物 <span style="font-size:12px;color:var(--green);">🆕 5.9更新</span></h3>
-<div class="card">
+<div class="card" data-tiers="ll xh">
   <div class="card-title">核心规则</div>
   <p>已有0星猫的白嫖：拿20碎片开猫，其他无论什么情况都开鲨。6月不会出新的曦幻宠物。鲨只有1星比猫强，后续升星提升与猫差不多。</p>
 </div>
 
-<div class="card" style="border-color: var(--gold);">
+<div class="card" data-tiers="ll xh" style="border-color: var(--gold);">
   <div class="card-title">🐱 (1) 已有0星猫的白嫖路线</div>
-  <div class="flow" style="margin-top:8px;">
+  <div class="flow" data-tiers="ll xh" style="margin-top:8px;">
     <span class="step">5月宠物：拿20鲨碎片开猫</span>
   </div>
-  <div class="flow">
+  <div class="flow" data-tiers="ll xh">
     <span class="step" style="background:rgba(240,192,96,.15);">5月神石：1星猫 余80鲨</span>
   </div>
-  <div class="flow">
+  <div class="flow" data-tiers="ll xh">
     <span class="step">6月宠物：1星鲨 余10碎片</span>
   </div>
-  <div class="flow">
+  <div class="flow" data-tiers="ll xh">
     <span class="step" style="background:rgba(240,192,96,.15);">6月神石：余50猫、10鲨</span>
   </div>
-  <div class="flow">
+  <div class="flow" data-tiers="ll xh">
     <span class="step">7月宠物：0星新宠物</span>
   </div>
-  <div class="flow">
+  <div class="flow" data-tiers="ll xh">
     <span class="step" style="background:rgba(240,192,96,.15);">7月神石：2星猫</span>
   </div>
 </div>
 
-<div class="card">
+<div class="card" data-tiers="ll xh">
   <div class="card-title">🦈 (2) 没有猫的白嫖路线</div>
-  <div class="flow" style="margin-top:8px;">
+  <div class="flow" data-tiers="ll xh" style="margin-top:8px;">
     <span class="step">5月宠物：0星鲨</span>
     <span class="arrow">→</span>
     <span class="step" style="background:rgba(240,192,96,.15);">5月神石：余50猫</span>
@@ -555,13 +809,13 @@ td { color: var(--text); }
   </div>
 </div>
 
-<div class="card">
+<div class="card" data-tiers="ll xh">
   <div class="card-title">(3) 6月才第一次接入宠物活动</div>
   <p>二选箱开<b style="color:var(--gold)">猫</b>（开猫可升1星，开鲨升不了1星）。</p>
 </div>
 
 <h3><span class="badge badge-ll">琉璃</span>宠物</h3>
-<table>
+<table data-tiers="jx ll">
   <tr><th>箱子</th><th>开法</th></tr>
   <tr><td>5/6选箱</td><td>1狮 → 1狼 → 3狮 → 3狼 → 5狮 → 5狼</td></tr>
   <tr><td>3/4选箱</td><td>1貔 → 1蝶 → 3貔 → 3蝶 → 5貔 → 5蝶</td></tr>
@@ -569,7 +823,7 @@ td { color: var(--text); }
 </table>
 
 <h3><span class="badge badge-jx">金霄</span>宠物</h3>
-<table>
+<table data-tiers="ct jx">
   <tr><th>箱子</th><th>开法</th></tr>
   <tr><td>5/6选箱</td><td>1牡丹 → 1鹭 → 5牡丹 → 5鹭（鹭上不了阵只开0星）</td></tr>
   <tr><td>1/2/3/4选箱</td><td>开图鉴后平均升星</td></tr>
@@ -585,19 +839,19 @@ td { color: var(--text); }
 <div class="info">💡 通用原则：最强的放阵容最右边上阵 → 剩下品质星级最高的6个护佑神仙 → 最后才协力/附灵。</div>
 
 <h3><span class="badge badge-ll">琉璃</span>灵武</h3>
-<table>
+<table data-tiers="jx ll">
   <tr><th>箱子</th><th>开法</th></tr>
   <tr><td>4/5选箱</td><td>1星烛 → 1星刃 → 刃烛平均升星优先烛</td></tr>
   <tr><td>2/3选箱</td><td>1星篌 → 1星将 → 1星伞 → 篌将平均升星优先篌，伞不用管</td></tr>
 </table>
 
 <h3><span class="badge badge-jx">金霄</span>灵武</h3>
-<table>
+<table data-tiers="ct jx">
   <tr><th>箱子</th><th>开法</th></tr>
   <tr><td>5选箱</td><td>1星剑 → 0星符 → 一直开剑</td></tr>
   <tr><td>4选及以下</td><td>开完图鉴后平均升星</td></tr>
 </table>
-<div class="info">新手村有高于金霄品质灵武的，可先1星符（护佑比剑强）。后续接到星姬或灵武活动后符基本废了，剑护佑与共鸣各有一个无限级效果还有用。</div>
+<div class="info" data-tiers="ct jx">新手村有高于金霄品质灵武的，可先1星符（护佑比剑强）。后续接到星姬或灵武活动后符基本废了，剑护佑与共鸣各有一个无限级效果还有用。</div>
 
 <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
 <p>开完图鉴后平均升星。新手村可先升1星杵或1星鼎再开图鉴（没更高品质优先杵，有更高品质优先鼎）。</p>
@@ -609,26 +863,26 @@ td { color: var(--text); }
 <div class="info">💡 元神上阵 ＞ 固元，聚神要平均升。</div>
 
 <h3><span class="badge badge-xh">曦幻</span>元神</h3>
-<table>
+<table data-tiers="ct jx ll xh">
   <tr><th>主核强度</th><th>开法</th></tr>
   <tr><td>5星曦幻一 / 3星红莲</td><td>升5星元神后，每有2星开下一个2星</td></tr>
   <tr><td>3~4星曦幻一 / 2星红莲</td><td>升3星元神后，每有2星开下一个2星</td></tr>
   <tr><td>≤3星曦幻一 / 1星红莲</td><td>每有2星就开下一个2星</td></tr>
 </table>
 
-<div class="warn">⚠️ <b>别开多个1星！</b>6个1星（1020碎片）不如4个2星（1080碎片），属性更集中，差距不止2个识神技能。</div>
+<div class="warn" data-tiers="ct jx ll xh">⚠️ <b>别开多个1星！</b>6个1星（1020碎片）不如4个2星（1080碎片），属性更集中，差距不止2个识神技能。</div>
 
-<div class="info">💡 神练石不够洗两个元神：升3星元神后每有2星开下个2星。3星比2+1星强一点，但2+1星多一个元神可洗新神练，洗完反超。</div>
-<div class="info">💡 主核越强越应单升；主核越弱越应开多个元神。只有曦幻神仙佩戴才能激活识神技能，目前阵容仅1~3个曦幻神仙，别开多了。</div>
-<div class="info">💡 元神开箱对神仙星级要求随版本变：现在要求曦幻一 → 4月后曦幻二 → 8月后曦幻三。</div>
+<div class="info" data-tiers="ct jx ll xh">💡 神练石不够洗两个元神：升3星元神后每有2星开下个2星。3星比2+1星强一点，但2+1星多一个元神可洗新神练，洗完反超。</div>
+<div class="info" data-tiers="ct jx ll xh">💡 主核越强越应单升；主核越弱越应开多个元神。只有曦幻神仙佩戴才能激活识神技能，目前阵容仅1~3个曦幻神仙，别开多了。</div>
+<div class="info" data-tiers="ct jx ll xh">💡 元神开箱对神仙星级要求随版本变：现在要求曦幻一 → 4月后曦幻二 → 8月后曦幻三。</div>
 
 <h4>元神星级替换</h4>
-<table>
+<table data-tiers="ct jx ll xh">
   <tr><th>条件</th><th>0星曦幻</th><th>1星曦幻</th></tr>
   <tr><td>无新神炼</td><td>换3星琉璃</td><td>换4~5星琉璃</td></tr>
   <tr><td>有4个新神炼</td><td>换4~5星琉璃</td><td>换5星琉璃</td></tr>
 </table>
-<div class="info">炮灰0换5可但不建议：掉道行，pve变弱。</div>
+<div class="info" data-tiers="ct jx ll xh">炮灰0换5可但不建议：掉道行，pve变弱。</div>
 
 <h3><span class="badge badge-ll">琉璃</span><span class="badge badge-jx">金霄</span><span class="badge badge-ct">赤魇</span>元神</h3>
 <p>每有1星就开下一个1星 → 6个1星后平均升星。</p>
@@ -646,19 +900,19 @@ td { color: var(--text); }
 <div class="info">💡 攻击防御法宝平均升星，优先攻击。精炼主核升满后，其他5单位平均升。</div>
 
 <h3><span class="badge badge-ll">琉璃</span>法宝</h3>
-<table>
+<table data-tiers="ct jx ll">
   <tr><th>阶段</th><th>开法</th></tr>
   <tr><td>新区</td><td>单位能出手两次（神仙+幻仙活1.5~2回合）就给一对1星 → 按核度5星升</td></tr>
   <tr><td>老区满档</td><td>主副核都3星后按核度5星升</td></tr>
   <tr><td>老区其他</td><td>每有1星开下个1星 → 12个1星后以3/5星为节点平均升主副核 → 按核度5星升</td></tr>
 </table>
-<div class="info">对局十几回合且三核配置接近主副核，可平均升主副三核。</div>
+<div class="info" data-tiers="ct jx ll">对局十几回合且三核配置接近主副核，可平均升主副三核。</div>
 
 <h3><span class="badge badge-jx">金霄</span>/<span class="badge badge-ct">赤魇</span>法宝</h3>
 <p>全体装上1星后（秒死也装），或给更高品质法宝化灵1阶后，再平均升主副核 → 按核度5星升。</p>
 
 <h3>法宝替换规则</h3>
-<div class="warn">双1星新法宝即可替换双5星老法宝。新法宝<b>完全吞噬</b>老法宝才能替换。金霄法宝有赤魇化灵则0星琉璃不能换任意星级金霄。</div>
+<div class="warn" data-tiers="zx">双1星新法宝即可替换双5星老法宝。新法宝<b>完全吞噬</b>老法宝才能替换。金霄法宝有赤魇化灵则0星琉璃不能换任意星级金霄。</div>
 
 <h3><span class="badge badge-zx">紫虚</span>及以下</h3>
 <p>按核度单升，其他单位0星不用升。</p>
@@ -671,7 +925,7 @@ td { color: var(--text); }
 
 <h3><span class="badge badge-xh">曦幻</span>装备</h3>
 <p style="font-size:13px;color:var(--text-dim);">从上往下代表开启顺序，数字=化神阶数，优先武器护符。</p>
-<div class="card">
+<div class="card" data-tiers="ll xh">
   <ol style="padding-left:20px;font-size:14px;line-height:2;">
     <li>主核1</li>
     <li>主核11</li>
@@ -701,7 +955,7 @@ td { color: var(--text); }
 <h2><span class="icon">📦</span>十、道具多选箱</h2>
 
 <h3><span class="badge badge-ll">琉璃</span>多选箱</h3>
-<table>
+<table data-tiers="jx ll">
   <tr><th>箱子</th><th>优先级</th></tr>
   <tr><td>琉璃1选箱</td><td>幻仙 ＞ 宠物 ＞ 灵武 ＞ 元神</td></tr>
   <tr><td>多宝密藏</td><td>毕方 ＞ 神仙</td></tr>
@@ -709,7 +963,7 @@ td { color: var(--text); }
 </table>
 
 <h3><span class="badge badge-jx">金霄</span>多选箱</h3>
-<table>
+<table data-tiers="ct jx">
   <tr><th>箱子</th><th>优先级</th></tr>
   <tr><td>1选箱</td><td>1兔 ＞ 开图鉴 ＞ 兔 ＞ 龙 ＞ 钺 ＞ 元神</td></tr>
   <tr><td>2选箱</td><td>1兔 ＞ 开图鉴 ＞ 兔 ＞ 羚 ＞ 盏 ＞ 元神</td></tr>
@@ -724,59 +978,355 @@ td { color: var(--text); }
 </section>
 
 <section id="about" style="text-align:center;padding-top:40px;border-top:1px solid var(--border);color:var(--text-dim);font-size:12px;">
-  <p>📋 最后更新：2026-05-12 · 新增神藏系统攻略 · 来源：笑语@TapTap</p>
+  <p>📋 最后更新：2026-05-12 · 新增商店购买攻略 · 来源：笑语@TapTap</p>
   <p style="margin-top:8px;">此页面为本地HTML文件，可直接用浏览器打开查看，无需每次询问AI。</p>
 </section>
 
 </main>
 
 <script>
-// Search
-const search = document.getElementById('search');
-const sections = document.querySelectorAll('section');
-const allText = document.querySelectorAll('h2,h3,.card,p,td,li,.flow,.info,.warn');
+// ====== TIER FILTER ======
+const tierBar = document.getElementById('tier-bar');
+let activeTier = 'all';
 
-search.addEventListener('input', () => {
-  const q = search.value.trim().toLowerCase();
-  allText.forEach(el => {
-    el.querySelectorAll('.highlight').forEach(h => {
-      h.replaceWith(...h.childNodes);
-    });
+tierBar.addEventListener('click', e => {
+  const btn = e.target.closest('.tier-btn');
+  if (!btn) return;
+  const tier = btn.dataset.tier;
+
+  tierBar.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeTier = tier;
+
+  document.querySelectorAll('[data-tiers]').forEach(el => {
+    if (tier === 'all' || el.dataset.tiers.split(' ').includes(tier)) {
+      el.classList.remove('tier-hidden');
+    } else {
+      el.classList.add('tier-hidden');
+    }
   });
+
+  // Also hide card-less content if section has no visible cards
+  document.querySelectorAll('section').forEach(sec => {
+    const visibleCards = sec.querySelectorAll('.card:not(.tier-hidden), table:not(.tier-hidden), h3:not(.tier-hidden), .flow:not(.tier-hidden)');
+    // Don't hide sections with h2 only
+  });
+
+  // Refresh TOC and search
+  buildTOC();
+  doSearch();
+});
+
+// ====== ENHANCED SEARCH ======
+const search = document.getElementById('search');
+const searchCount = document.getElementById('search-count');
+const searchPrev = document.getElementById('search-prev');
+const searchNext = document.getElementById('search-next');
+const sections = document.querySelectorAll('section');
+let currentHits = [];
+let currentHitIdx = -1;
+
+function clearHighlights() {
+  document.querySelectorAll('mark.search-hit').forEach(m => {
+    m.replaceWith(...m.childNodes);
+  });
+  document.querySelectorAll('.card').forEach(c => c.style.borderColor = '');
+}
+
+function doSearch() {
+  clearHighlights();
+  const q = search.value.trim().toLowerCase();
   if (!q) {
     sections.forEach(s => s.classList.remove('hidden'));
-    document.querySelectorAll('.card').forEach(c => c.style.borderColor = '');
+    searchCount.classList.remove('visible');
+    searchPrev.classList.remove('visible');
+    searchNext.classList.remove('visible');
+    currentHits = [];
+    currentHitIdx = -1;
     return;
   }
+
+  // Show/hide sections
   sections.forEach(s => {
     const txt = s.textContent.toLowerCase();
     s.classList.toggle('hidden', !txt.includes(q));
   });
-  // Highlight matches
-  document.querySelectorAll('section:not(.hidden) .card').forEach(card => {
-    if (card.textContent.toLowerCase().includes(q)) {
-      card.style.borderColor = 'var(--gold)';
-    }
+
+  // Highlight visible content
+  const visibleEls = document.querySelectorAll('section:not(.hidden) h2,section:not(.hidden) h3,section:not(.hidden) .card,section:not(.hidden) p,section:not(.hidden) td,section:not(.hidden) li,section:not(.hidden) .flow,section:not(.hidden) .info,section:not(.hidden) .warn,section:not(.hidden) .card-title');
+  currentHits = [];
+
+  visibleEls.forEach(el => {
+    // Only highlight text nodes, not element attributes
+    highlightTextNodes(el, q);
   });
-  // Find first visible section and scroll to it
-  const first = document.querySelector('section:not(.hidden)');
-  if (first && q.length >= 2) first.scrollIntoView({ behavior:'smooth', block:'start' });
+
+  // Also collect hit positions for navigation
+  document.querySelectorAll('mark.search-hit').forEach(m => currentHits.push(m));
+  currentHitIdx = currentHits.length > 0 ? 0 : -1;
+
+  if (currentHits.length > 0) {
+    searchCount.textContent = currentHitIdx + 1 + '/' + currentHits.length;
+    searchCount.classList.add('visible');
+    searchPrev.classList.add('visible');
+    searchNext.classList.add('visible');
+    currentHits[0].classList.add('current');
+    currentHits[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else {
+    searchCount.textContent = '0';
+    searchCount.classList.add('visible');
+    searchPrev.classList.add('visible');
+    searchNext.classList.add('visible');
+    searchPrev.disabled = true;
+    searchNext.disabled = true;
+  }
+}
+
+function highlightTextNodes(el, q) {
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+  const textNodes = [];
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    if (node.parentElement.tagName === 'MARK' || node.parentElement.tagName === 'SCRIPT' || node.parentElement.tagName === 'STYLE') continue;
+    textNodes.push(node);
+  }
+  textNodes.forEach(node => {
+    const text = node.textContent;
+    const lower = text.toLowerCase();
+    const idx = lower.indexOf(q);
+    if (idx === -1) return;
+    const before = text.substring(0, idx);
+    const match = text.substring(idx, idx + q.length);
+    const after = text.substring(idx + q.length);
+    const frag = document.createDocumentFragment();
+    frag.appendChild(document.createTextNode(before));
+    const mark = document.createElement('mark');
+    mark.className = 'search-hit';
+    mark.textContent = match;
+    frag.appendChild(mark);
+    frag.appendChild(document.createTextNode(after));
+    node.parentElement.replaceChild(frag, node);
+  });
+}
+
+function navigateSearch(dir) {
+  if (currentHits.length === 0) return;
+  currentHits[currentHitIdx].classList.remove('current');
+  currentHitIdx = (currentHitIdx + dir + currentHits.length) % currentHits.length;
+  currentHits[currentHitIdx].classList.add('current');
+  currentHits[currentHitIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  searchCount.textContent = currentHitIdx + 1 + '/' + currentHits.length;
+}
+
+search.addEventListener('input', () => {
+  // Debounce
+  clearTimeout(search._timer);
+  search._timer = setTimeout(doSearch, 200);
 });
 
-// Sidebar active state
-const navLinks = document.querySelectorAll('nav a');
-const observer = new IntersectionObserver(entries => {
+searchPrev.addEventListener('click', () => navigateSearch(-1));
+searchNext.addEventListener('click', () => navigateSearch(1));
+
+// Keyboard: Enter to go to next match
+search.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    if (e.shiftKey) navigateSearch(-1);
+    else navigateSearch(1);
+  }
+});
+
+// ====== FLOATING TOC ======
+const tocPanel = document.getElementById('toc-panel');
+
+function buildTOC() {
+  tocPanel.querySelectorAll('a').forEach(a => a.remove());
+  // Find the currently visible section
+  let currentSection = null;
+  sections.forEach(s => {
+    if (!s.classList.contains('hidden') && s.id && s.id !== 'about') {
+      const rect = s.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        if (!currentSection || rect.top < currentSection.getBoundingClientRect().top) {
+          currentSection = s;
+        }
+      }
+    }
+  });
+  if (!currentSection) {
+    tocPanel.classList.remove('show');
+    return;
+  }
+
+  const h2 = currentSection.querySelector('h2');
+  const title = h2 ? h2.textContent.replace(/[🆕🛒🏛️👤📖⭐🧚🐾⚔️💎🔮📦📋🔬⚔️🌀☁️🏔️🤝👗🧧⛏️🎖️🏠🛡️🐉🏛️♻️👹🏆🏞️🔒]/g, '').trim() : '';
+  tocPanel.querySelector('.toc-title').textContent = '📑 ' + (title || '本节');
+
+  // Collect sub-headings: h3, .card-title, and <b> inside .info/.warn
+  const items = [];
+  let idx = 0;
+
+  // h3 elements
+  currentSection.querySelectorAll('h3').forEach(el => {
+    if (el.closest('.tier-hidden')) return;
+    const id = 'toc-' + currentSection.id + '-' + (idx++);
+    el.id = el.id || id;
+    items.push({ el, id, text: el.textContent.replace(/[🔬⚔️📋🆕]/g, '').trim().substring(0, 30) });
+  });
+
+  // .card-title elements (for shop section etc.)
+  currentSection.querySelectorAll('.card-title').forEach(el => {
+    if (el.closest('.tier-hidden')) return;
+    const card = el.closest('.card');
+    const id = 'toc-' + currentSection.id + '-' + (idx++);
+    if (card) card.id = card.id || id;
+    items.push({ el: card || el, id, text: el.textContent.trim().substring(0, 30) });
+  });
+
+  if (items.length <= 1) {
+    tocPanel.classList.remove('show');
+    return;
+  }
+
+  items.forEach(item => {
+    const a = document.createElement('a');
+    a.href = '#' + item.id;
+    a.textContent = item.text;
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      item.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Close mobile nav if open
+      if (window.innerWidth <= 768) closeNav();
+    });
+    tocPanel.appendChild(a);
+  });
+
+  tocPanel.classList.add('show');
+
+  // Scroll spy for TOC
+  tocPanel._items = items;
+}
+
+// TOC scroll spy
+let tocScrollTimer;
+window.addEventListener('scroll', () => {
+  if (!tocPanel.classList.contains('show')) return;
+  clearTimeout(tocScrollTimer);
+  tocScrollTimer = setTimeout(() => {
+    const items = tocPanel._items || [];
+    const links = tocPanel.querySelectorAll('a');
+    let activeIdx = -1;
+    items.forEach((item, i) => {
+      const rect = item.el.getBoundingClientRect();
+      if (rect.top < 150) activeIdx = i;
+    });
+    links.forEach((l, i) => l.classList.toggle('active', i === activeIdx));
+  }, 100);
+}, { passive: true });
+
+// Refresh TOC when scrolling to new section
+const tocObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.classList.contains('hidden')) {
+      buildTOC();
+    }
+  });
+}, { threshold: 0.1 });
+sections.forEach(s => { if (s.id && s.id !== 'about') tocObserver.observe(s); });
+
+// ====== SMART COLLAPSE ======
+document.querySelectorAll('.flow').forEach(flow => {
+  if (flow.closest('.collapse-body')) return;
+  const steps = flow.querySelectorAll('.step');
+  if (steps.length <= 3) return;
+
+  // Create summary from first 3 steps
+  const first3 = Array.from(steps).slice(0, 3).map(s => s.textContent).join(' → ');
+  const toggle = document.createElement('span');
+  toggle.className = 'collapse-toggle';
+  toggle.innerHTML = '展开 <span class="icon-chevron">▶</span>';
+  toggle.title = '点击展开/收起';
+
+  const summary = document.createElement('span');
+  summary.className = 'collapse-summary';
+  summary.textContent = first3 + ' …';
+  summary.title = '点击展开完整路线';
+
+  const body = document.createElement('div');
+  body.className = 'collapse-body';
+
+  // Move all but first 3 steps into collapse body
+  const grandParent = flow.parentElement;
+  const wrapper = document.createElement('div');
+
+  // Only show first 3 steps outside
+  const allSteps = Array.from(flow.querySelectorAll('.step'));
+  const allArrows = Array.from(flow.querySelectorAll('.arrow'));
+  allSteps.slice(3).forEach(s => s.remove());
+  allArrows.slice(2).forEach(a => a.remove());
+  // Remove last arrow if trailing
+  const lastArrow = flow.querySelector('.arrow:last-child');
+  if (lastArrow) lastArrow.remove();
+
+  const clickToggle = () => {
+    body.classList.toggle('open');
+    toggle.classList.toggle('open');
+    toggle.innerHTML = body.classList.contains('open')
+      ? '收起 <span class="icon-chevron">▶</span>'
+      : '展开 <span class="icon-chevron">▶</span>';
+  };
+
+  toggle.addEventListener('click', clickToggle);
+  summary.addEventListener('click', clickToggle);
+
+  flow.parentElement.insertBefore(toggle, flow.nextSibling);
+  flow.parentElement.insertBefore(summary, toggle);
+  flow.parentElement.insertBefore(body, toggle.nextSibling);
+});
+
+// ====== MOBILE HAMBURGER ======
+const hamburger = document.getElementById('hamburger');
+const navEl = document.getElementById('nav');
+const overlay = document.getElementById('overlay');
+
+function openNav() {
+  navEl.classList.add('open');
+  overlay.classList.add('show');
+  hamburger.textContent = '✕';
+}
+function closeNav() {
+  navEl.classList.remove('open');
+  overlay.classList.remove('show');
+  hamburger.textContent = '☰';
+}
+
+hamburger.addEventListener('click', () => {
+  navEl.classList.contains('open') ? closeNav() : openNav();
+});
+overlay.addEventListener('click', closeNav);
+
+navEl.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    if (window.innerWidth <= 768) closeNav();
+  });
+});
+
+// ====== SIDEBAR ACTIVE STATE ======
+const navLinks = document.querySelectorAll('nav a[href^="#"]');
+const sidebarObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       navLinks.forEach(a => a.classList.remove('active'));
-      const id = e.target.id;
-      const link = document.querySelector(`nav a[href="#${id}"]`);
+      const link = document.querySelector('nav a[href="#' + e.target.id + '"]');
       if (link) link.classList.add('active');
     }
   });
 }, { rootMargin: '-20% 0px -70% 0px' });
 
-sections.forEach(s => observer.observe(s));
+sections.forEach(s => sidebarObserver.observe(s));
+
+// Initial TOC build
+setTimeout(buildTOC, 500);
 </script>
 
 </body>

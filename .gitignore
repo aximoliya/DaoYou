@@ -5,3 +5,10 @@ dist/
 *.log
 .env
 .env.local
+
+# Marvis 相关
+.mavis/
+push.ps1
+
+# 备份文件
+*.bak

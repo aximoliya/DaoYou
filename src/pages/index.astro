@@ -41,17 +41,17 @@ import { homeNavItems } from '../lib/navItems';
     <!-- 三大分类横向排列 -->
     <section>
       <div class="hub-row">
-        <a href="/kaixiang/" class="hub-card hub-card-category">
+        <a href={new URL('kaixiang/', Astro.url).pathname} class="hub-card hub-card-category">
           <span class="icon">📦</span>
           <span class="label">开箱攻略</span>
           <span class="desc">神仙、天书、星姬、幻仙、宠物、灵武、元神、法宝、装备、道具多选箱 — 10 大子系统开箱路线</span>
         </a>
-        <a href="/richang/" class="hub-card hub-card-category">
+        <a href={new URL('richang/', Astro.url).pathname} class="hub-card hub-card-category">
           <span class="icon">🛒</span>
           <span class="label">日常运营</span>
           <span class="desc">商店购买优先级与日常运营指南</span>
         </a>
-        <a href="/yangcheng/" class="hub-card hub-card-category">
+        <a href={new URL('yangcheng/', Astro.url).pathname} class="hub-card hub-card-category">
           <span class="icon">🏛️</span>
           <span class="label">养成系统</span>
           <span class="desc">神藏系统节点升级路线与战力实测</span>

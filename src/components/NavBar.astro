@@ -7,19 +7,20 @@ interface Props {
 }
 
 const { currentPage = '', navItems = [] } = Astro.props;
+const BASE = import.meta.env.BASE_URL;
 ---
 
 <button class="hamburger" id="hamburger" aria-label="菜单">☰</button>
 <div class="nav-overlay" id="overlay" style="display:none"></div>
 
 <nav id="nav">
-  <h1><a href="/" style="color:inherit;text-decoration:none;">🧧 道友攻略</a></h1>
+  <h1><a href={BASE} style="color:inherit;text-decoration:none;">🧧 道友攻略</a></h1>
   
   {navItems.length > 0 && navItems.map(item => (
     <>
       {item.group && <div class="nav-group-label">{item.group}</div>}
       <a
-        href={item.href}
+        href={BASE + item.href.replace(/^\//, '')}
         class:list={[{ active: currentPage === item.href }]}
         style={currentPage === item.href ? "color:var(--gold);" : ""}
       >
@@ -28,5 +29,5 @@ const { currentPage = '', navItems = [] } = Astro.props;
     </>
   ))}
   
-  <a href="/" style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px; font-size:12px;">← 返回首页</a>
+  <a href={BASE} style="margin-top:20px; border-top:1px solid var(--border); padding-top:16px; font-size:12px;">← 返回首页</a>
 </nav>

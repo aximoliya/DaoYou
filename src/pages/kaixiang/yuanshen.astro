@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="七、元神 · 道友攻略" page="kaixiang" current="yuanshen">
+  <NavBar currentPage="/kaixiang/yuanshen/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '七、元神' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="yuanshen">
+      <h2><span class="icon">💎</span>七、元神</h2>
+      <div class="info">💡 元神上阵 ＞ 固元，聚神要平均升。</div>
+
+      <h3><span class="badge badge-xh">曦幻</span>元神</h3>
+
+      <div class="card" data-tiers="ct jx ll xh">
+        <div class="card-title">三条路线</div>
+        <ul class="route" data-tiers="ct jx ll xh">
+          <li><b>主核是5星曦幻二或4星红莲的：</b>升5星元神后，每有一个2星就开下一个2星。</li>
+          <li><b>主核是3~4星曦幻二或3星红莲的：</b>升3星元神后，每有一个2星就开下一个2星。</li>
+          <li><b>主核是3星及以下曦幻二或5星及以下主角的：</b>神练石不够把两个元神洗毕业，就升3星元神后，每有一个2星就开下一个2星。神练石够把两个元神洗毕业，就2+1或2+2星后再升主核3星，之后每有一个2星就开下一个2星。这种情况3星比2+1星强一点点或者差不多，主要是2+1星多出一个元神可以洗新神练，洗完新神练后2+1星比3星强。</li>
+        </ul>
+        <p style="font-size:13px;margin-top:6px;"><b>上面三条路线后续共同：</b>522222星 → 533333星 → 按核度一个一个升5星。</p>
+      </div>
+
+      <div class="info" data-tiers="ct jx ll xh">💡 注1：测试结果为主核神仙越强，曦幻元神越应该单升，反之则应该开多个元神。元神开箱的神仙星级要求是随版本变更的，现在要求曦幻二，8月以后要求曦幻三。</div>
+
+      <div class="warn" data-tiers="ct jx ll xh">⚠️ 注2：任何情况曦幻元神都<b>别开多个1星</b>，经验主义害死人，差不多的碎片打不过开多个2星，比如6个1星激活6个识神技能（消耗1020碎片），4个2星激活8个识神技能（消耗1080碎片），因为4个2星属性更集中的缘故，实际差距并不止2个识神技能。</div>
+
+      <h4>元神星级替换</h4>
+
+      <div class="card" data-tiers="ct jx ll xh">
+        <div class="card-title">无新神炼技能/属性情况</div>
+        <ul class="route" data-tiers="ct jx ll xh">
+          <li>0星曦幻元神换<b>3星</b>琉璃元神</li>
+          <li>1星曦幻元神换<b>4~5星</b>琉璃元神</li>
+        </ul>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">如果能把元神聚神拉满，给炮灰0换5都没问题，但就算可以换也不建议换，0换5会掉道行，pve会变弱，pvp的提升约等于没有。</p>
+      </div>
+
+      <div class="card" data-tiers="ct jx ll xh" style="margin-top:10px;">
+        <div class="card-title">有4个新神炼技能/属性情况</div>
+        <ul class="route" data-tiers="ct jx ll xh">
+          <li>0星曦幻元神换<b>4~5星</b>琉璃元神</li>
+          <li>1星曦幻元神换<b>5星</b>琉璃元神</li>
+        </ul>
+      </div>
+
+      <h3><span class="badge badge-ll">琉璃</span>/<span class="badge badge-jx">金霄</span>/<span class="badge badge-ct">赤魇</span>元神</h3>
+      <p>每有一个1星就开下一个1星，6个1星后平均升星。</p>
+
+      <h3><span class="badge badge-zx">紫虚</span>元神</h3>
+      <p>开3~5个1星后平均升星，先升1后开0，不要开多个0。有1个琉璃元神就开5个紫虚元神，有2个琉璃元神就开4个紫虚元神，有3个琉璃元神就开3个紫虚元神，以此类推。</p>
+
+      <h3><span class="badge badge-qy">青曜</span>及以下</h3>
+      <p>开完图鉴后重生为碎片给高品质元神吞了，有上阵空位的话，还是优先上阵。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

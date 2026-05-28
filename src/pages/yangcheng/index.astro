@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+import { yangchengNavItems } from '../../data/navItems';
+
+const navItems = yangchengNavItems;
+---
+
+<BaseLayout title="养成系统 · 道友攻略" page="yangcheng">
+  <NavBar currentPage="/yangcheng/" navItems={navItems} />
+
+  <main>
+    <Breadcrumb items={[
+      { href: '../', label: '攻略总览' },
+      { label: '养成系统' }
+    ]} />
+
+    <section>
+      <h2>📈 养成系统</h2>
+      <p style="color:var(--text-dim);">角色成长与资源分配攻略：</p>
+      <div class="hub-grid" style="margin-top:16px;">
+        <a href="shencang/" class="hub-card">
+          <span class="icon">🏛️</span>
+          <span class="label">神藏系统</span>
+          <span class="desc">节点升级路线、战力与胜率实测数据</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <BackToTop />
+</BaseLayout>

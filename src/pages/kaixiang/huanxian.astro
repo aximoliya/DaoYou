@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="四、幻仙 · 道友攻略" page="kaixiang" current="huanxian">
+  <NavBar currentPage="/kaixiang/huanxian/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '四、幻仙' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="huanxian">
+      <h2><span class="icon">🧚</span>四、幻仙</h2>
+
+      <h3><span class="badge badge-ll">琉璃</span>幻仙</h3>
+
+      <div class="card" data-tiers="jx ll">
+        <div class="card-title">5、6选箱</div>
+        <div class="flow" data-tiers="jx ll">
+          曦幻幻仙有星先开<span class="step">1星腾蛇</span>，曦幻幻仙没星先开<span class="step">1星白泽</span>，之后腾蛇白泽平均升星，优先腾蛇。
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">现在腾蛇比同星白泽强一点，估计再出两个曦幻幻仙后（腾蛇受到压制后的损失比白泽大），这俩强度就差不多了，因为6选箱更难获取，所以那时候还是要优先升白泽。</p>
+      </div>
+
+      <div class="card" data-tiers="jx ll" style="margin-top:10px;">
+        <div class="card-title">3、4选箱</div>
+        <div class="flow" data-tiers="jx ll">
+          <span class="step">1星谛听</span><span class="arrow">→</span>
+          <span class="step">1星毕方</span>，之后平均升星优先谛听。
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">如果毕方上不了阵，那就只用开毕方图鉴，之后一直升谛听。</p>
+      </div>
+
+      <div class="card" data-tiers="jx ll" style="margin-top:10px;">
+        <div class="card-title">1、2选箱</div>
+        <div class="flow" data-tiers="jx ll">
+          <span class="step">1星天狗</span><span class="arrow">→</span>
+          <span class="step">0星应龙</span><span class="arrow">→</span>
+          <span class="step">一直升天狗</span>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">如果天狗上不了阵，那就不升1星天狗先开图鉴。</p>
+      </div>
+
+      <h3><span class="badge badge-jx">金霄</span>幻仙</h3>
+      <table data-tiers="ct jx">
+        <tr><th>箱子</th><th>开法</th></tr>
+        <tr><td>5、6选箱</td><td>1星赑屃 → 1星青鸾 → 5星赑屃 → 5星青鸾</td></tr>
+        <tr><td>1、2、3、4选箱</td><td>1星三兔 → 开完图鉴 → 5星三兔 → 5星诸犍 → 5星风生 → 5星猲狙</td></tr>
+      </table>
+      <div class="info" data-tiers="ct jx">在新手村内或者刚出村不久就能升1星金霄幻仙，并且更高品质幻仙没星，那就可以先升1星青鸾，在主核时比赑屃强。</div>
+
+      <h3>幻仙星级替换</h3>
+
+      <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
+      <p>开完图鉴后随便升哪个，一个一个单升5星去协阵。如果在新手村内获得了大量赤魇幻仙，并且高品质幻仙没星，可以1星夔牛（比任何0星金霄强）后再开图鉴。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="九、装备 · 道友攻略" page="kaixiang" current="zhuangbei">
+  <NavBar currentPage="/kaixiang/zhuangbei/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '九、装备' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="zhuangbei">
+      <h2><span class="icon">🛡️</span>九、装备</h2>
+
+      <h3>装备替换</h3>
+      <div class="info">💡 高品质装备0星或0阶即可替换低品质装备满星或满阶。</div>
+
+      <h3><span class="badge badge-xh">曦幻</span>装备</h3>
+      <p style="font-size:13px;color:var(--text-muted);">从上往下代表开启顺序，数字=化神阶数，优先武器护符。</p>
+      <div class="card" data-tiers="ll xh">
+        <ol style="padding-left:20px;font-size:14px;line-height:2;">
+          <li>主核1</li>
+          <li>主核11</li>
+          <li>主核11，副核11，三核11</li>
+          <li>主核111，副核11，三核11</li>
+          <li>主核1111，副核11，三核11</li>
+          <li>主核1111，副核1111，三核1111</li>
+          <li>主核1111，副核1111，三核1111，四核0，五核0，六核0</li>
+          <li>主核2211，副核2211，三核2211，四核0，五核0，六核0</li>
+          <li>主核2211，副核2211，三核2211，四核000，五核000，六核000（先四核3个0，再五核3个0）</li>
+          <li>按核度排序升满</li>
+        </ol>
+      </div>
+
+      <h3><span class="badge badge-ll">琉璃</span>装备</h3>
+      <p>优先给曦幻装备回响，武器/护符回响5阶后（更建议这样，花费的碎片更少），或者武器/护符/盔甲/鞋子回响3阶后，再给下一个单位回响或佩戴，佩戴升1111阶化神，主副三核都这样弄好后，按核度排序升满回响或化神。</p>
+
+      <h3><span class="badge badge-jx">金霄</span>装备</h3>
+      <p>优先给琉璃装备回响，怎么弄跟上面琉璃装备写的一样。全体都装上满阶金霄装备后，才把金霄装备拿去熔铸。</p>
+
+      <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
+      <p>升满一套后才开下一套，三套升满后，给四五六核各一套0阶的，之后多余的都给更高品质装备熔铸了，注意四个部位平均开。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

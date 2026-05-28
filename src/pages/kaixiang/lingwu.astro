@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="六、灵武 · 道友攻略" page="kaixiang" current="lingwu">
+  <NavBar currentPage="/kaixiang/lingwu/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '六、灵武' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="lingwu">
+      <h2><span class="icon">⚔️</span>六、灵武</h2>
+      <div class="info">💡 灵武通用：灵武最强的放阵容最右边上阵，剩下品质与星级最高的6个护佑神仙，最后剩下的才去协力/附灵。</div>
+
+      <h3>灵武星级替换</h3>
+
+      <h3><span class="badge badge-ll">琉璃</span>灵武</h3>
+      <table data-tiers="jx ll">
+        <tr><th>箱子</th><th>开法</th></tr>
+        <tr><td>4、5选箱</td><td>1星烛 → 1星刃 → 刃烛平均升星优先烛。</td></tr>
+        <tr><td>2、3选箱</td><td>1星篌 → 1星将 → 1星伞 → 篌将平均升星优先篌，伞不用管。</td></tr>
+      </table>
+
+      <h3><span class="badge badge-jx">金霄</span>灵武</h3>
+      <table data-tiers="ct jx">
+        <tr><th>箱子</th><th>开法</th></tr>
+        <tr><td>5选箱</td><td>1星剑 → 0星符 → 一直开剑。</td></tr>
+        <tr><td>4选及以下箱</td><td>开完图鉴后平均升星，随便升哪个。</td></tr>
+      </table>
+      <div class="info" data-tiers="ct jx">还在新手村或者刚出村不久，并且有高于金霄品质的灵武，可以先开1星符，护佑比剑强。后续接到一次星姬或灵武活动，人人都有0星姬或1灵武后，符就基本废了，而剑护佑与共鸣各有一个无限级效果还有用。跟上面一样，还在新手村或者刚出村不久可以先开1星符。</div>
+
+      <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
+      <p>开完图鉴后平均升星，随便升哪个。如果是在新手村内获得的赤魇灵武箱，可以先升1星杵或1星鼎后再开图鉴，没更高品质灵武优先杵，有更高品质灵武优先鼎。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="开箱攻略 · 道友攻略" page="kaixiang">
+  <NavBar currentPage="/kaixiang/" navItems={navItems} />
+
+  <main>
+    <Breadcrumb items={[
+      { href: '../', label: '攻略总览' },
+      { label: '开箱攻略' }
+    ]} />
+
+    <section>
+      <h2>📦 开箱攻略</h2>
+      <p style="color:var(--text-dim);">选择你想查看的开箱攻略：</p>
+      <div class="hub-grid" style="margin-top:16px;">
+        <a href="shenxian/" class="hub-card">
+          <span class="icon">👤</span><span class="label">一、神仙</span>
+          <span class="desc">曦幻/琉璃品质开箱路线</span>
+        </a>
+        <a href="tianshu/" class="hub-card">
+          <span class="icon">📖</span><span class="label">二、天书</span>
+          <span class="desc">各品质天书强度与顺序</span>
+        </a>
+        <a href="xingji/" class="hub-card">
+          <span class="icon">⭐</span><span class="label">三、星姬</span>
+          <span class="desc">曦幻琉璃星姬升星路线</span>
+        </a>
+        <a href="huanxian/" class="hub-card">
+          <span class="icon">🧚</span><span class="label">四、幻仙</span>
+          <span class="desc">各品质幻仙开箱优先级</span>
+        </a>
+        <a href="chongwu/" class="hub-card">
+          <span class="icon">🐾</span><span class="label">五、宠物</span>
+          <span class="desc">曦幻/琉璃/金霄宠物路线</span>
+        </a>
+        <a href="lingwu/" class="hub-card">
+          <span class="icon">⚔️</span><span class="label">六、灵武</span>
+          <span class="desc">各品质灵武开法与配置</span>
+        </a>
+        <a href="yuanshen/" class="hub-card">
+          <span class="icon">💎</span><span class="label">七、元神</span>
+          <span class="desc">曦幻元神星级与替换规则</span>
+        </a>
+        <a href="fabao/" class="hub-card">
+          <span class="icon">🔮</span><span class="label">八、法宝</span>
+          <span class="desc">琉璃/金霄法宝开法</span>
+        </a>
+        <a href="zhuangbei/" class="hub-card">
+          <span class="icon">🛡️</span><span class="label">九、装备</span>
+          <span class="desc">曦幻装备化神阶数路线</span>
+        </a>
+        <a href="duoxuan/" class="hub-card">
+          <span class="icon">📦</span><span class="label">十、道具多选箱</span>
+          <span class="desc">琉璃/金霄多选箱优先级</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <BackToTop />
+</BaseLayout>

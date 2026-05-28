@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems.filter(item => item.href !== 'duoxuan.html');
+---
+
+<BaseLayout title="二、天书 · 道友攻略" page="kaixiang" current="tianshu">
+  <NavBar currentPage="/kaixiang/tianshu/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '二、天书' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="tianshu">
+      <h2><span class="icon">📖</span>二、天书</h2>
+      <div class="warn">⚠️ 天书箱子在不能完整开出天书前最好不要打开，打开后无法回头。</div>
+
+      <h3><span class="badge badge-ll">琉璃</span>天书</h3>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">强度排序（未来会有变化）</p>
+
+      <div class="card" data-tiers="jx ll">
+        <div class="card-title">对手有邪魔时</div>
+        <div class="flow" data-tiers="jx ll">
+          幻沙 ≈ 龙脉 ≈ 无常(上限) ＞ 仙凡(上限) ≥ 无常(下限) ＞ 万妖 ≥ 仙凡(下限) ＞ 五行
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">龙脉主要是助战强，被邪魔取代掉主核位置后，龙脉上阵强度打不过幻沙无常。测试中出现了龙脉上阵打不过无常，去助战反而能打赢无常的情况。</p>
+      </div>
+
+      <div class="card" data-tiers="jx ll" style="margin-top:10px;">
+        <div class="card-title">对手没邪魔时</div>
+        <div class="flow" data-tiers="jx ll">
+          幻沙 ＞＞ 龙脉 ＞ 仙凡 ≈ 无常 ≥ 万妖 ＞ 五行 ＞ 无常(只有一本书时)
+        </div>
+      </div>
+
+      <div class="card" data-tiers="jx ll" style="margin-top:10px;">
+        <div class="card-title">出书顺序</div>
+        <div class="flow" data-tiers="jx ll">
+          <span class="step">幻沙</span><span class="arrow">→</span>
+          <span class="step">龙脉</span><span class="arrow">→</span>
+          <span class="step">仙凡或无常</span><span class="arrow">→</span>
+          <span class="step">仙凡或无常</span><span class="arrow">→</span>
+          <span class="step">万妖</span><span class="arrow">→</span>
+          <span class="step">五行</span>
+        </div>
+      </div>
+
+      <ul class="route" data-tiers="jx ll" style="margin-top:8px;">
+        <li>从现在起神石书阁的琉璃书都是<b>5选箱</b>了，再过一个月大概率变<b>6选箱</b>（如果下月出曦幻2书就会变6选）。所以4选箱多的话就不要保留5选箱了，该高开低就高开低。</li>
+        <li>如果已有万妖，<b>仙凡大于无常</b>，能与万妖凑图鉴。</li>
+        <li>有仙凡后，下一本开万妖还是无常其实差不多，同样是因为万妖仙凡凑图鉴的原因，算上图鉴的话，万妖比无常强一点弱一点的情况都有出现。推荐中无常比万妖先开，主要是考虑到未来核心幻仙的<b>灰血效果</b>，如果敌方有无常，我方没无常，我方幻仙被敌方主核杀了会不触发灰血效果（灰血效果就是个复活）。</li>
+      </ul>
+
+      <div class="card" data-tiers="jx ll" style="margin-top:10px;">
+        <div class="card-title">天书手卷 3选箱</div>
+        <p>如果下一本书要过很久才出，先开<b style="color:var(--gold)">万妖</b>。下一本书要不了多久就出了，先开<b style="color:var(--gold)">无常</b>。</p>
+        <div class="warn" style="margin-top:6px;">⚠️ 另外现在天书手卷性价比很低，除非不差钱，不然建议等9月份天书手卷翻新后再充。</div>
+      </div>
+
+      <h3><span class="badge badge-jx">金霄</span>天书</h3>
+      <div class="flow" data-tiers="ct jx" style="margin:8px 0;">
+        <span class="step">苍龙</span><span class="arrow">→</span>
+        <span class="step">饕餮</span><span class="arrow">→</span>
+        <span class="step">梵象</span><span class="arrow">→</span>
+        <span class="step">蝶梦</span><span class="arrow">→</span>
+        <span class="step">神骏</span><span class="arrow">→</span>
+        <span class="step">玄龟</span>
+      </div>
+
+      <h3><span class="badge badge-ct">赤魇</span>天书</h3>
+      <table data-tiers="ct zx">
+        <tr><th>箱子</th><th>优先级</th></tr>
+        <tr><td>6选箱</td><td>鬼神 ＞ 两仪 ＞ 白鹿 ＞ 紫霄</td></tr>
+        <tr><td>4选箱</td><td>白鹿 ＞ 紫霄 ＞ 灵幡 ＞ 金羽</td></tr>
+      </table>
+      <div class="info" data-tiers="ct zx">紫霄实际还不如金羽，为了不浪费4选箱才优先于灵幡。憋不住想提前开书的，可以用6选+4选开白鹿。<b>赤魇书不能助战曦幻书，技能不生效。</b></div>
+
+      <h3><span class="badge badge-zx">紫虚</span>天书</h3>
+      <div class="flow" data-tiers="hc qy zj zx" style="margin:8px 0;">
+        <span class="step">水镜</span><span class="arrow">→</span>
+        <span class="step">文曲</span><span class="arrow">→</span>
+        <span class="step">万仞</span><span class="arrow">→</span>
+        <span class="step">贪狼</span><span class="arrow">→</span>
+        <span class="step">白泽</span><span class="arrow">→</span>
+        <span class="step">破军</span>
+      </div>
+      <div class="info" data-tiers="hc qy zj zx">万仞白泽助战比文曲贪狼强很多，先开文曲贪狼是因为能凑图鉴，加上才开到第二本紫书这个时间段用不上紫书助战，真需要也可以让水镜去助战。如果对手有幻沙书，紫虚及以下所有书技能都没用了。<b>紫虚书不能助战琉璃以上书，技能不生效。</b></div>
+
+      <h3><span class="badge badge-qy">青曜</span>天书</h3>
+      <div class="flow" data-tiers="hc qy" style="margin:8px 0;">
+        <span class="step">阎罗</span><span class="arrow">→</span>
+        <span class="step">开图鉴</span>
+      </div>
+      <div class="info" data-tiers="hc qy">对手有苍龙书或幻沙书，青曜及以下所有书技能都没用了。<b>青曜书不能助战金霄以上书，技能不生效。</b></div>
+
+      <h3><span class="badge badge-hc">幻彩</span>天书</h3>
+      <div class="flow" data-tiers="hc zj" style="margin:8px 0;">
+        <span class="step">万古</span><span class="arrow">→</span>
+        <span class="step">开图鉴</span>
+      </div>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

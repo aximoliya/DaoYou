@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="三、星姬 · 道友攻略" page="kaixiang" current="xingji">
+  <NavBar currentPage="/kaixiang/xingji/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '三、星姬' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="xingji">
+      <h2><span class="icon">⭐</span>三、星姬</h2>
+      <div class="info">💰 白嫖可在主题活动用2张30额度（或1张30+两个6元）换10碎片补升星缺口，不补会卡3星。牛鹿平均升需4张30额度。</div>
+
+      <h3><span class="badge badge-xh">曦幻</span>与<span class="badge badge-ll">琉璃</span> 星姬</h3>
+
+      <div class="card" data-tiers="jx ll xh">
+        <div class="card-title">(1) 没有犴鼠 或 犴鼠≤2星</div>
+        <ul class="route" data-tiers="jx ll xh">
+          <li><b>曦幻箱</b>：鼠星高先开1牛，否则先开1鹿 → 1鹿1牛 → 鹿牛以3/5/7星为节点平均升星，优先鹿</li>
+          <li><b>琉璃4选箱</b>：1鼠（上不了阵就0鼠后0犴）→ 0犴 → 一直升鼠</li>
+          <li class="sub">1鼠与鹿可共同上阵，不必在意都属月。升鼠不浪费碎片在犴上方便后续传灵</li>
+          <li><b>琉璃2选箱</b>：开完图鉴后一直升燕；蛇比燕高2星就升蛇</li>
+        </ul>
+      </div>
+
+      <div class="card" data-tiers="jx ll xh">
+        <div class="card-title">(2) 有≥3星鼠</div>
+        <ul class="route" data-tiers="jx ll xh">
+          <li><b>曦幻箱</b>：一直单升牛到5星（3星后可开鹿图鉴），再升鹿</li>
+          <li><b>琉璃4选箱</b>：一直单升鼠，直到被鹿换下阵</li>
+        </ul>
+      </div>
+
+      <div class="card" data-tiers="jx ll xh">
+        <div class="card-title">(3) 有≥3星犴</div>
+        <ul class="route" data-tiers="jx ll xh">
+          <li><b>曦幻箱</b>：一直单升鹿到5星（3星后可开牛图鉴），再升牛</li>
+          <li><b>琉璃4选箱</b>：一直单升犴，直到被牛换下阵</li>
+        </ul>
+      </div>
+
+      <h3>星级替换</h3>
+
+      <h3><span class="badge badge-jx">金霄</span>及以下</h3>
+      <p>开完图鉴后单升，随便单升哪个。如果箱子里还有九天星魂、星陨石之类的高级材料，开完图鉴后只选材料。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

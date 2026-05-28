@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="一、神仙 · 道友攻略" page="kaixiang" current="shenxian">
+  <NavBar currentPage="/kaixiang/shenxian/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '一、神仙' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="shenxian">
+      <h2><span class="icon">👤</span>一、神仙</h2>
+      <p style="color:var(--text-muted);font-size:13px;margin-bottom:12px;">品质后面的数字代表神仙出来的顺序与强度。琉璃品质排第一的就是琉璃一，数字越大越强。</p>
+
+      <h3><span class="badge badge-xh">曦幻</span> 品质</h3>
+
+      <div class="card" data-tiers="ll xh">
+        <div class="card-title">2选箱 — 老区</div>
+        <div class="flow" data-tiers="ll xh">
+          <span class="step">曦幻二 1星</span><span class="arrow">→</span>
+          <span class="step">1+1星</span><span class="arrow">→</span>
+          <span class="step">3+1星</span><span class="arrow">→</span>
+          <span class="step">3+3星</span><span class="arrow">→</span>
+          <span class="step">5+3星</span><span class="arrow">→</span>
+          <span class="step">5+5星</span>
+        </div>
+      </div>
+
+      <div class="card" data-tiers="ll xh">
+        <div class="card-title">2选箱 — 新区（3个月以内）/ 白嫖半年内</div>
+        <div class="flow" data-tiers="ll xh">
+          <span class="step">曦幻二 3星</span><span class="arrow">→</span>
+          <span class="step">3+1星</span><span class="arrow">→</span>
+          <span class="step">3+3星</span><span class="arrow">→</span>
+          <span class="step">5+3星</span><span class="arrow">→</span>
+          <span class="step">5+5星</span>
+        </div>
+      </div>
+
+      <div class="card" data-tiers="ll xh">
+        <div class="card-title">1选箱</div>
+        <div class="flow" data-tiers="ll xh">
+          <span class="step">主族3星</span><span class="arrow">→</span>
+          <span class="step">副族3星</span><span class="arrow">→</span>
+          <span class="step">主族5星</span><span class="arrow">→</span>
+          <span class="step">副族5星</span>
+        </div>
+        <div class="warn" data-tiers="ll xh">⚠️ 1选箱不要1+1开！</div>
+      </div>
+
+      <div class="info" data-tiers="ll xh">💡 白嫖可以考虑曦幻一不开副族（曦幻二还是要开副），这样阵容中多出一个空位，等曦幻三出来后，可以避免红莲或者曦幻一因为位置不够而被迫下阵。再加上白嫖现版本曦幻一开副对比单升没强多少。如果攻略看得晚，已经开出副族0星曦幻一，那就还是照常升副。</div>
+      <div class="info" data-tiers="ll xh">💡 纯族要转副族：把主族琉璃三转为欧冶子，或主角转道。</div>
+
+      <h3><span class="badge badge-ll">琉璃</span>及以下</h3>
+      <p>还在上阵就升星，没上阵了就开四族图鉴。三选箱优先开神仙三，二选箱优先开神仙二。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { yangchengNavItems } from '../../data/navItems';
+
+const navItems = yangchengNavItems;
+---
+
+<BaseLayout title="神藏系统 · 道友攻略" page="yangcheng" current="shencang">
+  <NavBar currentPage="/yangcheng/shencang/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { label: '养成系统' },
+      { label: '神藏系统' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="shencang">
+      <h2><span class="icon">🏛️</span>神藏系统 <span style="font-size:12px;color:var(--green);">🆕 3.14更新</span></h2>
+      <div class="info">📋 来源：<a href="https://www.taptap.cn/moment/758015604505446931" target="_blank" style="color:var(--gold);">笑语@TapTap</a> · 6158浏览 · 测试用攻击法人族号，均升实际只会比写的更强</div>
+
+      <div class="warn" style="border-left-color:var(--gold);background:rgba(240,192,96,.08);color:#e8c876;">
+        <b>核心建议：</b>每有一个节点4(道宫)就升下一个节点4，全体节点4后主副核按节点平均升满，之后再按核度单升。
+      </div>
+      <div class="warn">⚠️ 之前删掉的心斋养成可以在置换商店换神藏养成。如果没剩心斋养成，那是你不小心喂建木了。</div>
+
+      <h3>🔬 战力测试 <span style="font-size:13px;color:var(--text-muted);">（使用 8,597 天之炁）</span></h3>
+      <table>
+        <tr><th>升级路线</th><th style="text-align:right">战力</th><th>评价</th></tr>
+        <tr><td>单升</td><td style="text-align:right">264,655</td><td>基准</td></tr>
+        <tr><td>单升（多给117天之炁触发节点4）</td><td style="text-align:right">265,319</td><td></td></tr>
+        <tr><td>均2后单升</td><td style="text-align:right">264,147</td><td style="color:var(--red);">比单升低</td></tr>
+        <tr><td>均3后单升</td><td style="text-align:right">267,652</td><td></td></tr>
+        <tr style="background:rgba(240,192,96,.08);"><td><b>均4后单升</b></td><td style="text-align:right"><b style="color:var(--gold);">270,997</b></td><td><b>⭐ 最高</b></td></tr>
+        <tr><td>1~5核均4后单升</td><td style="text-align:right">270,238</td><td></td></tr>
+        <tr><td>1~4核均4后单升</td><td style="text-align:right">268,222</td><td></td></tr>
+        <tr><td>1~3核均4后单升</td><td style="text-align:right">266,316</td><td></td></tr>
+      </table>
+
+      <h3>⚔️ 胜率测试 <span style="font-size:13px;color:var(--text-muted);">（每项200场，先手胜率）</span></h3>
+      <table>
+        <tr><th>对比</th><th style="text-align:right">胜率</th><th style="text-align:right">平均回合</th></tr>
+        <tr style="background:rgba(240,192,96,.08);"><td><b>均4 vs 单升</b></td><td style="text-align:right"><b style="color:var(--green);">71% vs 46%</b></td><td style="text-align:right">7.56 vs 6.98</td></tr>
+        <tr><td>均4 vs 特意多给的单升</td><td style="text-align:right">59% vs 48%</td><td style="text-align:right">7.36 vs 7.04</td></tr>
+        <tr><td>均4 vs 均3</td><td style="text-align:right">60.5% vs 54%</td><td style="text-align:right">7.05 vs 7.12</td></tr>
+        <tr><td>均4 vs 1~5核均4</td><td style="text-align:right">54% vs 57%</td><td style="text-align:right">7.10 vs 7.28</td></tr>
+      </table>
+      <div class="info">💡 结论：<b>全体均4最强</b>，比单升高25%胜率，比均3高6.5%。1~5核均4和6核均4最终一样。</div>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

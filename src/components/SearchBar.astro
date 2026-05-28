@@ -1,0 +1,14 @@
+---
+interface Props {
+  placeholder?: string;
+}
+
+const { placeholder = "🔍 搜索…" } = Astro.props;
+---
+
+<div class="search-wrap">
+  <input type="text" id="search" placeholder={placeholder} autofocus>
+  <span id="search-count"></span>
+  <button class="search-nav-btn" id="search-prev" title="上一个">▲</button>
+  <button class="search-nav-btn" id="search-next" title="下一个">▼</button>
+</div>

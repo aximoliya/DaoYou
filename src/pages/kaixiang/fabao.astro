@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="八、法宝 · 道友攻略" page="kaixiang" current="fabao">
+  <NavBar currentPage="/kaixiang/fabao/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '八、法宝' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="fabao">
+      <h2><span class="icon">🔮</span>八、法宝</h2>
+      <div class="info">💡 攻击防御法宝要平均升星，优先攻击法宝。精炼主核升满后，其他5个单位平均升。</div>
+
+      <h3><span class="badge badge-ll">琉璃</span>法宝</h3>
+
+      <div class="card" data-tiers="ct jx ll">
+        <div class="card-title">新区</div>
+        <p>只要单位能出手两次（也就是神仙加幻仙一共活1.5~2回合），就可以给一对1星法宝，能够出手的次数越多，效果越好，不能出手两次不用给琉璃法宝，之后按核度一路5星升过去。</p>
+      </div>
+
+      <div class="card" data-tiers="ct jx ll" style="margin-top:10px;">
+        <div class="card-title">老区满档</div>
+        <p>主副核都3星后按核度一路5星升过去。</p>
+      </div>
+
+      <div class="card" data-tiers="ct jx ll" style="margin-top:10px;">
+        <div class="card-title">老区其他情况</div>
+        <p>每有一个1星就开下一个1星，12个1星后，以3、5星为节点平均升主副核，之后按核度一路5星升过去。</p>
+        <p style="font-size:12px;color:var(--text-muted);margin-top:6px;">对局长度能打个十几回合，并且三核配置与主副核差距不是特别大的话，也可以平均升主副三核。</p>
+      </div>
+
+      <h3><span class="badge badge-jx">金霄</span>/<span class="badge badge-ct">赤魇</span>法宝</h3>
+      <p>全体都装上1星后（不像琉璃法宝那样有存活需求，就算秒死也装上1星），或者给更高品质法宝化灵1阶后，再平均升主副核，之后按核度一路5星升过去。</p>
+
+      <h3>法宝替换</h3>
+      <div class="warn" data-tiers="zx">双1星新法宝即可替换双5星老法宝，任何品质法宝的替换都是新法宝完全吞噬掉老法宝，如果不把老法宝吞掉是不能达成替换的，装备与法宝同理。只要金霄法宝有赤魇化灵，0星琉璃法宝就不能换任意星级金霄法宝。</div>
+
+      <h3><span class="badge badge-zx">紫虚</span>及以下品质法宝</h3>
+      <p>按核度单升，其他单位0星就行不用升。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+interface Tier {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  tiers?: Tier[];
+}
+
+const { tiers = [
+  { value: 'xh', label: '曦幻' },
+  { value: 'll', label: '琉璃' },
+  { value: 'jx', label: '金霄' },
+  { value: 'ct', label: '赤魇' },
+  { value: 'zx', label: '紫虚' },
+  { value: 'qy', label: '青曜' },
+  { value: 'hc', label: '幻彩' },
+] } = Astro.props;
+---
+
+<div id="tier-bar">
+  <button class="tier-btn reset active" data-tier="all">全部</button>
+  {tiers.map(tier => (
+    <button class="tier-btn" data-tier={tier.value}>{tier.label}</button>
+  ))}
+</div>

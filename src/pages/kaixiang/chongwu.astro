@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="五、宠物 · 道友攻略" page="kaixiang" current="chongwu">
+  <NavBar currentPage="/kaixiang/chongwu/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '五、宠物' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="chongwu">
+      <h2><span class="icon">🐾</span>五、宠物</h2>
+
+      <h3><span class="badge badge-xh">曦幻</span>宠物</h3>
+      <div class="card" data-tiers="ll xh">
+        <div class="card-title">核心规则</div>
+        <p>已有0星猫的白嫖拿20碎片开猫，其他无论什么情况都开鲨。6月不会出新的曦幻宠物。鲨只有1星比猫强，后续升星提升与猫差不多，不用觉得拿二选箱开猫会亏。</p>
+      </div>
+
+      <div class="card" data-tiers="ll xh" style="border-color: var(--gold);">
+        <div class="card-title">(1) 已有0星猫的白嫖开箱路线</div>
+        <table style="width:100%;margin-top:8px;font-size:14px;border-collapse:collapse;" data-tiers="ll xh">
+          <tr><td style="padding:4px 8px;">5月宠物</td><td style="padding:4px 8px;">拿20鲨碎片开猫</td></tr>
+          <tr style="background:rgba(240,192,96,.08);"><td style="padding:4px 8px;">5月神石</td><td style="padding:4px 8px;">1星猫余80鲨碎片</td></tr>
+          <tr><td style="padding:4px 8px;">6月宠物</td><td style="padding:4px 8px;">1星鲨余10碎片</td></tr>
+          <tr style="background:rgba(240,192,96,.08);"><td style="padding:4px 8px;">6月神石</td><td style="padding:4px 8px;">余50猫碎片、10鲨碎片</td></tr>
+          <tr><td style="padding:4px 8px;">7月宠物</td><td style="padding:4px 8px;">0星新宠物</td></tr>
+          <tr style="background:rgba(240,192,96,.08);"><td style="padding:4px 8px;">7月神石</td><td style="padding:4px 8px;">2星猫</td></tr>
+        </table>
+      </div>
+
+      <div class="card" data-tiers="ll xh">
+        <div class="card-title">(2) 没有猫的白嫖开箱路线</div>
+        <table style="width:100%;margin-top:8px;font-size:14px;border-collapse:collapse;" data-tiers="ll xh">
+          <tr><td style="padding:4px 8px;">5月宠物</td><td style="padding:4px 8px;">0星鲨</td></tr>
+          <tr style="background:rgba(240,192,96,.08);"><td style="padding:4px 8px;">5月神石</td><td style="padding:4px 8px;">余50猫碎片</td></tr>
+          <tr><td style="padding:4px 8px;">6月宠物</td><td style="padding:4px 8px;">1星鲨余30碎片</td></tr>
+          <tr style="background:rgba(240,192,96,.08);"><td style="padding:4px 8px;">6月神石</td><td style="padding:4px 8px;">0星猫</td></tr>
+          <tr><td style="padding:4px 8px;">7月宠物</td><td style="padding:4px 8px;">0星新宠物</td></tr>
+          <tr style="background:rgba(240,192,96,.08);"><td style="padding:4px 8px;">7月神石</td><td style="padding:4px 8px;">1星猫，用掉鲨余的碎片</td></tr>
+        </table>
+      </div>
+
+      <div class="card" data-tiers="ll xh">
+        <div class="card-title">(3) 6月才第一次接入宠物活动的白嫖</div>
+        <p>二选箱开猫，开猫可以升1星，开鲨升不了1星。</p>
+      </div>
+
+      <h3>宠物星级替换</h3>
+
+      <h3><span class="badge badge-ll">琉璃</span>宠物</h3>
+      <table data-tiers="jx ll">
+        <tr><th>箱子</th><th>开法</th></tr>
+        <tr><td>5、6选箱</td><td>1狮 → 1狼 → 3狮 → 3狼 → 5狮 → 5狼</td></tr>
+        <tr><td>3、4选箱</td><td>1貔 → 1蝶 → 3貔 → 3蝶 → 5貔 → 5蝶</td></tr>
+        <tr><td>1、2选箱</td><td>1鹰 → 1豚 → 5鹰 → 5豚。豚上不了阵就只用开0星。</td></tr>
+      </table>
+
+      <h3><span class="badge badge-jx">金霄</span>宠物</h3>
+      <table data-tiers="ct jx">
+        <tr><th>箱子</th><th>开法</th></tr>
+        <tr><td>5、6选箱</td><td>1牡丹 → 1鹭 → 5牡丹 → 5鹭。鹭上不了阵就只用开0星。</td></tr>
+        <tr><td>1、2、3、4选箱</td><td>开图鉴后平均升星。</td></tr>
+      </table>
+
+      <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
+      <p>全部开图鉴后随便升星。如果是在新手村内获得的赤魇宠物箱，可以先升1星熊猫或1星莲后再开图鉴，没更高品质宠物优先熊猫，有更高品质宠物优先莲。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
+import TierBar from '../../components/TierBar.astro';
+import TOCPanel from '../../components/TOCPanel.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { kaixiangNavItems } from '../../data/navItems';
+
+const navItems = kaixiangNavItems;
+---
+
+<BaseLayout title="十、道具多选箱 · 道友攻略" page="kaixiang" current="duoxuan">
+  <NavBar currentPage="/kaixiang/duoxuan/" navItems={navItems} />
+  
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: 'about.html', label: '开箱攻略' },
+      { label: '十、道具多选箱' }
+    ]} />
+
+    <SearchBar />
+    <TierBar />
+
+    <section id="duoxuan">
+      <h2><span class="icon">📦</span>十、道具多选箱</h2>
+
+      <h3><span class="badge badge-ll">琉璃</span>多选箱</h3>
+      <table data-tiers="jx ll">
+        <tr><th>箱子</th><th>优先级</th></tr>
+        <tr><td>琉璃1选箱</td><td>宠物 ＞ 幻仙 ＞ 灵武 ＞ 元神</td></tr>
+        <tr><td>多宝密藏</td><td>毕方 ＞ 神仙</td></tr>
+        <tr><td>天魔奖励</td><td>篌 ＞ 将 ＞ 元神</td></tr>
+      </table>
+
+      <h3><span class="badge badge-jx">金霄</span>多选箱</h3>
+      <table data-tiers="ct jx">
+        <tr><th>箱子</th><th>优先级</th></tr>
+        <tr><td>1选箱</td><td>1兔 ＞ 开图鉴 ＞ 兔 ＞ 龙 ＞ 钺 ＞ 元神</td></tr>
+        <tr><td>2选箱</td><td>1兔 ＞ 开图鉴 ＞ 兔 ＞ 羚 ＞ 盏 ＞ 元神</td></tr>
+        <tr><td>3选箱</td><td>1兔 ＞ 开图鉴 ＞ 兔 ＞ 豹 ＞ 盏 ＞ 其他</td></tr>
+        <tr><td>4选箱</td><td>1兔 ＞ 1符 ＞ 开图鉴 ＞ 兔 ＞ 诸犍 ＞ 鲸 ＞ 其他</td></tr>
+        <tr><td>5选箱</td><td>只开赑屃一直到5星 ＞ 牡丹 ＞ 剑 ＞ 其他</td></tr>
+        <tr><td>6选箱</td><td>只开赑屃一直到5星 ＞ 牡丹 ＞ 剑 ＞ 青鸾 ＞ 鹭 ＞ 其他</td></tr>
+      </table>
+
+      <h3><span class="badge badge-ct">赤魇</span>以下多选箱</h3>
+      <p>先开图鉴，优先级：幻仙 ＞ 宠物 ＞ 灵武 ＞ 元神。图鉴全开后 <b>只开元神</b>。</p>
+    </section>
+  </main>
+
+  <TOCPanel />
+  <BackToTop />
+</BaseLayout>

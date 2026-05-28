@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+import { richangNavItems } from '../../data/navItems';
+
+const navItems = richangNavItems;
+---
+
+<BaseLayout title="日常运营 · 道友攻略" page="richang">
+  <NavBar currentPage="/richang/" navItems={navItems} />
+
+  <main>
+    <Breadcrumb items={[
+      { href: '../', label: '攻略总览' },
+      { label: '日常运营' }
+    ]} />
+
+    <section>
+      <h2>🛒 日常运营</h2>
+      <p style="color:var(--text-dim);">日常商店购买优先级指南：</p>
+      <div class="hub-grid" style="margin-top:16px;">
+        <a href="shop/" class="hub-card">
+          <span class="icon">🛒</span>
+          <span class="label">商店购买</span>
+          <span class="desc">30+ 商店日常购买优先级指南</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <BackToTop />
+</BaseLayout>

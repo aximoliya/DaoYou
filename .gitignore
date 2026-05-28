@@ -1,1 +1,7 @@
-push.ps1
+node_modules/
+.astro/
+dist/
+.DS_Store
+*.log
+.env
+.env.local

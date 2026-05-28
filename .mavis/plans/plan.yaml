@@ -1,0 +1,225 @@
+﻿version: 1
+plan:
+  name: "道友攻略站 · Astro 重构 Phase 1：项目初始化 + 模块化"
+  max_concurrency: 3
+  max_consecutive_failures: 2
+  max_cycles: 10
+tasks:
+  - id: project-setup
+    title: "初始化 Astro 项目结构"
+    prompt: |
+      在 D:\ma\daoyou 目录下初始化 Astro 项目，保留现有文件。
+
+      步骤：
+      1. 创建 package.json，包含：
+         - astro ^5.0.0
+         - typescript ^5.0.0
+         - @astrojs/check
+         - vite ^6.0.0
+      2. 创建 astro.config.mjs：
+         - 使用 Vite 构建
+         - TypeScript 支持
+         - 静态输出模式 (output: 'static')
+         - 保留 public 目录
+      3. 创建 tsconfig.json：
+         - strict 模式
+         - node 环境
+      4. 创建 src/ 目录结构：
+         ```
+         src/
+         ├── components/     # Astro 组件
+         ├── layouts/        # 页面布局
+         ├── modules/        # JavaScript 模块
+         ├── pages/          # Astro 页面
+         └── styles/         # CSS 模块
+         ```
+      5. 创建 src/styles/_variables.css：
+         - 从 assets/style.css 提取 CSS 变量
+         - 保留暗色和亮色主题变量
+      6. 创建 src/styles/main.css：
+         - 导入 _variables.css
+         - 导入 assets/style.css 的重置样式和基础样式（需要转换）
+      7. 移动 assets/ 到 public/ 目录（原样保留）
+
+      注意事项：
+      - 不要删除现有的 assets/ 目录，先复制
+      - 确保 Vite 配置正确处理静态资源
+      - 创建 .gitignore（包含 node_modules/, dist/, .astro/）
+      - 报告创建的所有文件和目录结构
+    assigned_to: developer
+    verified_by: code-reviewer
+    verify_prompt: |
+      验证以下内容：
+      1. package.json 中依赖版本兼容（无冲突）
+      2. astro.config.mjs 配置正确（静态输出、TypeScript 支持）
+      3. tsconfig.json 使用 strict 模式
+      4. 目录结构符合要求（src/components, src/layouts, src/modules, src/pages, src/styles）
+      5. CSS 变量文件正确提取
+      6. public/assets 目录已创建并包含原始文件
+
+      不要修改任何文件，只验证并报告问题。
+    timeout_ms: 1800000
+
+  - id: script-modules
+    title: "模块化 script.js 为 ES Modules"
+    prompt: |
+      将 assets/script.js 拆分为独立的 ES Modules，保留所有现有功能。
+
+      源文件：D:\ma\daoyou\assets\script.js（480 行）
+
+      目标目录：D:\ma\daoyou\src\modules\
+
+      需要拆分的模块（每个模块独立，无依赖关系）：
+      1. src/modules/theme.ts - 主题切换（initTheme 函数）
+      2. src/modules/search.ts - 增强搜索（doSearch, navigateSearch, clearHighlights, highlightTextNodes）
+      3. src/modules/toc.ts - 浮动目录（buildTOC, TOC scroll spy, intersection observer）
+      4. src/modules/tier-filter.ts - 品质筛选（tier-bar 点击事件）
+      5. src/modules/mobile-menu.ts - 移动端汉堡菜单（openNav, closeNav）
+      6. src/modules/back-to-top.ts - 回到顶部（initBackToTop）
+      7. src/modules/collapse.ts - 智能折叠（.flow 折叠逻辑）
+      8. src/modules/breadcrumb.ts - 面包屑注入（injectBreadcrumb）
+      9. src/modules/sidebar-highlight.ts - 侧边栏高亮（sidebarObserver）
+
+      主入口文件 src/modules/main.ts：
+      - 导入并初始化所有模块
+      - 保留原有的初始化顺序
+      - 保留 pageMeta 数据获取
+
+      技术要求：
+      - TypeScript 类型定义（HTML 元素类型、接口）
+      - 每个模块使用 ES Module export
+      - 保留所有原有功能逻辑不变
+      - 保留 localStorage 键名 'daoyou-theme'
+
+      报告：创建的所有 TypeScript 文件和每个模块的功能说明
+    assigned_to: developer
+    verified_by: code-reviewer
+    verify_prompt: |
+      验证以下内容：
+      1. 所有 9 个模块文件已创建
+      2. main.ts 正确导入所有模块
+      3. 每个模块有正确的 TypeScript 类型定义
+      4. 所有原有功能逻辑保留（通过代码审查）
+      5. 导出/导入语法正确，无循环依赖
+      6. localStorage 键名 'daoyou-theme' 保留
+
+      不要修改任何文件。只检查文件存在和代码质量。
+    timeout_ms: 1800000
+
+  - id: astro-components
+    title: "创建 Astro 基础组件"
+    prompt: |
+      在 D:\ma\daoyou\src\ 目录下创建 Astro 组件。
+
+      需要创建的组件：
+
+      1. src/layouts/BaseLayout.astro
+         - 基础布局组件
+         - 包含 HTML 文档结构（<!DOCTYPE html>, <head>, <body>）
+         - 接受 props：title, page, current
+         - 导入 main.css
+         - 包含 slot 插槽
+         - 包含 <BaseHead> 组件引用
+
+      2. src/components/BaseHead.astro
+         - Head 元信息组件
+         - 包含 meta charset, viewport, title
+         - 包含 CSS 链接
+
+      3. src/components/NavBar.astro
+         - 侧边栏导航组件
+         - 接受 props：
+           - currentPage: string（当前页面标识）
+           - navItems: Array<{href: string, label: string, group?: string}>
+         - 包含主题切换按钮容器（.nav-footer）
+         - 包含汉堡菜单按钮
+         - 包含导航链接列表
+
+      4. src/components/SearchBar.astro
+         - 搜索栏组件
+         - 包含搜索输入框、计数显示、上下导航按钮
+         - 接受 props：placeholder?
+
+      5. src/components/TierBar.astro
+         - 品质筛选栏组件
+         - 接受 props：
+           - tiers: Array<{value: string, label: string}>
+         - 包含重置按钮
+
+      6. src/components/TOCPanel.astro
+         - 浮动目录面板组件
+         - 包含标题和链接容器
+
+      7. src/components/Breadcrumb.astro
+         - 面包屑导航组件
+         - 接受 props：items: Array<{href?: string, label: string}>
+
+      8. src/components/BackToTop.astro
+         - 回到顶部按钮组件（空壳，事件由 JS 处理）
+
+      9. src/components/MobileOverlay.astro
+         - 移动端遮罩层组件
+
+      技术要求：
+      - 使用 Astro 的 .astro 语法
+      - Props 使用 TypeScript 类型
+      - 样式使用已有的 CSS 变量（从 _variables.css）
+      - 不要在组件中写业务逻辑，只做结构渲染
+
+      报告：创建的组件列表和每个组件的 props 定义
+    assigned_to: developer
+    verified_by: code-reviewer
+    verify_prompt: |
+      验证以下内容：
+      1. 所有 9 个组件文件已创建
+      2. BaseLayout 包含正确的 HTML 文档结构
+      3. NavBar 接受正确的 props（currentPage, navItems）
+      4. SearchBar、TierBar、TOCPanel、Breadcrumb props 定义正确
+      5. 所有组件使用 .astro 语法
+      6. 没有在组件中写业务逻辑
+
+      只验证结构，不修改文件。
+    timeout_ms: 1800000
+
+  - id: create-homepage
+    title: "创建首页 Astro 页面"
+    prompt: |
+      在 D:\ma\daoyou\src\pages\ 目录下创建 index.astro 首页。
+
+      步骤：
+      1. 读取 D:\ma\daoyou\index.html（如果存在）
+      2. 创建 src\pages\index.astro：
+         - 使用 BaseLayout
+         - 包含 .hub-hero, .hub-grid, .hub-card 等元素
+         - 从现有内容迁移
+
+      2. 如果 index.html 不存在，创建一个基础的首页：
+         - 使用 BaseLayout
+         - 包含导航到三个主分类（开箱攻略、日常运营、养成系统）
+         - 保留东方仙侠暗色主题风格
+
+      需要创建的分类页面（在 src\pages\ 目录下）：
+      - src\pages\kaixiang\index.astro - 开箱攻略首页
+      - src\pages\richang\index.astro - 日常运营首页  
+      - src\pages\yangcheng\index.astro - 养成系统首页
+
+      每个分类首页应该：
+      - 使用 BaseLayout
+      - 包含面包屑导航
+      - 包含导航到具体攻略页面的链接
+      - 风格与现有页面一致
+
+      报告：创建的所有页面文件
+    assigned_to: developer
+    depends_on: [project-setup, astro-components]
+    verified_by: code-reviewer
+    verify_prompt: |
+      验证以下内容：
+      1. index.astro 已创建且使用 BaseLayout
+      2. 三个分类页面已创建（kaixiang, richang, yangcheng）
+      3. 页面结构正确（Astro 语法）
+      4. 页面风格与现有风格一致
+      5. 导航链接正确
+
+      只验证结构，不修改文件。
+    timeout_ms: 1800000

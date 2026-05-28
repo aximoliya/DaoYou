@@ -20,7 +20,7 @@ const BASE = import.meta.env.BASE_URL;
     <>
       {item.group && <div class="nav-group-label">{item.group}</div>}
       <a
-        href={BASE + item.href.replace(/^\//, '')}
+        href={`${BASE}/${item.href.replace(/^\//, '')}`}
         class:list={[{ active: currentPage === item.href }]}
         style={currentPage === item.href ? "color:var(--gold);" : ""}
       >

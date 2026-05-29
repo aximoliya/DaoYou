@@ -24,6 +24,7 @@ export const globalNavItems: NavItem[] = [
   { href: '/kaixiang/duoxuan/', label: '十、道具多选箱' },
   { href: '/richang/', label: '日常运营总览', group: '日常运营' },
   { href: '/richang/shop/', label: '商店购买' },
+  { href: '/richang/huodong/', label: '活动购买兑换' },
   { href: '/yangcheng/', label: '养成系统总览', group: '养成系统' },
   { href: '/yangcheng/shencang/', label: '神藏系统' },
 ];
@@ -47,6 +48,7 @@ export const kaixiangNavItems: NavItem[] = [
 export const richangNavItems: NavItem[] = [
   { href: '/richang/', label: '日常运营总览', group: '日常运营' },
   { href: '/richang/shop/', label: '商店购买' },
+  { href: '/richang/huodong/', label: '活动购买兑换' },
 ];
 
 /** 养成系统模块导航 */

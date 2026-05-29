@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+import { richangNavItems } from '../../data/navItems';
+
+const navItems = richangNavItems;
+---
+
+<BaseLayout title="活动购买兑换 · 道友攻略" page="richang" current="huodong">
+  <NavBar currentPage="/richang/huodong/" navItems={navItems} />
+
+  <main>
+    <Breadcrumb items={[
+      { href: '../../', label: '攻略总览' },
+      { href: '../', label: '日常运营' },
+      { label: '活动购买兑换' }
+    ]} />
+
+    <section id="huodong">
+      <h2><span class="icon">🎪</span>出村后的活动购买兑换</h2>
+      <div class="info">📋 来源：<a href="https://www.taptap.cn/moment/214405614749614406" target="_blank" style="color:var(--gold);">笑语@TapTap</a> · 活动购买兑换指南</div>
+
+      <div class="card">
+        <div class="card-title">⚠️ 重要提示</div>
+        <p>不用买周礼包的赤天书了，等翻新变金天书。</p>
+      </div>
+
+      <h3>💰 主题活动兑换</h3>
+      <div class="card">
+        <p>稀有资源<b style="color:var(--gold)">全换</b>，普通资源优先志怪相关和仙灵相关。</p>
+        <p>刚玩的新手对装备法宝和宠物币的需求较大，并且等级低很多道具没解锁，这两可以先换，剩下的看需求。</p>
+        <p>玩得再久一点就优先换赤魇及以上道具。</p>
+      </div>
+
+      <h3>📚 书阁兑换</h3>
+      <div class="card">
+        <p>神髓草、金器魂录、红幻仙志怪箱、红仙器箱、神魂之火、归神薰香、清心泉、仙灵选择箱、橙指定洗灵珠、志怪金丹、所有召怪珠、剩下的看需求。</p>
+      </div>
+
+      <h3>🌀 晶源幻境兑换</h3>
+      <div class="card">
+        <p>灵武元神碎片箱 ＞ 法宝碎片包 ＞ 装备碎片箱</p>
+        <p style="color:var(--text-dim);">灵武元神图鉴开完后优先换法宝。</p>
+      </div>
+
+      <h3>📖 活动介绍</h3>
+      <div class="card">
+        <div class="card-title">新区接入时间</div>
+        <p>新区要开区第<b style="color:var(--gold);">11天</b>，才能接入全服活动。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">活动组成与循环</div>
+        <p>活动由<b>书阁、主题1、神石、主题2</b>四个活动组成，每月就是这四个活动循环。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">道具层级差异</div>
+        <p>两个主题都是售卖最新道具，书阁神石落后主题一个最新道具（天书落后两个）。</p>
+        <p style="color:var(--text-dim);">比如：主题活动能买到曦幻2神仙、琉璃6幻仙、曦幻1宠物；书阁神石只能买到曦幻1神仙、琉璃5幻仙、琉璃6宠物。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">时间规律</div>
+        <p>书阁和神石活动都是持续<b style="color:var(--gold);">3天</b>，夹杂在两个主题中间。目前书阁活动在月底，神石活动在月中。</p>
+      </div>
+    </section>
+  </main>
+
+  <BackToTop />
+</BaseLayout>

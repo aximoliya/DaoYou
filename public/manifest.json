@@ -1,0 +1,26 @@
+{
+  "name": "道友攻略站",
+  "short_name": "道友攻略",
+  "description": "道友请留步游戏攻略站 - 涵盖神仙、天书、星姬、幻仙、宠物、灵武、元神、法宝、装备等全系统开箱路线与日常运营指南",
+  "start_url": "/DaoYou/",
+  "display": "standalone",
+  "background_color": "#080c14",
+  "theme_color": "#e8b44f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "utilities"],
+  "lang": "zh-CN"
+}

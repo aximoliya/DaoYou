@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NavBar from '../../components/NavBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
@@ -21,7 +21,7 @@ const navItems = richangNavItems;
 
     <section id="huodong">
       <h2><span class="icon">🎪</span>出村后的活动购买兑换</h2>
-      <div class="info">📋 来源：<a href="https://www.taptap.cn/moment/214405614749614406" target="_blank" style="color:var(--gold);">笑语@TapTap</a> · 活动购买兑换指南</div>
+      <div class="info">📋 来源：<a href="https://www.taptap.cn/moment/214405614749614406" target="_blank" style="color:var(--gold);">笑语@TapTap</a> · 活动购买兑换指南 · 更新于 2026.5.19</div>
 
       <div class="card">
         <div class="card-title">⚠️ 重要提示</div>
@@ -33,6 +33,142 @@ const navItems = richangNavItems;
         <p>稀有资源<b style="color:var(--gold)">全换</b>，普通资源优先志怪相关和仙灵相关。</p>
         <p>刚玩的新手对装备法宝和宠物币的需求较大，并且等级低很多道具没解锁，这两可以先换，剩下的看需求。</p>
         <p>玩得再久一点就优先换赤魇及以上道具。</p>
+      </div>
+
+      <h3>📊 活动购买清单（核心道具一览）</h3>
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>分类</th>
+            <th>活动主题</th>
+            <th>核心道具及数量</th>
+            <th>消耗元宝</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="4" class="cat-label">神仙</td>
+            <td>书阁</td>
+            <td>曦幻神仙1选箱 ×50</td>
+            <td>1.25万</td>
+          </tr>
+          <tr>
+            <td rowspan="3">主题</td>
+            <td>曦幻神仙2选箱 ×100</td>
+            <td>2.5万</td>
+          </tr>
+          <tr>
+            <td>女娲石 ×1</td>
+            <td>2.5万</td>
+          </tr>
+          <tr>
+            <td>万界神仙箱 ×20</td>
+            <td>1.5万</td>
+          </tr>
+          <tr>
+            <td rowspan="2" class="cat-label">天书</td>
+            <td rowspan="2">主题</td>
+            <td>曦幻天书1选箱 ×30</td>
+            <td>3万</td>
+          </tr>
+          <tr>
+            <td>琉璃天书6选箱 ×30</td>
+            <td>3万</td>
+          </tr>
+          <tr>
+            <td rowspan="2" class="cat-label">幻仙</td>
+            <td rowspan="2">主题</td>
+            <td>曦幻幻仙1选箱 ×100</td>
+            <td>2.5万</td>
+          </tr>
+          <tr>
+            <td>琉璃幻仙6选箱 ×100</td>
+            <td>2.5万</td>
+          </tr>
+          <tr>
+            <td rowspan="2" class="cat-label">宠物</td>
+            <td rowspan="2">主题</td>
+            <td>曦幻宠物2选箱 ×100</td>
+            <td>2.5万</td>
+          </tr>
+          <tr>
+            <td>琉璃宠物6选箱 ×100</td>
+            <td>2.5万</td>
+          </tr>
+          <tr>
+            <td rowspan="2" class="cat-label">元神</td>
+            <td rowspan="2">主题</td>
+            <td>曦幻元神箱 ×100</td>
+            <td>2.5万</td>
+          </tr>
+          <tr>
+            <td>琉璃元神箱 ×100</td>
+            <td>2.5万</td>
+          </tr>
+          <tr>
+            <td rowspan="2" class="cat-label">星姬</td>
+            <td rowspan="2">主题</td>
+            <td>曦幻星姬2选箱 ×60</td>
+            <td>1.5万</td>
+          </tr>
+          <tr>
+            <td>琉璃星姬4选箱 ×60</td>
+            <td>1.5万</td>
+          </tr>
+          <tr>
+            <td rowspan="2" class="cat-label">法宝</td>
+            <td rowspan="2">主题</td>
+            <td>琉璃法宝包 ×12</td>
+            <td>6千</td>
+          </tr>
+          <tr>
+            <td>金霄法宝包 ×24</td>
+            <td>1.2万</td>
+          </tr>
+          <tr>
+            <td class="cat-label">法相</td>
+            <td>氪金</td>
+            <td colspan="2">只能充值获得</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="card">
+        <div class="card-title">🔮 幻化说明</div>
+        <ul>
+          <li>一期买 0 星：<b style="color:var(--gold);">10万元宝</b></li>
+          <li>分两期买 0 星：<b style="color:var(--gold);">8.5万元宝</b></li>
+          <li>幻化之魂每期买满 5万元宝得 100 魂，幻化升满星需 <b style="color:var(--gold);">600魂</b></li>
+          <li>幻灵每期买满 1.25万元宝得 50 碎片，幻灵升满阶需 <b style="color:var(--gold);">750碎片</b></li>
+        </ul>
+      </div>
+
+      <h3>🏷️ 按元宝档位购买推荐</h3>
+      <div class="card">
+        <div class="card-title">元宝 10 万以下</div>
+        <p>买所有曦幻与除了神仙、元神、装备外的琉璃道具。金天书只买周礼包的。幻化分期。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">元宝 10 万以上</div>
+        <p>买所有曦幻与除了元神、装备外的琉璃道具。金天书只买周礼包的。琉璃神仙开完主族图鉴后不买。幻化分期。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">元宝 20 万以上</div>
+        <p>买所有曦幻琉璃道具。金霄道具只买天书。琉璃三神仙升 1 星并且开完主族图鉴后不买。</p>
+        <p style="color:var(--text-dim);">低于 25 万不建议幻化直接切 1 星。</p>
+      </div>
+      <div class="card">
+        <div class="card-title">元宝 30 万以上</div>
+        <p>买所有曦幻琉璃道具。金霄道具买天书、法宝、星姬，星姬貉猪凑完图鉴后不买。琉璃三神仙升 1 星并且开完主副族图鉴后不买。</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📝 重要注释</div>
+        <ol>
+          <li><b>新区玩家</b>：考虑到幻化一期完整切出来要 10 万元宝，新区的把自己元宝 <b style="color:var(--gold);">减 10 万</b> 再参考上面买。白嫖就算有 50 万元宝也只按 <b style="color:var(--gold);">20万元宝档次</b> 买。</li>
+          <li><b>基础资源</b>：活动道具箱下面的是基础资源，幻化毕业后还有 20 多万元宝，或者高 V 元宝长期保持 20 万以上的可以买：<b>太虚神晶 → 聚灵石 → 拓纹纸 → 图腾残片 → 青曜仙灵 → 通灵粉尘 → 星佑宝鉴 → 八音乐谱 → 五行玉 → 神髓草 → 九天星魂 → 天之杰 → 星陨石</b>。没写的不要买。</li>
+          <li><b>书阁额外</b>：书阁还要多买体力丹、法力丹、除魔令。</li>
+        </ol>
       </div>
 
       <h3>📚 书阁兑换</h3>

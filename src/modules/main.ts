@@ -28,7 +28,6 @@ export function initDaoyouApp(): void {
   initSearch();
   initTOC();
   initMobileMenu();
-  initCollapse();
   initSidebarHighlight();
 
   // 监听品质筛选变化触发搜索

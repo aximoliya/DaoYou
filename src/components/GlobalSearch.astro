@@ -1,0 +1,71 @@
+---
+// 搜索数据：所有页面的标题、描述、关键词
+const pages = [
+  { title: "神仙", href: "kaixiang/shenxian/", icon: "👤", category: "开箱攻略", keywords: "神仙 曦幻 琉璃 升星 2选箱 1选箱 副族 主族" },
+  { title: "天书", href: "kaixiang/tianshu/", icon: "📖", category: "开箱攻略", keywords: "天书 邪魔 归墟 幻沙 龙脉 仙凡 无常 万妖 五行 苍龙 饕餮 梵象 蝶梦 神骏 玄龟 鬼神 两仪 白鹿 紫霄 水镜 文曲 万仞 贪狼 白泽 破军 阎罗 万古" },
+  { title: "星姬", href: "kaixiang/xingji/", icon: "⭐", category: "开箱攻略", keywords: "星姬 牛 鹿 犴 鼠 燕 蛇 传灵 升星" },
+  { title: "幻仙", href: "kaixiang/huanxian/", icon: "🧚", category: "开箱攻略", keywords: "幻仙 九婴 鲲鹏 腾蛇 白泽 谛听 毕方 天狗 应龙 赑屃 青鸾 三兔 诸犍 风生 猲狙 夔牛" },
+  { title: "宠物", href: "kaixiang/chongwu/", icon: "🐾", category: "开箱攻略", keywords: "宠物 猫 鲨 狮 狼 貔 蝶 鹰 豚 牡丹 鹭 熊猫 莲" },
+  { title: "灵武", href: "kaixiang/lingwu/", icon: "⚔️", category: "开箱攻略", keywords: "灵武 烛 刃 箅 将 伞 剑 笔 杵 鼎" },
+  { title: "元神", href: "kaixiang/yuanshen/", icon: "💎", category: "开箱攻略", keywords: "元神 聚神 固元 神练 识神" },
+  { title: "法宝", href: "kaixiang/fabao/", icon: "🔮", category: "开箱攻略", keywords: "法宝 精炼 化灵 攻击 防御" },
+  { title: "装备", href: "kaixiang/zhuangbei/", icon: "🛡️", category: "开箱攻略", keywords: "装备 化神 回响 熔铸 武器 护符 盔甲 鞋子" },
+  { title: "道具多选箱", href: "kaixiang/duoxuan/", icon: "📦", category: "开箱攻略", keywords: "多选箱 琉璃 金霄 赤魇 图鉴" },
+  { title: "商店购买", href: "richang/shop/", icon: "🛒", category: "日常运营", keywords: "商店 商城 神仙店铺 竞技宝库 奇观 驭灵 装备 仙盟 盟战 战功 地宫 志怪 天机 元神 灵武 封灵 宠物 封神 登仙 气海 苍穹 仙道 联盟 外观 仙宝 幻仙 凌云 开天 星魂 万仙 洞天 回收 天魔 星辰 星途 幻境 万界 界域" },
+  { title: "活动购买兑换", href: "richang/huodong/", icon: "🎪", category: "日常运营", keywords: "活动 主题 书阁 神石 晶源 幻境 元宝 幻化" },
+  { title: "神藏系统", href: "yangcheng/shencang/", icon: "🏛️", category: "养成系统", keywords: "神藏 节点 道宫 天之炁 战力 胜率" },
+];
+
+const BASE = import.meta.env.BASE_URL;
+---
+
+<div class="global-search">
+  <div class="global-search-input-wrap">
+    <input type="text" id="global-search" class="global-search-input" placeholder="🔍 搜索攻略…输入关键词如：神仙、天书、商店…">
+    <span id="global-search-count" class="global-search-count"></span>
+  </div>
+  <div id="global-search-results" class="global-search-results"></div>
+</div>
+
+<script define:vars={{ pages, BASE }}>
+  const searchInput = document.getElementById('global-search');
+  const resultsContainer = document.getElementById('global-search-results');
+  const countEl = document.getElementById('global-search-count');
+  
+  if (searchInput && resultsContainer) {
+    searchInput.addEventListener('input', function() {
+      const query = searchInput.value.trim().toLowerCase();
+      
+      if (!query) {
+        resultsContainer.innerHTML = '';
+        resultsContainer.classList.remove('show');
+        countEl.textContent = '';
+        return;
+      }
+      
+      const results = pages.filter(function(p) {
+        var searchText = (p.title + p.keywords + p.category).toLowerCase();
+        return query.split('').every(function(char) { return searchText.includes(char); });
+      });
+      
+      if (results.length > 0) {
+        countEl.textContent = results.length + ' 个结果';
+        resultsContainer.innerHTML = results.map(function(p) { 
+          return '<a href="' + BASE + p.href + '" class="global-search-result">' +
+            '<span class="result-icon">' + p.icon + '</span>' +
+            '<div class="result-info">' +
+              '<span class="result-title">' + p.title + '</span>' +
+              '<span class="result-category">' + p.category + '</span>' +
+            '</div>' +
+            '<span class="result-arrow">→</span>' +
+          '</a>';
+        }).join('');
+        resultsContainer.classList.add('show');
+      } else {
+        countEl.textContent = '未找到';
+        resultsContainer.innerHTML = '<div class="global-search-empty">未找到匹配的攻略，试试其他关键词</div>';
+        resultsContainer.classList.add('show');
+      }
+    });
+  }
+</script>

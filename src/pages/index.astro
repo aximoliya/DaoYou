@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NavBar from '../components/NavBar.astro';
 import BackToTop from '../components/BackToTop.astro';
+import GlobalSearch from '../components/GlobalSearch.astro';
 import { homeNavItems } from '../lib/navItems';
 ---
 
@@ -16,10 +17,8 @@ import { homeNavItems } from '../lib/navItems';
       <p style="color:var(--text-muted);font-size:var(--text-sm);margin-top:8px;">来源：笑语@TapTap · 最后更新 2026-05-12</p>
     </div>
 
-    <!-- 搜索引导 -->
-    <div class="hub-search-cta">
-      <span class="hub-search-hint">👇 选择下方攻略分类，进入后即可搜索该分类下的全部内容</span>
-    </div>
+    <!-- 全局搜索 -->
+    <GlobalSearch />
 
     <!-- 统计概览条 -->
     <div class="hub-stats">

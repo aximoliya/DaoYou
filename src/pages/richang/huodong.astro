@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NavBar from '../../components/NavBar.astro';
-import SearchBar from '../../components/SearchBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
@@ -16,7 +15,6 @@ const navItems = richangNavItems;
   <NavBar currentPage="/richang/huodong/" navItems={navItems} />
 
   <main>
-    <SearchBar />
 
     <Breadcrumb items={[
       { href: '../../', label: '攻略总览' },

@@ -1,0 +1,12 @@
+---
+interface Props {
+  date: string;
+  label?: string;
+  version?: string;
+}
+
+const { date, label = "更新", version = "" } = Astro.props;
+const displayText = version ? `${version} · ${date}` : date;
+---
+
+<span class="time-badge">{label}：{displayText}</span>

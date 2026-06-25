@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#07070F"/>
+      <stop offset="50%" style="stop-color:#0D0D1A"/>
+      <stop offset="100%" style="stop-color:#13132A"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A78BFA"/>
+      <stop offset="100%" style="stop-color:#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FBBF24"/>
+      <stop offset="100%" style="stop-color:#D97706"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Decorative grid -->
+  <g opacity="0.03" stroke="#A78BFA" stroke-width="1">
+    <line x1="0" y1="157" x2="1200" y2="157"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="472" x2="1200" y2="472"/>
+    <line x1="300" y1="0" x2="300" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+  </g>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="150" fill="rgba(167,139,250,0.03)"/>
+  <circle cx="1100" cy="530" r="200" fill="rgba(251,191,36,0.03)"/>
+
+  <!-- Main title -->
+  <text x="600" y="250" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="72" font-weight="800" fill="url(#accent)" filter="url(#glow)">🧧 道友攻略站</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="340" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="28" fill="#8B8FB8">道友请留步 游戏攻略指南</text>
+
+  <!-- Description -->
+  <text x="600" y="410" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="18" fill="#5A5E80">神仙 · 天书 · 星姬 · 幻仙 · 宠物 · 灵武 · 元神 · 法宝 · 装备 · 多选箱</text>
+
+  <!-- Divider line -->
+  <line x1="400" y1="460" x2="800" y2="460" stroke="rgba(167,139,250,0.3)" stroke-width="1"/>
+
+  <!-- Footer -->
+  <text x="600" y="510" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="16" fill="#5A5E80">aximoliya.github.io/DaoYou</text>
+  <text x="600" y="540" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="14" fill="#5A5E80">攻略来源：笑语@TapTap · 持续更新中</text>
+
+  <!-- Corner accents -->
+  <rect x="40" y="40" width="3" height="40" rx="2" fill="url(#gold)"/>
+  <rect x="40" y="40" width="40" height="3" rx="2" fill="url(#gold)"/>
+  <rect x="1120" y="40" width="3" height="40" rx="2" fill="url(#accent)"/>
+  <rect x="1120" y="40" width="40" height="3" rx="2" fill="url(#accent)"/>
+  <rect x="40" y="550" width="3" height="40" rx="2" fill="url(#accent)"/>
+  <rect x="40" y="590" width="40" height="3" rx="2" fill="url(#accent)"/>
+  <rect x="1120" y="550" width="3" height="40" rx="2" fill="url(#gold)"/>
+  <rect x="1120" y="590" width="40" height="3" rx="2" fill="url(#gold)"/>
+</svg>

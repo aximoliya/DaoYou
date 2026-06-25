@@ -6,7 +6,8 @@ import BackToTop from '../../components/BackToTop.astro';
 import { yangchengNavItems } from '../../data/navItems';
 
 const navItems = yangchengNavItems;
----
+
+import TimeBadge from '../../components/TimeBadge.astro';---
 
 <BaseLayout title="养成系统 · 道友攻略" page="yangcheng">
   <NavBar currentPage="/yangcheng/" navItems={navItems} />
@@ -16,6 +17,7 @@ const navItems = yangchengNavItems;
       { href: '../', label: '攻略总览' },
       { label: '养成系统' }
     ]} />
+        <TimeBadge date="2026-05" version="曦幻二版本" />
 
     <section>
       <h2>📈 养成系统</h2>

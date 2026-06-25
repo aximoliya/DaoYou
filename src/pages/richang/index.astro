@@ -6,7 +6,8 @@ import BackToTop from '../../components/BackToTop.astro';
 import { richangNavItems } from '../../data/navItems';
 
 const navItems = richangNavItems;
----
+
+import TimeBadge from '../../components/TimeBadge.astro';---
 
 <BaseLayout title="日常运营 · 道友攻略" page="richang">
   <NavBar currentPage="/richang/" navItems={navItems} />
@@ -16,6 +17,7 @@ const navItems = richangNavItems;
       { href: '../', label: '攻略总览' },
       { label: '日常运营' }
     ]} />
+        <TimeBadge date="2026-05" version="曦幻二版本" />
 
     <section>
       <h2>🛒 日常运营</h2>

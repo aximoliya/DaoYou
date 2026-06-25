@@ -10,6 +10,7 @@ import { initTOC } from './toc';
 import { initMobileMenu } from './mobile-menu';
 import { initBackToTop } from './back-to-top';
 import { initSidebarHighlight } from './sidebar-highlight';
+import { initAccordion } from './accordion';
 
 /**
  * 初始化所有交互模块
@@ -29,6 +30,7 @@ export function initDaoyouApp(): void {
   initTOC();
   initMobileMenu();
   initSidebarHighlight();
+  initAccordion();
 
   // 监听品质筛选变化触发搜索
   document.addEventListener('tier-changed', () => {

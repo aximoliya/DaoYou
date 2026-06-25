@@ -1,0 +1,37 @@
+---
+import type { NavItem } from '../data/navItems';
+
+interface Props {
+  currentPath: string;
+  navItems: NavItem[];
+  base?: string;
+}
+
+const { currentPath, navItems, base = import.meta.env.BASE_URL } = Astro.props;
+
+// Filter to only items with actual href (not group labels)
+const items = navItems.filter(item => item.href && !item.group);
+
+// Find current index
+const currentIdx = items.findIndex(item => currentPath.endsWith(item.href.replace(/\/$/, '')) || currentPath === item.href);
+
+const prevItem = currentIdx > 0 ? items[currentIdx - 1] : null;
+const nextItem = currentIdx < items.length - 1 ? items[currentIdx + 1] : null;
+---
+
+{ (prevItem || nextItem) && (
+  <div class="page-nav">
+    {prevItem ? (
+      <a href={`${base}${prevItem.href.replace(/^\//, '')}`} class="page-nav-link prev">
+        <span class="page-nav-arrow">←</span>
+        <span class="page-nav-text">{prevItem.label}</span>
+      </a>
+    ) : <span class="page-nav-link prev empty"></span>}
+    {nextItem ? (
+      <a href={`${base}${nextItem.href.replace(/^\//, '')}`} class="page-nav-link next">
+        <span class="page-nav-text">{nextItem.label}</span>
+        <span class="page-nav-arrow">→</span>
+      </a>
+    ) : <span class="page-nav-link next empty"></span>}
+  </div>
+)}

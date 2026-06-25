@@ -8,6 +8,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
 import { kaixiangNavItems } from '../../data/navItems';
+import PageNav from '../../components/PageNav.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = kaixiangNavItems;
 ---
@@ -21,6 +23,7 @@ const navItems = kaixiangNavItems;
       { href: '../', label: '开箱攻略' },
       { label: '五、宠物' }
     ]} />
+            <TimeBadge date="2026-05" version="曦幻二版本" />
 
     <SearchBar />
     <TierBar />
@@ -65,6 +68,31 @@ const navItems = kaixiangNavItems;
 
       <h3>宠物星级替换</h3>
 
+      <h4>曦幻·鲨 → 曦幻·猫 / 琉璃·狮</h4>
+      <table data-tiers="ll xh">
+        <tr><th>鲨星级</th><th>主核-单挑</th><th>副核-单挑</th><th>三核</th><th>实战搭配</th></tr>
+        <tr><td>1星</td><td>大概率跨1星换猫，换 4~5星狮</td><td>与同星猫差不多，换 3~4星狮</td><td>比猫弱</td><td>换 2~3星猫、大概率换4星狮</td></tr>
+        <tr><td>2星</td><td>—</td><td>—</td><td>—</td><td>换 3~4星猫、大概率换5星狮</td></tr>
+        <tr><td>3星</td><td>—</td><td>—</td><td>—</td><td>换 4~5星猫</td></tr>
+      </table>
+
+      <h4>曦幻·猫 → 琉璃·狮</h4>
+      <table data-tiers="ll xh">
+        <tr><th>猫星级</th><th>单挑</th><th>搭配（老区白嫖）</th><th>搭配（新区/更高档）</th></tr>
+        <tr><td>1星</td><td>换 3~4星狮（最高可换7星狮）</td><td>换 2~3星狮</td><td>换 3~4星狮</td></tr>
+        <tr><td>2星</td><td>—</td><td>—</td><td>换 4~5星狮</td></tr>
+      </table>
+      <div class="info" style="margin-top:4px;">对手琉璃宠物全满星时，1星猫持平5星狮。</div>
+
+      <h4>琉璃·狮 → 琉璃·貔</h4>
+      <table data-tiers="jx ll">
+        <tr><th>狮星级</th><th>单挑</th><th>实战搭配</th></tr>
+        <tr><td>1星</td><td>换 2~3星貔（大概率1换2）</td><td>换 2~3星貔</td></tr>
+        <tr><td>2星</td><td>换 4星貔</td><td>换 3~4星貔</td></tr>
+        <tr><td>3星</td><td>换 5星貔</td><td>换 4~5星貔</td></tr>
+      </table>
+      <div class="info" style="margin-top:4px;">副核位置：狮保底换同星狼，上限跨2星替换狼。</div>
+
       <h3><span class="badge badge-ll">琉璃</span>宠物</h3>
       <table data-tiers="jx ll">
         <tr><th>箱子</th><th>开法</th></tr>
@@ -83,8 +111,13 @@ const navItems = kaixiangNavItems;
       <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
       <p>全部开图鉴后随便升星。如果是在新手村内获得的赤魇宠物箱，可以先升1星熊猫或1星莲后再开图鉴，没更高品质宠物优先熊猫，有更高品质宠物优先莲。</p>
     </section>
-  </main>
+  
 
-  <TOCPanel />
+    <TOCPanel />
+
+  <PageNav currentPath="/kaixiang/chongwu/" navItems={kaixiangNavItems} />
+</main>
+
+
   <BackToTop />
 </BaseLayout>

@@ -8,6 +8,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
 import { kaixiangNavItems } from '../../data/navItems';
+import PageNav from '../../components/PageNav.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = kaixiangNavItems;
 ---
@@ -21,6 +23,7 @@ const navItems = kaixiangNavItems;
       { href: '../', label: '开箱攻略' },
       { label: '一、神仙' }
     ]} />
+            <TimeBadge date="2026-05" version="曦幻二版本" />
 
     <SearchBar />
     <TierBar />
@@ -71,8 +74,13 @@ const navItems = kaixiangNavItems;
       <h3><span class="badge badge-ll">琉璃</span>及以下</h3>
       <p>还在上阵就升星，没上阵了就开四族图鉴。三选箱优先开神仙三，二选箱优先开神仙二。</p>
     </section>
-  </main>
+  
 
-  <TOCPanel />
+    <TOCPanel />
+
+  <PageNav currentPath="/kaixiang/shenxian/" navItems={kaixiangNavItems} />
+</main>
+
+
   <BackToTop />
 </BaseLayout>

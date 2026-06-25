@@ -8,6 +8,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
 import { kaixiangNavItems } from '../../data/navItems';
+import PageNav from '../../components/PageNav.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = kaixiangNavItems.filter(item => item.href !== 'duoxuan.html');
 ---
@@ -21,6 +23,7 @@ const navItems = kaixiangNavItems.filter(item => item.href !== 'duoxuan.html');
       { href: '../', label: '开箱攻略' },
       { label: '二、天书' }
     ]} />
+            <TimeBadge date="2026-06-23" version="曦幻二版本" />
 
     <SearchBar />
     <TierBar />
@@ -28,6 +31,17 @@ const navItems = kaixiangNavItems.filter(item => item.href !== 'duoxuan.html');
     <section id="tianshu">
       <h2><span class="icon">📖</span>二、天书</h2>
       <div class="warn">⚠️ 天书箱子在不能完整开出天书前最好不要打开，打开后无法回头。</div>
+
+      <h3><span class="badge badge-xh">曦幻</span>天书</h3>
+      <div class="card" data-tiers="xh ll">
+        <div class="card-title">目前主核</div>
+        <div class="flow" data-tiers="xh ll">邪魔 ≥ 归墟</div>
+      </div>
+      <div class="card" data-tiers="xh ll" style="margin-top:10px;">
+        <div class="card-title">未来其他核</div>
+        <div class="flow" data-tiers="xh ll">归墟 ＞ 邪魔</div>
+      </div>
+      <div class="info" data-tiers="xh ll">面对有归墟的对手时，需要把腾蛇或未来需要早登场的幻仙给4核，归墟会使5、6核幻仙延迟3回合登场，这个影响很大，不做调整邪魔打不过归墟。</div>
 
       <h3><span class="badge badge-ll">琉璃</span>天书</h3>
       <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">强度排序（未来会有变化）</p>
@@ -43,7 +57,7 @@ const navItems = kaixiangNavItems.filter(item => item.href !== 'duoxuan.html');
       <div class="card" data-tiers="jx ll" style="margin-top:10px;">
         <div class="card-title">对手没邪魔时</div>
         <div class="flow" data-tiers="jx ll">
-          幻沙 ＞＞ 龙脉 ＞ 仙凡 ≈ 无常 ≥ 万妖 ＞ 五行 ＞ 无常(只有一本书时)
+          幻沙 ＞＞ 龙脉 ＞ 仙凡 ≈ 无常 ≥ 万妖 ＞ 五行
         </div>
       </div>
 
@@ -52,17 +66,17 @@ const navItems = kaixiangNavItems.filter(item => item.href !== 'duoxuan.html');
         <div class="flow" data-tiers="jx ll">
           <span class="step">幻沙</span><span class="arrow">→</span>
           <span class="step">龙脉</span><span class="arrow">→</span>
-          <span class="step">仙凡或无常</span><span class="arrow">→</span>
-          <span class="step">仙凡或无常</span><span class="arrow">→</span>
+          <span class="step">仙凡</span><span class="arrow">→</span>
           <span class="step">万妖</span><span class="arrow">→</span>
+          <span class="step">无常</span><span class="arrow">→</span>
           <span class="step">五行</span>
         </div>
       </div>
 
       <ul class="route" data-tiers="jx ll" style="margin-top:8px;">
-        <li>从现在起神石书阁的琉璃书都是<b>5选箱</b>了，再过一个月大概率变<b>6选箱</b>（如果下月出曦幻2书就会变6选）。所以4选箱多的话就不要保留5选箱了，该高开低就高开低。</li>
+        <li>从现在起神石书阁的琉璃书都是<b>6选箱</b>了，所以4、5选箱有90片以上的就不用保留6选箱了，该高开低就高开低（除非6选箱有150片以上，只要一两月就开出幻沙了，那就还是先把幻沙开出来）。</li>
         <li>如果已有万妖，<b>仙凡大于无常</b>，能与万妖凑图鉴。</li>
-        <li>有仙凡后，下一本开万妖还是无常其实差不多，同样是因为万妖仙凡凑图鉴的原因，算上图鉴的话，万妖比无常强一点弱一点的情况都有出现。推荐中无常比万妖先开，主要是考虑到未来核心幻仙的<b>灰血效果</b>，如果敌方有无常，我方没无常，我方幻仙被敌方主核杀了会不触发灰血效果（灰血效果就是个复活）。</li>
+        <li>如果有仙凡，<b>万妖约等于无常</b>，同样是因为万妖仙凡凑图鉴的原因，算上图鉴，万妖比无常强一点弱一点的情况都有出现，更推荐开万妖多点战力。</li>
       </ul>
 
       <div class="card" data-tiers="jx ll" style="margin-top:10px;">
@@ -82,12 +96,26 @@ const navItems = kaixiangNavItems.filter(item => item.href !== 'duoxuan.html');
       </div>
 
       <h3><span class="badge badge-ct">赤魇</span>天书</h3>
-      <table data-tiers="ct zx">
-        <tr><th>箱子</th><th>优先级</th></tr>
-        <tr><td>6选箱</td><td>鬼神 ＞ 两仪 ＞ 白鹿 ＞ 紫霄</td></tr>
-        <tr><td>4选箱</td><td>白鹿 ＞ 紫霄 ＞ 灵幡 ＞ 金羽</td></tr>
-      </table>
-      <div class="info" data-tiers="ct zx">紫霄实际还不如金羽，为了不浪费4选箱才优先于灵幡。憋不住想提前开书的，可以用6选+4选开白鹿。<b>赤魇书不能助战曦幻书，技能不生效。</b></div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">出书顺序</p>
+      <div class="card" data-tiers="ct zx">
+        <div class="card-title">6选箱</div>
+        <div class="flow" data-tiers="ct zx">
+          <span class="step">鬼神</span><span class="arrow">→</span>
+          <span class="step">两仪</span><span class="arrow">→</span>
+          <span class="step">白鹿</span><span class="arrow">→</span>
+          <span class="step">紫霄</span>
+        </div>
+      </div>
+      <div class="card" data-tiers="ct zx" style="margin-top:10px;">
+        <div class="card-title">4选箱</div>
+        <div class="flow" data-tiers="ct zx">
+          <span class="step">白鹿</span><span class="arrow">→</span>
+          <span class="step">紫霄</span><span class="arrow">→</span>
+          <span class="step">灵幡</span><span class="arrow">→</span>
+          <span class="step">金羽</span>
+        </div>
+      </div>
+      <div class="info" data-tiers="ct zx">憋不住想提前开书的，可以用6选+4选开白鹿。<b>赤魇书不能助战曦幻书，技能不生效。</b></div>
 
       <h3><span class="badge badge-zx">紫虚</span>天书</h3>
       <div class="flow" data-tiers="hc qy zj zx" style="margin:8px 0;">
@@ -113,8 +141,13 @@ const navItems = kaixiangNavItems.filter(item => item.href !== 'duoxuan.html');
         <span class="step">开图鉴</span>
       </div>
     </section>
-  </main>
+  
 
-  <TOCPanel />
+    <TOCPanel />
+
+  <PageNav currentPath="/kaixiang/tianshu/" navItems={kaixiangNavItems} />
+</main>
+
+
   <BackToTop />
 </BaseLayout>

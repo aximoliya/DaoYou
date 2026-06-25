@@ -102,6 +102,42 @@ function buildTOC(): void {
 export function initTOC(): void {
   tocPanel = document.getElementById('toc-panel');
 
+  // Create mobile TOC toggle button
+  const isMobile = window.innerWidth <= 768;
+  if (isMobile && tocPanel) {
+    let toggleBtn = document.querySelector('.toc-toggle') as HTMLButtonElement;
+    if (!toggleBtn) {
+      toggleBtn = document.createElement('button');
+      toggleBtn.className = 'toc-toggle';
+      toggleBtn.textContent = '📑';
+      toggleBtn.setAttribute('aria-label', '目录');
+      toggleBtn.title = '本节目录';
+      document.body.appendChild(toggleBtn);
+    }
+    
+    toggleBtn.addEventListener('click', () => {
+      if (tocPanel) {
+        const isVisible = tocPanel.classList.contains('show');
+        if (isVisible) {
+          tocPanel.classList.remove('show');
+          toggleBtn.textContent = '📑';
+        } else {
+          tocPanel.classList.add('show');
+          toggleBtn.textContent = '✕';
+          buildTOC();
+        }
+      }
+    });
+    
+    // Hide toggle when TOC is empty
+    const observer = new MutationObserver(() => {
+      if (tocPanel && !tocPanel.classList.contains('show')) {
+        toggleBtn.textContent = '📑';
+      }
+    });
+    observer.observe(tocPanel, { attributes: true, attributeFilter: ['class'] });
+  }
+
   // 监听品质筛选变化
   document.addEventListener('tier-changed', () => {
     clearTimeout(tocScrollTimer);

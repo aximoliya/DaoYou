@@ -1,10 +1,13 @@
-﻿---
+---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NavBar from '../../components/NavBar.astro';
+import SearchBar from '../../components/SearchBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
 import { richangNavItems } from '../../data/navItems';
+import PageNav from '../../components/PageNav.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = richangNavItems;
 ---
@@ -13,11 +16,14 @@ const navItems = richangNavItems;
   <NavBar currentPage="/richang/huodong/" navItems={navItems} />
 
   <main>
+    <SearchBar />
+
     <Breadcrumb items={[
       { href: '../../', label: '攻略总览' },
       { href: '../', label: '日常运营' },
       { label: '活动购买兑换' }
     ]} />
+            <TimeBadge date="2026-05-19" version="5.19 版本" />
 
     <section id="huodong">
       <h2><span class="icon">🎪</span>出村后的活动购买兑换</h2>
@@ -201,7 +207,11 @@ const navItems = richangNavItems;
         <p>书阁和神石活动都是持续<b style="color:var(--gold);">3天</b>，夹杂在两个主题中间。目前书阁活动在月底，神石活动在月中。</p>
       </div>
     </section>
-  </main>
+  
 
+  <PageNav currentPath="/richang/huodong/" navItems={richangNavItems} />
+</main>
+
+  
   <BackToTop />
 </BaseLayout>

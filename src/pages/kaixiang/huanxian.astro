@@ -8,6 +8,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
 import { kaixiangNavItems } from '../../data/navItems';
+import PageNav from '../../components/PageNav.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = kaixiangNavItems;
 ---
@@ -21,12 +23,34 @@ const navItems = kaixiangNavItems;
       { href: '../', label: '开箱攻略' },
       { label: '四、幻仙' }
     ]} />
+            <TimeBadge date="2026-05" version="曦幻二版本" />
 
     <SearchBar />
     <TierBar />
 
     <section id="huanxian">
       <h2><span class="icon">🧚</span>四、幻仙</h2>
+
+      <h3><span class="badge badge-xh">曦幻</span>幻仙</h3>
+      <div class="info" data-tiers="ll xh">💡 7月绝大概率不出幻仙3。</div>
+
+      <div class="card" data-tiers="ll xh">
+        <div class="card-title">(1) 已有0星鲲鹏的白嫖</div>
+        <p>拿20二选箱开鲲鹏，月底书阁升1星鲲鹏，7月主题升1星九婴，7月8月书阁的碎片升2星鲲鹏。</p>
+        <p style="margin-top:6px;">或者这次开0星九婴也行，后续1星九婴后所有二选箱都开鲲鹏。主要是不清楚后续幻仙到底是在每月的上半还是下半，之前在下半，这期改到上半了，如果后续还在上半，就可以直接开0九婴，对比等书阁升1鲲鹏的，领先二十天图鉴优势，后面也挨不了几天打，书阁后面又是幻仙主题可以升星。</p>
+        <p style="margin-top:6px;color:var(--red);">另外别学去年跳过幻仙二的开箱路线，今年没法套用，今年幻仙压制技加强，九婴比同时期应龙强，预估未来低核度的1星九婴与5星白泽强度差不多，不至于像应龙那样5星都上不了阵。</p>
+      </div>
+
+      <div class="card" data-tiers="ll xh" style="margin-top:10px;">
+        <div class="card-title">(2) 没有0星鲲鹏的白嫖</div>
+        <p>6月第一次接入幻仙活动的开九婴，7月升1星九婴，后续用2选箱升1星鲲鹏。</p>
+        <p style="margin-top:6px;">7月第一次接入幻仙活动的开鲲鹏，后续可以升1星，开九婴会差20碎片没法升星。</p>
+      </div>
+
+      <div class="card" data-tiers="ll xh" style="margin-top:10px;">
+        <div class="card-title">(3) 升星要点</div>
+        <p>幻仙不存在135星质变，只有1星质变，后续每颗星的提升都差不多。九婴鲲鹏要平均升星，优先鲲鹏。</p>
+      </div>
 
       <h3><span class="badge badge-ll">琉璃</span>幻仙</h3>
 
@@ -67,11 +91,33 @@ const navItems = kaixiangNavItems;
 
       <h3>幻仙星级替换</h3>
 
+      <h4>曦幻·九婴 → 曦幻·鲲鹏</h4>
+      <table data-tiers="ll xh">
+        <tr><th>九婴星级</th><th>主核-单挑</th><th>副核-单挑</th><th>三核以外</th><th>实战搭配</th></tr>
+        <tr><td>1星</td><td>≈ 3星鲲鹏</td><td>比同星鲲鹏更强/更弱均有</td><td>1鲲≈3九婴</td><td>换 5星鲲鹏</td></tr>
+        <tr><td>2星</td><td>换 4星鲲鹏</td><td>—</td><td>2鲲≈4九婴</td><td>—</td></tr>
+        <tr><td>3星</td><td>换 5星鲲鹏</td><td>—</td><td>3鲲≈5九婴</td><td>—</td></tr>
+      </table>
+      <div class="info" style="margin-top:4px;">0星情况：老区0星九婴没法上阵；新区0星九婴核度在0星鲲鹏前、任何有星琉璃幻仙后。</div>
+
+      <h4>曦幻·鲲鹏 → 琉璃·白泽</h4>
+      <table data-tiers="ll xh">
+        <tr><th>鲲鹏星级</th><th>单挑（白嫖/基金档）</th><th>单挑（更高档）</th><th>实战搭配</th></tr>
+        <tr><td>1星</td><td>换 3~4星白泽</td><td>换 5星白泽</td><td>换 4~5星白泽</td></tr>
+        <tr><td>2星</td><td>—</td><td>—</td><td>绝大多数换 5星白泽</td></tr>
+      </table>
+      <div class="info" style="margin-top:4px;">对手琉璃幻仙全满星时，1星鲲鹏比5星白泽强很多。0星鲲鹏老区没法上阵。</div>
+
       <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
       <p>开完图鉴后随便升哪个，一个一个单升5星去协阵。如果在新手村内获得了大量赤魇幻仙，并且高品质幻仙没星，可以1星夔牛（比任何0星金霄强）后再开图鉴。</p>
     </section>
-  </main>
+  
 
-  <TOCPanel />
+    <TOCPanel />
+
+  <PageNav currentPath="/kaixiang/huanxian/" navItems={kaixiangNavItems} />
+</main>
+
+
   <BackToTop />
 </BaseLayout>

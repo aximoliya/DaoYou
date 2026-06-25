@@ -4,6 +4,7 @@ import NavBar from '../../components/NavBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 import { kaixiangNavItems } from '../../data/navItems';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = kaixiangNavItems;
 ---
@@ -16,6 +17,7 @@ const navItems = kaixiangNavItems;
       { href: '../', label: '攻略总览' },
       { label: '开箱攻略' }
     ]} />
+            <TimeBadge date="2026-05-12" version="曦幻二版本" />
 
     <section>
       <h2>📦 开箱攻略</h2>

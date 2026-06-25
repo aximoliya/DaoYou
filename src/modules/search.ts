@@ -106,8 +106,9 @@ export function doSearch(): void {
     state.currentHits[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
   } else {
     if (state.searchCount) {
-      state.searchCount.textContent = '0';
+      state.searchCount.textContent = '未找到';
       state.searchCount.classList.add('visible');
+      state.searchCount.style.color = 'var(--text-muted)';
     }
     if (state.searchPrev) {
       state.searchPrev.classList.add('visible');

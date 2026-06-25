@@ -8,6 +8,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
 import { yangchengNavItems } from '../../data/navItems';
+import PageNav from '../../components/PageNav.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = yangchengNavItems;
 ---
@@ -21,6 +23,7 @@ const navItems = yangchengNavItems;
       { href: '../', label: '养成系统' },
       { label: '神藏系统' }
     ]} />
+            <TimeBadge date="2026-03-14" version="3.14 版本" />
 
     <SearchBar />
     <TierBar />
@@ -57,8 +60,13 @@ const navItems = yangchengNavItems;
       </table>
       <div class="info">💡 结论：<b>全体均4最强</b>，比单升高25%胜率，比均3高6.5%。1~5核均4和6核均4最终一样。</div>
     </section>
-  </main>
+  
 
-  <TOCPanel />
+    <TOCPanel />
+
+  <PageNav currentPath="/yangcheng/shencang/" navItems={yangchengNavItems} />
+</main>
+
+
   <BackToTop />
 </BaseLayout>

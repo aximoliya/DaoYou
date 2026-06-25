@@ -8,6 +8,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
 import { kaixiangNavItems } from '../../data/navItems';
+import PageNav from '../../components/PageNav.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = kaixiangNavItems;
 ---
@@ -21,6 +23,7 @@ const navItems = kaixiangNavItems;
       { href: '../', label: '开箱攻略' },
       { label: '三、星姬' }
     ]} />
+            <TimeBadge date="2026-05" version="曦幻二版本" />
 
     <SearchBar />
     <TierBar />
@@ -59,11 +62,36 @@ const navItems = kaixiangNavItems;
 
       <h3>星级替换</h3>
 
+      <h4>曦幻星姬·牛鹿 → 琉璃星姬·犴鼠</h4>
+      <table data-tiers="ll xh">
+        <tr><th>牛/鹿星级</th><th>上阵-单挑（真实强度）</th><th>上阵-实战搭配</th></tr>
+        <tr><td>0星</td><td>换 3~4星蛇/燕，换不了1星犴/鼠</td><td>换不了1星犴/鼠</td></tr>
+        <tr><td>1星</td><td>换 4~5星犴/鼠</td><td>换 5~7星犴/鼠</td></tr>
+        <tr><td>2星</td><td>换 5~6星犴/鼠</td><td>换 6~7星犴/鼠</td></tr>
+        <tr><td>3星</td><td>换 7星犴/鼠</td><td>—</td></tr>
+      </table>
+      <div class="info" style="margin-top:4px;">🔗 传灵排序（技能孔）：5鼠 ＞ 7燕 ＞ 7犴 ＞ 4鼠 ＞ 3鼠 ＞ 6燕 ＞ 6犴 ＞ 5燕 ＞ 5犴 ＞ 2鼠 ≈ 7蛇 ＞ 6蛇 ＞ 1鼠 ＞ 4燕 ＞ 4犴 ＞ 3燕 ＞ 3犴 ＞ 5蛇 ＞ 2燕 ＞ 2犴 ＞ 4蛇 ＞ 1燕 ＞ 1犴 ＞ 3蛇 ＞ 1蛇 ＞ 0鼠 ＞ 0燕 ＞ 0犴 ＞ 0蛇</div>
+
+      <h4>琉璃星姬·犴鼠 → 金霄星姬·猪/貉+蛇/燕</h4>
+      <table data-tiers="jx ll">
+        <tr><th>犴/鼠星级</th><th>上阵-单挑</th><th>上阵-搭配</th></tr>
+        <tr><td>0星</td><td>换 1~2星猪/貉</td><td>换 1~2星猪/貉</td></tr>
+        <tr><td>1星</td><td>换 3~4星蛇/燕</td><td>换 4星蛇/燕</td></tr>
+        <tr><td>2星</td><td>换 4星蛇/燕</td><td>换 4~5星蛇/燕</td></tr>
+        <tr><td>3星</td><td>换 6星蛇/燕</td><td>换 6~7星蛇/燕</td></tr>
+        <tr><td>4星</td><td>换 6~7星蛇/燕</td><td>换 7星蛇/燕</td></tr>
+      </table>
+
       <h3><span class="badge badge-jx">金霄</span>及以下</h3>
       <p>开完图鉴后单升，随便单升哪个。如果箱子里还有九天星魂、星陨石之类的高级材料，开完图鉴后只选材料。</p>
     </section>
-  </main>
+  
 
-  <TOCPanel />
+    <TOCPanel />
+
+  <PageNav currentPath="/kaixiang/xingji/" navItems={kaixiangNavItems} />
+</main>
+
+
   <BackToTop />
 </BaseLayout>

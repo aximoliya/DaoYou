@@ -8,6 +8,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
 
 import { kaixiangNavItems } from '../../data/navItems';
+import PageNav from '../../components/PageNav.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
 const navItems = kaixiangNavItems;
 ---
@@ -21,6 +23,7 @@ const navItems = kaixiangNavItems;
       { href: '../', label: '开箱攻略' },
       { label: '六、灵武' }
     ]} />
+            <TimeBadge date="2026-05" version="曦幻二版本" />
 
     <SearchBar />
     <TierBar />
@@ -30,6 +33,15 @@ const navItems = kaixiangNavItems;
       <div class="info">💡 灵武通用：灵武最强的放阵容最右边上阵，剩下品质与星级最高的6个护佑神仙，最后剩下的才去协力/附灵。</div>
 
       <h3>灵武星级替换</h3>
+
+      <h4>曦幻·笔 → 琉璃·刃</h4>
+      <table data-tiers="ll xh">
+        <tr><th>笔星级</th><th>单挑</th><th>实战搭配</th></tr>
+        <tr><td>0星</td><td>换 1~2星刃（大概率换1星刃）</td><td>换 2~3星刃</td></tr>
+        <tr><td>1星</td><td>换 3~4星刃（大概率≈4星刃）</td><td>换 5星刃（稳定远超）</td></tr>
+        <tr><td>2星</td><td>换 4~5星刃（大概率≈5星刃）</td><td>—</td></tr>
+      </table>
+      <div class="info" style="margin-top:4px;">⚠️ 笔不能护佑，不放出战等于没有。1笔换5刃 = 1笔出战5刃护佑 vs 5刃出战，二打一。</div>
 
       <h3><span class="badge badge-ll">琉璃</span>灵武</h3>
       <table data-tiers="jx ll">
@@ -49,8 +61,13 @@ const navItems = kaixiangNavItems;
       <h3><span class="badge badge-ct">赤魇</span>及以下</h3>
       <p>开完图鉴后平均升星，随便升哪个。如果是在新手村内获得的赤魇灵武箱，可以先升1星杵或1星鼎后再开图鉴，没更高品质灵武优先杵，有更高品质灵武优先鼎。</p>
     </section>
-  </main>
+  
 
-  <TOCPanel />
+    <TOCPanel />
+
+  <PageNav currentPath="/kaixiang/lingwu/" navItems={kaixiangNavItems} />
+</main>
+
+
   <BackToTop />
 </BaseLayout>

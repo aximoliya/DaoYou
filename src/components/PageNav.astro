@@ -7,7 +7,8 @@ interface Props {
   base?: string;
 }
 
-const { currentPath, navItems, base = import.meta.env.BASE_URL } = Astro.props;
+const { currentPath, navItems, base: rawBase = import.meta.env.BASE_URL } = Astro.props;
+const base = rawBase.endsWith('/') ? rawBase : rawBase + '/';
 
 // Filter to only items with actual href (not group labels)
 const items = navItems.filter(item => item.href && !item.group);

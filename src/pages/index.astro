@@ -14,7 +14,7 @@ import { homeNavItems } from '../lib/navItems';
     <div class="hub-hero">
       <h1>道友请留步 · 攻略站</h1>
       <p>覆盖神仙、天书、星姬、幻仙、宠物、灵武、元神、法宝、装备、多选箱等全系统开箱路线</p>
-      <p style="color:var(--text-muted);font-size:var(--text-sm);margin-top:8px;">来源：笑语@TapTap · 最后更新 2026-05-12</p>
+      <p style="color:var(--text-muted);font-size:var(--text-sm);margin-top:8px;">来源：笑语@TapTap · 最后更新 2026-09-01</p>
     </div>
 
     <!-- 全局搜索 -->
@@ -23,11 +23,11 @@ import { homeNavItems } from '../lib/navItems';
     <!-- 统计概览条 -->
     <div class="hub-stats">
       <div class="stat-item">
-        <span class="stat-num">17</span>
+        <span class="stat-num">19</span>
         <span class="stat-label">攻略页面</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num">3</span>
+        <span class="stat-num">4</span>
         <span class="stat-label">系统分类</span>
       </div>
       <div class="stat-item">
@@ -39,6 +39,11 @@ import { homeNavItems } from '../lib/navItems';
     <!-- 三大分类横向排列 -->
     <section>
       <div class="hub-row">
+        <a href={`${import.meta.env.BASE_URL}/reviews/`} class="hub-card hub-card-category">
+          <span class="icon">🔬</span>
+          <span class="label">道具测评</span>
+          <span class="desc">新道具深度解析，技能讲解与实战搭配</span>
+        </a>
         <a href={`${import.meta.env.BASE_URL}/kaixiang/`} class="hub-card hub-card-category">
           <span class="icon">📦</span>
           <span class="label">开箱攻略</span>

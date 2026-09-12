@@ -12,3 +12,7 @@ push.ps1
 
 # 备份文件
 *.bak
+# 临时抓取原文
+taptap_content.txt
+taptap_content_latest.txt
+taptap_review.txt

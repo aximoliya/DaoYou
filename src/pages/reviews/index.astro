@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NavBar from '../../components/NavBar.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BackToTop from '../../components/BackToTop.astro';
+
+const navItems = [
+  { href: '/reviews/', label: '道具测评总览', group: '道具测评' },
+  { href: '/reviews/guixu/', label: '归墟葬星图测评' },
+];
+---
+
+<BaseLayout title="道具测评 · 道友攻略" page="reviews">
+  <NavBar currentPage="/reviews/" navItems={navItems} />
+
+  <main>
+    <Breadcrumb items={[
+      { href: '../', label: '攻略总览' },
+      { label: '道具测评' }
+    ]} />
+
+    <section>
+      <h2>🔬 道具测评</h2>
+      <p style="color:var(--text-dim);">新道具深度解析，技能讲解与实战搭配：</p>
+      <div class="hub-grid" style="margin-top:16px;">
+        <a href="guixu/" class="hub-card">
+          <span class="icon">🔮</span>
+          <span class="label">归墟葬星图</span>
+          <span class="desc">曦幻天书 · 辅助定位 · 延缓登场 · 控制降神</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <BackToTop />
+</BaseLayout>

@@ -11,6 +11,8 @@ export interface NavItem {
 
 /** 全局导航（首页使用）*/
 export const globalNavItems: NavItem[] = [
+  { href: '/reviews/', label: '道具测评总览', group: '道具测评' },
+  { href: '/reviews/guixu/', label: '归墟葬星图测评' },
   { href: '/kaixiang/', label: '开箱攻略总览', group: '开箱攻略' },
   { href: '/kaixiang/shenxian/', label: '一、神仙' },
   { href: '/kaixiang/tianshu/', label: '二、天书' },
@@ -49,6 +51,12 @@ export const richangNavItems: NavItem[] = [
   { href: '/richang/', label: '日常运营总览', group: '日常运营' },
   { href: '/richang/shop/', label: '商店购买' },
   { href: '/richang/huodong/', label: '活动购买兑换' },
+];
+
+/** 道具测评模块导航 */
+export const reviewsNavItems: NavItem[] = [
+  { href: '/reviews/', label: '道具测评总览', group: '道具测评' },
+  { href: '/reviews/guixu/', label: '归墟葬星图测评' },
 ];
 
 /** 养成系统模块导航 */

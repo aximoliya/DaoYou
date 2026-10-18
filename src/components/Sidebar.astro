@@ -1,0 +1,46 @@
+---
+import { sidebarNav } from '../data/sidebarNav';
+import Icon from './Icon.astro';
+const BASE = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
+const { current = '' } = Astro.props;
+
+const norm = (h?: string) => (h || '').replace(/\/$/, '');
+const isActive = (href?: string) => href && norm(current) === norm(href);
+const groupActive = (children?: { href?: string }[]) =>
+  !!children?.some(ch => isActive(ch.href));
+---
+
+<button class="hamburger" id="hamburger" aria-label="菜单"><Icon name="menu" size={20} class="ham-open" /><Icon name="close" size={20} class="ham-close" /></button>
+<div class="nav-overlay" id="overlay" style="display:none"></div>
+
+<aside class="sidebar" id="sidebar">
+  {sidebarNav.map(item => item.children ? (
+    <details class="side-group" open={groupActive(item.children)}>
+      <summary class="side-group-label">
+        <span class="side-group-main"><Icon name={item.icon} size={17} /><span>{item.label}</span></span>
+        <span class="chev">▶</span>
+      </summary>
+      <div class="side-group-body">
+        {item.children.map(child => (
+          <a
+            href={`${BASE}${(child.href || '').replace(/^\//, '')}`}
+            class:list={['side-item', { active: isActive(child.href) }]}
+          >
+            <span class="side-icon"><Icon name={child.icon} size={17} /></span>
+            <span>{child.label}</span>
+          </a>
+        ))}
+      </div>
+    </details>
+  ) : (
+    <a href={BASE} class:list={['side-item', { active: current === '/' || current === '' }]}>
+      <span class="side-icon"><Icon name={item.icon} size={17} /></span>
+      <span>{item.label}</span>
+    </a>
+  ))}
+
+  <div class="side-foot">
+    <span class="side-foot-title">一站式攻略</span>
+    助你轻松上手 · 内容持续更新
+  </div>
+</aside>

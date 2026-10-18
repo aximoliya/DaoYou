@@ -27,7 +27,7 @@ export function initAccordion(): void {
         }
       });
       
-      toggleAll.textContent = allOpen ? '📂 展开全部' : '📁 收起全部';
+      toggleAll.setAttribute('data-state', allOpen ? 'open' : 'closed');
     });
   }
 }

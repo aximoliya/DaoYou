@@ -13,14 +13,12 @@ export interface TextBlock {
 export interface InfoBlock {
   type: 'info';
   content: string;
-  tiers?: string;
 }
 
 /** 警告信息块 */
 export interface WarnBlock {
   type: 'warn';
   content: string;
-  tiers?: string;
 }
 
 /** 卡片块 */
@@ -28,7 +26,6 @@ export interface CardBlock {
   type: 'card';
   title: string;
   content: string;
-  tiers?: string;
   note?: string;
 }
 
@@ -36,7 +33,6 @@ export interface CardBlock {
 export interface FlowBlock {
   type: 'flow';
   steps: string[];
-  tiers?: string;
   note?: string;
 }
 
@@ -45,14 +41,12 @@ export interface TableBlock {
   type: 'table';
   headers: string[];
   rows: string[][];
-  tiers?: string;
 }
 
 /** 路线列表块 */
 export interface RouteBlock {
   type: 'route';
   items: string[];
-  tiers?: string;
 }
 
 /** 标题块 */
@@ -60,7 +54,6 @@ export interface HeadingBlock {
   type: 'heading';
   level: 2 | 3;
   text: string;
-  badge?: string;
   icon?: string;
 }
 
@@ -78,8 +71,6 @@ export type ContentBlock =
 /** 攻略章节 */
 export interface GuideSection {
   title: string;
-  badge?: string;
-  tiers?: string;
   blocks: ContentBlock[];
 }
 

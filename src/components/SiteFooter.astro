@@ -1,0 +1,17 @@
+---
+const BASE = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
+---
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-brand">
+      道友攻略站 <span>道友请留步 · 攻略大全</span>
+    </div>
+    <nav class="footer-links">
+      <a href={`${BASE}kaixiang/`}>开箱攻略</a>
+      <a href={`${BASE}reviews/`}>道具测评</a>
+      <a href={`${BASE}richang/`}>日常运营</a>
+      <a href={`${BASE}yangcheng/`}>养成系统</a>
+    </nav>
+  </div>
+</footer>

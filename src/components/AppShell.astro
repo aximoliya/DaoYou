@@ -1,0 +1,32 @@
+---
+import TopBar from './TopBar.astro';
+import Sidebar from './Sidebar.astro';
+import SiteFooter from './SiteFooter.astro';
+
+interface Props {
+  current?: string;
+  rail?: 'none' | 'default';
+}
+
+const { current = '', rail = 'default' } = Astro.props;
+---
+
+<div class="app-shell">
+  <TopBar />
+
+  <div class:list={['app-body', { 'no-rail': rail === 'none' }]}>
+    <Sidebar current={current} />
+
+    <main class="app-main">
+      <slot />
+    </main>
+
+    {rail !== 'none' && (
+      <aside class="rail">
+        <slot name="rail" />
+      </aside>
+    )}
+  </div>
+
+  <SiteFooter />
+</div>

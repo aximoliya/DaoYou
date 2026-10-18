@@ -1,4 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <rect width="100" height="100" rx="20" fill="#080c14"/>
-  <text x="50" y="65" font-size="50" text-anchor="middle" fill="#e8b44f">🧧</text>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6D9BFA"/>
+      <stop offset="100%" stop-color="#4E83F7"/>
+    </linearGradient>
+  </defs>
+  <!-- 品牌蓝底 -->
+  <rect width="100" height="100" rx="22" fill="url(#bg)"/>
+  <!-- 书卷字形（取自站点图标库 book） -->
+  <g transform="translate(11.6 11.6) scale(3.2)" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M12 6.9C10.6 5.4 8.2 4.5 4.5 4.5v12.6c3.7 0 6.1.9 7.5 2.4 1.4-1.5 3.8-2.4 7.5-2.4V4.5c-3.7 0-6.1.9-7.5 2.4z"/>
+    <path d="M12 6.9v12.6" fill="none" stroke="#4E83F7" stroke-width="1.1"/>
+  </g>
 </svg>

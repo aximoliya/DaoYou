@@ -1,0 +1,29 @@
+---
+import GlobalSearch from './GlobalSearch.astro';
+import Icon from './Icon.astro';
+const BASE = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
+---
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">
+      <a href={BASE} class="topbar-logo">
+        <span class="logo-mark" aria-hidden="true">道</span>
+        <span>道友攻略站</span>
+        <span class="logo-badge">攻略</span>
+      </a>
+    </div>
+
+    <div class="topbar-search">
+      <GlobalSearch />
+    </div>
+
+    <div class="topbar-actions">
+      <button id="theme-toggle" class="topbar-icon-btn" aria-label="切换主题" title="切换深浅主题">
+        <Icon name="moon" size={18} class="ico-moon" />
+        <Icon name="sun" size={18} class="ico-sun" />
+      </button>
+      <span class="topbar-avatar" aria-hidden="true">道</span>
+    </div>
+  </div>
+</header>

@@ -1,5 +1,6 @@
 ---
 import '../styles/main.css';
+import { BASE, withBase } from '../lib/url';
 
 interface Props {
   title: string;
@@ -7,6 +8,8 @@ interface Props {
   page?: string;
   current?: string;
   image?: string;
+  /** 输出 noindex,follow（用于 404 等不应被收录的页面） */
+  noindex?: boolean;
 }
 
 const { 
@@ -14,11 +17,16 @@ const {
   description = '道友请留步游戏攻略站 - 涵盖神仙、天书、星姬、幻仙、宠物、灵武、元神、法宝、装备等全系统开箱路线与日常运营指南',
   page = '', 
   current = '',
-  image = '/og-image.svg'
+  // 社交平台均不渲染 SVG 分享图，这里必须是 PNG（由 npm run build:assets 从 og-image.svg 生成）
+  image = '/og-image.png',
+  noindex = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const BASE = import.meta.env.BASE_URL;
+
+// 分享图必须是绝对 URL，并且要带上站点 base。
+// 注意：直接 new URL(image, Astro.site) 会丢掉 base，得到站点根下的 404 地址。
+const ogImage = new URL(withBase(image), Astro.site).href;
 ---
 
 <!DOCTYPE html>
@@ -32,13 +40,16 @@ const BASE = import.meta.env.BASE_URL;
   <meta name="title" content={title}>
   <meta name="description" content={description}>
   <link rel="canonical" href={canonicalURL}>
+  {noindex && <meta name="robots" content="noindex, follow">}
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content={canonicalURL}>
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
-  <meta property="og:image" content={new URL(image, Astro.site)}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:locale" content="zh_CN">
   
   <!-- Twitter -->
@@ -46,24 +57,32 @@ const BASE = import.meta.env.BASE_URL;
   <meta property="twitter:url" content={canonicalURL}>
   <meta property="twitter:title" content={title}>
   <meta property="twitter:description" content={description}>
-  <meta property="twitter:image" content={new URL(image, Astro.site)}>
+  <meta property="twitter:image" content={ogImage}>
   
   <!-- PWA Meta -->
-  <meta name="theme-color" content="#080c14">
+  <meta name="theme-color" content="#F4F8FD">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href={`${BASE}/manifest.json`}>
-  <link rel="apple-touch-icon" href={`${BASE}/apple-touch-icon.png`}>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href={`${BASE}manifest.json`}>
+  <link rel="apple-touch-icon" href={`${BASE}apple-touch-icon.png`}>
   
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href={`${BASE}/favicon.svg`}>
-  
-  <!-- Preload Critical Resources -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Performance Hints -->
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="icon" type="image/svg+xml" href={`${BASE}favicon.svg`}>
+
+  <!--
+    标题字体不再走 Google Fonts：
+    国内网络基本不可达，且该请求会阻塞首屏渲染。
+    现在直接用 _variables.css 里的系统国风字体栈（STKaiti / KaiTi）。
+  -->
+
+  <!-- 主题防闪烁：在绘制前应用保存的主题 -->
+  <script is:inline>
+    try {
+      if (localStorage.getItem('daoyou-theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body>
   <slot />

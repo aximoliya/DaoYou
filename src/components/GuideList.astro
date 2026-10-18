@@ -1,0 +1,30 @@
+---
+import { latestGuides } from '../data/latestGuides';
+import Icon from './Icon.astro';
+const BASE = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
+---
+
+<section class="guide-list">
+  <div class="section-head">
+    <h2 class="section-title">最新攻略</h2>
+    <a href={`${BASE}kaixiang/`} class="section-more">查看更多 →</a>
+  </div>
+
+  <div class="guide-items">
+    {latestGuides.map(g => (
+      <a href={`${BASE}${g.href.replace(/^\//, '')}`} class="guide-item">
+        <span class="guide-thumb" style={`background:linear-gradient(135deg,${g.grad});`}><Icon name={g.icon} size={21} /></span>
+        <div class="guide-body">
+          <div class="guide-title">{g.title}</div>
+          <div class="guide-meta">
+            <span class="guide-tag">{g.tag}</span>
+          </div>
+        </div>
+        <div class="guide-side">
+          <span class="guide-date">{g.date}</span>
+          <span class="guide-cat">·&nbsp;{g.category}</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

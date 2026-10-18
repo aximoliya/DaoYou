@@ -2,6 +2,18 @@
  * 道友攻略站 · 浮动目录模块
  */
 
+/** 与 Icon.astro 中 list / close 保持一致的路径 */
+const LIST_PATHS =
+  '<path d="M8.4 6.6h11.2"/><path d="M8.4 12h11.2"/><path d="M8.4 17.4h11.2"/>' +
+  '<circle cx="4.6" cy="6.6" r="1.15" fill="currentColor" stroke="none"/>' +
+  '<circle cx="4.6" cy="12" r="1.15" fill="currentColor" stroke="none"/>' +
+  '<circle cx="4.6" cy="17.4" r="1.15" fill="currentColor" stroke="none"/>';
+const CLOSE_PATHS = '<path d="M5.6 5.6 18.4 18.4M18.4 5.6 5.6 18.4"/>';
+
+function svgIcon(paths: string, size = 18): string {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+}
+
 interface TOCItem {
   el: HTMLElement;
   id: string;
@@ -15,7 +27,7 @@ let tocScrollTimer: ReturnType<typeof setTimeout>;
 function buildTOC(): void {
   if (!tocPanel) return;
   
-  const isHub = !document.getElementById('nav');
+  const isHub = !document.getElementById('sidebar');
   if (isHub) return;
 
   // 清除旧链接
@@ -41,26 +53,24 @@ function buildTOC(): void {
   }
 
   const titleEl = currentSection.querySelector('h2');
-  const title = titleEl ? titleEl.textContent?.replace(/[🆕🛒🏛️👤📖⭐🧚🐾⚔️💎🔮📦📋🔬⚔️🌀☁️🏔️🤝👗🧧⛏️🎖️🏠🛡️🐉🏛️♻️👹🏆🏞️🔒]/g, '').trim() : '';
-  const tocTitle = tocPanel.querySelector('.toc-title');
-  if (tocTitle) tocTitle.textContent = '📑 ' + (title || '本节');
+  const title = titleEl ? (titleEl.textContent || '').trim() : '';
+  const tocTitle = tocPanel.querySelector('#toc-title-text');
+  if (tocTitle) tocTitle.textContent = title || '本节';
 
   const items: TOCItem[] = [];
   let idx = 0;
 
   currentSection.querySelectorAll('h3').forEach(el => {
-    if ((el as HTMLElement).closest('.tier-hidden')) return;
     const id = 'toc-' + currentSection.id + '-' + (idx++);
     if (!el.id) el.id = id;
     items.push({
       el: el as HTMLElement,
       id,
-      text: el.textContent?.replace(/[🔬⚔️📋🆕]/g, '').trim().substring(0, 28) || ''
+      text: (el.textContent || '').trim().substring(0, 28)
     });
   });
 
   currentSection.querySelectorAll('.card-title').forEach(el => {
-    if ((el as HTMLElement).closest('.tier-hidden')) return;
     const card = (el as HTMLElement).closest('.card');
     const id = 'toc-' + currentSection.id + '-' + (idx++);
     if (card && !card.id) card.id = id;
@@ -77,10 +87,10 @@ function buildTOC(): void {
   }
 
   const closeNav = () => {
-    const nav = document.getElementById('nav');
+    const nav = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
     if (nav) nav.classList.remove('open');
-    if (overlay) overlay.classList.remove('show');
+    if (overlay) { overlay.classList.remove('show'); overlay.style.display = 'none'; }
   };
 
   items.forEach(item => {
@@ -90,7 +100,7 @@ function buildTOC(): void {
     a.addEventListener('click', (e) => {
       e.preventDefault();
       item.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      if (window.innerWidth <= 768) closeNav();
+      if (window.innerWidth <= 860) closeNav();
     });
     tocPanel!.appendChild(a);
   });
@@ -102,37 +112,36 @@ function buildTOC(): void {
 export function initTOC(): void {
   tocPanel = document.getElementById('toc-panel');
 
-  // Create mobile TOC toggle button
-  const isMobile = window.innerWidth <= 768;
+  // 移动端目录浮动按钮
+  const isMobile = window.innerWidth <= 860;
   if (isMobile && tocPanel) {
     let toggleBtn = document.querySelector('.toc-toggle') as HTMLButtonElement;
     if (!toggleBtn) {
       toggleBtn = document.createElement('button');
       toggleBtn.className = 'toc-toggle';
-      toggleBtn.textContent = '📑';
       toggleBtn.setAttribute('aria-label', '目录');
       toggleBtn.title = '本节目录';
+      // 两个 SVG 图标叠放，由 .is-open 切换显示（与全站图标风格一致）
+      toggleBtn.innerHTML = svgIcon(LIST_PATHS) + svgIcon(CLOSE_PATHS);
       document.body.appendChild(toggleBtn);
     }
-    
+
     toggleBtn.addEventListener('click', () => {
-      if (tocPanel) {
-        const isVisible = tocPanel.classList.contains('show');
-        if (isVisible) {
-          tocPanel.classList.remove('show');
-          toggleBtn.textContent = '📑';
-        } else {
-          tocPanel.classList.add('show');
-          toggleBtn.textContent = '✕';
-          buildTOC();
-        }
+      if (!tocPanel) return;
+      if (tocPanel.classList.contains('show')) {
+        tocPanel.classList.remove('show');
+        toggleBtn!.classList.remove('is-open');
+      } else {
+        tocPanel.classList.add('show');
+        toggleBtn!.classList.add('is-open');
+        buildTOC();
       }
     });
-    
-    // Hide toggle when TOC is empty
+
+    // 目录为空自动隐藏时，同步复位按钮
     const observer = new MutationObserver(() => {
       if (tocPanel && !tocPanel.classList.contains('show')) {
-        toggleBtn.textContent = '📑';
+        toggleBtn!.classList.remove('is-open');
       }
     });
     observer.observe(tocPanel, { attributes: true, attributeFilter: ['class'] });

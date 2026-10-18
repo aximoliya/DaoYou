@@ -1,36 +1,34 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import NavBar from '../../components/NavBar.astro';
+import AppShell from '../../components/AppShell.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
-import { yangchengNavItems } from '../../data/navItems';
+import Icon from '../../components/Icon.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
-const navItems = yangchengNavItems;
+const items = [
+  { href: 'shencang/', icon: 'landmark', label: '神藏系统', desc: '节点升级路线、战力与胜率实测数据' },
+];
+---
 
-import TimeBadge from '../../components/TimeBadge.astro';---
-
-<BaseLayout title="养成系统 · 道友攻略" page="yangcheng">
-  <NavBar currentPage="/yangcheng/" navItems={navItems} />
-
-  <main>
-    <Breadcrumb items={[
-      { href: '../', label: '攻略总览' },
-      { label: '养成系统' }
-    ]} />
-        <TimeBadge date="2026-05" version="曦幻二版本" />
+<BaseLayout title="养成系统 · 道友攻略" page="yangcheng" current="/yangcheng/">
+  <AppShell current="/yangcheng/">
+    <Breadcrumb items={[{ href: '../', label: '攻略总览' }, { label: '养成系统' }]} />
+    <TimeBadge date="2026-09-27" version="曦幻三版本" />
 
     <section>
-      <h2>📈 养成系统</h2>
-      <p style="color:var(--text-dim);">角色成长与资源分配攻略：</p>
-      <div class="hub-grid" style="margin-top:16px;">
-        <a href="shencang/" class="hub-card">
-          <span class="icon">🏛️</span>
-          <span class="label">神藏系统</span>
-          <span class="desc">节点升级路线、战力与胜率实测数据</span>
-        </a>
+      <h2 class="page-title"><Icon name="landmark" size={25} />养成系统</h2>
+      <p class="page-lead">角色成长与资源分配攻略：</p>
+      <div class="hub-grid">
+        {items.map(i => (
+          <a href={i.href} class="hub-card">
+            <Icon name={i.icon} size={24} />
+            <span class="label">{i.label}</span>
+            <span class="desc">{i.desc}</span>
+          </a>
+        ))}
       </div>
     </section>
-  </main>
-
+  </AppShell>
   <BackToTop />
 </BaseLayout>

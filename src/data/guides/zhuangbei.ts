@@ -3,19 +3,18 @@ import type { GuideData } from './types';
 export const zhuangbeiGuide: GuideData = {
   id: 'zhuangbei',
   title: '九、装备',
-  icon: '🛡️',
+  icon: 'shield',
   category: '开箱攻略',
   categoryHref: '/kaixiang/',
-  updateDate: '2026-09-01',
+  updateDate: '2026-09-27',
   version: '曦幻二版本',
   sections: [
     {
       title: '装备替换',
-      badge: 'xh',
       blocks: [
         {
           type: 'info',
-          content: '💡 高品质装备0星或0阶即可替换低品质装备满星或满阶。'
+          content: '高品质装备0星或0阶即可替换低品质装备满星或满阶。'
         }
       ]
     },
@@ -30,7 +29,6 @@ export const zhuangbeiGuide: GuideData = {
           type: 'card',
           title: '升级路线',
           content: '',
-          tiers: 'll xh',
           note: '1. 主核1\n2. 主核11\n3. 主核11，副核11，三核11\n4. 主核111，副核11，三核11\n5. 主核1111，副核11，三核11\n6. 主核1111，副核1111，三核1111\n7. 主核1111，副核1111，三核1111，四核0，五核0，六核0\n8. 主核2211，副核2211，三核2211，四核0，五核0，六核0\n9. 主核2211，副核2211，三核2211，四核000，五核000，六核000（先四核3个0，再五核3个0）\n10. 按核度排序升满'
         }
       ]

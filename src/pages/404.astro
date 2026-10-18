@@ -1,0 +1,106 @@
+---
+/**
+ * 404 页面
+ * GitHub Pages 会把 404.html 作为全站兜底页返回，避免拼错链接时落到 GitHub 默认页。
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AppShell from '../components/AppShell.astro';
+import { withBase } from '../lib/url';
+---
+
+<BaseLayout
+  title="页面不存在 · 道友攻略站"
+  description="没有找到这个页面，回到攻略总览继续查找。"
+  page="404"
+  noindex
+>
+  <AppShell current="" rail="none">
+    <div class="notfound">
+      <div class="notfound-code" aria-hidden="true">404</div>
+      <h1 class="notfound-title">没有找到这个页面</h1>
+      <p class="notfound-desc">
+        攻略内容一直在更新，旧的链接可能会失效。<br />
+        你可以从下面的入口重新找找看。
+      </p>
+      <div class="notfound-actions">
+        <a class="nf-btn nf-btn-primary" href={withBase('')}>返回首页</a>
+        <a class="nf-btn" href={withBase('kaixiang/')}>开箱攻略</a>
+        <a class="nf-btn" href={withBase('richang/')}>日常运营</a>
+      </div>
+    </div>
+  </AppShell>
+</BaseLayout>
+
+<style>
+  .notfound {
+    max-width: 560px;
+    margin: 8vh auto 0;
+    padding: 40px 28px 48px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .notfound-code {
+    font-family: var(--font-heading);
+    font-size: 84px;
+    line-height: 1;
+    font-weight: var(--weight-extrabold);
+    letter-spacing: 4px;
+    color: var(--accent);
+    opacity: 0.28;
+  }
+
+  .notfound-title {
+    margin-top: 12px;
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--text);
+  }
+
+  .notfound-desc {
+    margin-top: 10px;
+    font-size: var(--text-base);
+    line-height: 1.9;
+    color: var(--text-secondary);
+  }
+
+  .notfound-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: 28px;
+  }
+
+  .nf-btn {
+    padding: 9px 20px;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+
+  .nf-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--surface-hover);
+  }
+
+  .nf-btn-primary {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .nf-btn-primary:hover {
+    color: #fff;
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+  }
+</style>

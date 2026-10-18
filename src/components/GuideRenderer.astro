@@ -3,11 +3,12 @@
  * 通用攻略渲染组件
  * 从 GuideData 数据渲染完整的攻略页面
  */
-import type { GuideData, ContentBlock } from '../data/guides/types';
+import type { GuideData } from '../data/guides/types';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import NavBar from './NavBar.astro';
+import AppShell from './AppShell.astro';
 import Breadcrumb from './Breadcrumb.astro';
 import TimeBadge from './TimeBadge.astro';
+import Icon from './Icon.astro';
 import TOCPanel from './TOCPanel.astro';
 import PageNav from './PageNav.astro';
 import BackToTop from './BackToTop.astro';
@@ -20,7 +21,7 @@ interface Props {
 
 const { guide, currentPath } = Astro.props;
 
-// 根据分类选择导航数据
+// 根据分类选择导航数据（用于上一篇/下一篇）
 const navMap: Record<string, any[]> = {
   '/kaixiang/': kaixiangNavItems,
   '/richang/': richangNavItems,
@@ -31,9 +32,18 @@ const navItems = navMap[guide.categoryHref] || kaixiangNavItems;
 ---
 
 <BaseLayout title={`${guide.title} · 道友攻略`} page={guide.id} current={guide.id}>
-  <NavBar currentPage={currentPath} navItems={navItems} />
+  <AppShell current={currentPath}>
+    <Fragment slot="rail">
+      <TOCPanel />
+      <div class="rail-card rail-note">
+        <h3 class="rail-card-title"><Icon name="pin" size={16} />更新信息</h3>
+        <p>{guide.version ? `${guide.version} · ` : ''}{guide.updateDate}</p>
+        {guide.sourceUrl && (
+          <a href={guide.sourceUrl} target="_blank" rel="noopener" class="rail-note-link">攻略来源：{guide.sourceAuthor || 'TapTap'} →</a>
+        )}
+      </div>
+    </Fragment>
 
-  <main>
     <Breadcrumb items={[
       { href: '../../', label: '攻略总览' },
       { href: '../', label: guide.category },
@@ -42,66 +52,71 @@ const navItems = navMap[guide.categoryHref] || kaixiangNavItems;
     <TimeBadge date={guide.updateDate} version={guide.version} />
 
     <section id={guide.id}>
-      <h2><span class="icon">{guide.icon}</span>{guide.title}</h2>
+      <h2><span class="h2-icon"><Icon name={guide.icon} size={24} /></span>{guide.title}</h2>
 
       {guide.sections?.map(section => (
         <>
           <h3>
-            {section.badge && <span class={`badge badge-${section.badge}`}>{section.badge === 'xh' ? '曦幻' : section.badge === 'll' ? '琉璃' : section.badge === 'jx' ? '金霄' : section.badge === 'ct' ? '赤魇' : section.badge === 'zx' ? '紫虚' : section.badge === 'qy' ? '青曜' : section.badge === 'hc' ? '幻彩' : section.badge}</span>}
             {section.title}
           </h3>
 
           {section.blocks?.map(block => {
             switch (block.type) {
               case 'text':
-                return <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">{block.content}</p>;
-              
+                return <p class="block-text" set:html={block.content} />;
+
               case 'info':
-                return <div class="info" data-tiers={block.tiers} set:html={block.content} />;
-              
+                return <div class="info" set:html={block.content} />;
+
               case 'warn':
-                return <div class="warn" data-tiers={block.tiers} set:html={block.content} />;
-              
+                return <div class="warn" set:html={block.content} />;
+
               case 'card':
                 return (
-                  <div class="card" data-tiers={block.tiers}>
-                    <div class="card-title">{block.title}</div>
-                    {block.content && <div class="flow" data-tiers={block.tiers} set:html={block.content} />}
-                    {block.note && <p style="font-size:12px;color:var(--text-muted);margin-top:6px;" set:html={block.note} />}
+                  <div class="card">
+                    <div class="card-title" set:html={block.title} />
+                    {block.content && <div class="flow" set:html={block.content} />}
+                    {block.note && <p class="card-note" set:html={block.note} />}
                   </div>
                 );
-              
+
+              case 'heading':
+                return <h4 class="subheading" set:html={block.text} />;
+
               case 'flow':
                 return (
-                  <div class="flow" data-tiers={block.tiers} style="margin:8px 0;">
+                  <div class="flow" style="margin:8px 0;">
                     {block.steps?.map((step, i) => (
                       <>
-                        <span class="step">{step}</span>
+                        <span class="step" set:html={step} />
                         {i < (block.steps?.length || 0) - 1 && <span class="arrow">→</span>}
                       </>
                     ))}
+                    {block.note && <span class="flow-note" set:html={block.note} />}
                   </div>
                 );
-              
+
               case 'route':
                 return (
-                  <ul class="route" data-tiers={block.tiers} style="margin-top:8px;">
+                  <ul class="route" style="margin-top:8px;">
                     {block.items?.map(item => (
                       <li set:html={item} />
                     ))}
                   </ul>
                 );
-              
+
               case 'table':
                 return (
-                  <table data-tiers={block.tiers}>
-                    <tr>{block.headers?.map(h => <th>{h}</th>)}</tr>
-                    {block.rows?.map(row => (
-                      <tr>{row?.map(cell => <td set:html={cell} />)}</tr>
-                    ))}
-                  </table>
+                  <div class="table-wrap">
+                    <table>
+                      <tr>{block.headers?.map(h => <th>{h}</th>)}</tr>
+                      {block.rows?.map(row => (
+                        <tr>{row?.map(cell => <td set:html={cell} />)}</tr>
+                      ))}
+                    </table>
+                  </div>
                 );
-              
+
               default:
                 return null;
             }
@@ -110,9 +125,8 @@ const navItems = navMap[guide.categoryHref] || kaixiangNavItems;
       ))}
     </section>
 
-    <TOCPanel />
     <PageNav currentPath={currentPath} navItems={navItems} />
-  </main>
+  </AppShell>
 
   <BackToTop />
 </BaseLayout>

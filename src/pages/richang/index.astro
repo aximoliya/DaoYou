@@ -1,41 +1,35 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import NavBar from '../../components/NavBar.astro';
+import AppShell from '../../components/AppShell.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import BackToTop from '../../components/BackToTop.astro';
-import { richangNavItems } from '../../data/navItems';
+import Icon from '../../components/Icon.astro';
+import TimeBadge from '../../components/TimeBadge.astro';
 
-const navItems = richangNavItems;
+const items = [
+  { href: 'shop/', icon: 'cart', label: '商店购买', desc: '30+ 商店日常购买优先级指南' },
+  { href: 'huodong/', icon: 'ticket', label: '活动购买兑换', desc: '出村后主题活动/书阁/神石/晶源幻境兑换' },
+];
+---
 
-import TimeBadge from '../../components/TimeBadge.astro';---
-
-<BaseLayout title="日常运营 · 道友攻略" page="richang">
-  <NavBar currentPage="/richang/" navItems={navItems} />
-
-  <main>
-    <Breadcrumb items={[
-      { href: '../', label: '攻略总览' },
-      { label: '日常运营' }
-    ]} />
-        <TimeBadge date="2026-05" version="曦幻二版本" />
+<BaseLayout title="日常运营 · 道友攻略" page="richang" current="/richang/">
+  <AppShell current="/richang/">
+    <Breadcrumb items={[{ href: '../', label: '攻略总览' }, { label: '日常运营' }]} />
+    <TimeBadge date="2026-09-27" version="曦幻三版本" />
 
     <section>
-      <h2>🛒 日常运营</h2>
-      <p style="color:var(--text-dim);">日常商店购买优先级指南：</p>
-      <div class="hub-grid" style="margin-top:16px;">
-        <a href="shop/" class="hub-card">
-          <span class="icon">🛒</span>
-          <span class="label">商店购买</span>
-          <span class="desc">30+ 商店日常购买优先级指南</span>
-        </a>
-        <a href="huodong/" class="hub-card">
-          <span class="icon">🎪</span>
-          <span class="label">活动购买兑换</span>
-          <span class="desc">出村后主题活动/书阁/神石/晶源幻境兑换指南</span>
-        </a>
+      <h2 class="page-title"><Icon name="cart" size={25} />日常运营</h2>
+      <p class="page-lead">日常商店购买优先级指南：</p>
+      <div class="hub-grid">
+        {items.map(i => (
+          <a href={i.href} class="hub-card">
+            <Icon name={i.icon} size={24} />
+            <span class="label">{i.label}</span>
+            <span class="desc">{i.desc}</span>
+          </a>
+        ))}
       </div>
     </section>
-  </main>
-
+  </AppShell>
   <BackToTop />
 </BaseLayout>

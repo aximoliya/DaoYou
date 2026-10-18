@@ -1,0 +1,22 @@
+---
+// 首页 Hero 横幅 —— 使用美术资源图（public/hero-banner.webp + .jpg 兜底）
+// 标题文字已内嵌在图里，所以这里用 sr-only 的 h1 保留 SEO/无障碍语义
+import { BASE } from '../lib/url';
+---
+
+<section class="hero-banner">
+  <h1 class="sr-only">道友请留步 · 攻略站</h1>
+
+  <picture>
+    <source srcset={`${BASE}hero-banner.webp`} type="image/webp" />
+    <img
+      src={`${BASE}hero-banner.jpg`}
+      alt=""
+      width="934"
+      height="235"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </picture>
+</section>

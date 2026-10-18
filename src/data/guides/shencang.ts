@@ -3,21 +3,20 @@ import type { GuideData } from './types';
 export const shencangGuide: GuideData = {
   id: 'shencang',
   title: '神藏系统',
-  icon: '🏛️',
+  icon: 'landmark',
   category: '养成系统',
   categoryHref: '/yangcheng/',
-  updateDate: '2026-03-14',
+  updateDate: '2026-09-27',
   version: '3.14 版本',
   sourceUrl: 'https://www.taptap.cn/moment/758015604505446931',
   sourceAuthor: '笑语@TapTap',
   sections: [
     {
       title: '核心建议',
-      badge: 'xh',
       blocks: [
         {
           type: 'info',
-          content: '📋 来源：笑语@TapTap · 6158浏览 · 测试用攻击法人族号，均升实际只会比写的更强'
+          content: '来源：笑语@TapTap · 6158浏览 · 测试用攻击法人族号，均升实际只会比写的更强'
         },
         {
           type: 'warn',
@@ -25,18 +24,17 @@ export const shencangGuide: GuideData = {
         },
         {
           type: 'warn',
-          content: '⚠️ 之前删掉的心斋养成可以在置换商店换神藏养成。如果没剩心斋养成，那是你不小心喂建木了。'
+          content: '之前删掉的心斋养成可以在置换商店换神藏养成。如果没剩心斋养成，那是你不小心喂建木了。'
         }
       ]
     },
     {
       title: '战力测试',
-      badge: 'xh',
       blocks: [
         {
           type: 'heading',
           level: 3,
-          text: '🔬 战力测试（使用 8,597 天之炁）'
+          text: '战力测试（使用 8,597 天之炁）'
         },
         {
           type: 'table',
@@ -46,7 +44,7 @@ export const shencangGuide: GuideData = {
             ['单升（多给117天之炁触发节点4）', '265,319', ''],
             ['均2后单升', '264,147', '比单升低'],
             ['均3后单升', '267,652', ''],
-            ['均4后单升', '270,997', '⭐ 最高'],
+            ['均4后单升', '270,997', '<b class="best">最高</b>'],
             ['1~5核均4后单升', '270,238', ''],
             ['1~4核均4后单升', '268,222', ''],
             ['1~3核均4后单升', '266,316', '']
@@ -56,12 +54,11 @@ export const shencangGuide: GuideData = {
     },
     {
       title: '胜率测试',
-      badge: 'xh',
       blocks: [
         {
           type: 'heading',
           level: 3,
-          text: '⚔️ 胜率测试（每项200场，先手胜率）'
+          text: '胜率测试（每项200场，先手胜率）'
         },
         {
           type: 'table',
@@ -75,7 +72,7 @@ export const shencangGuide: GuideData = {
         },
         {
           type: 'info',
-          content: '💡 结论：<b>全体均4最强</b>，比单升高25%胜率，比均3高6.5%。1~5核均4和6核均4最终一样。'
+          content: '结论：<b>全体均4最强</b>，比单升高25%胜率，比均3高6.5%。1~5核均4和6核均4最终一样。'
         }
       ]
     }

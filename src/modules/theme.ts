@@ -1,43 +1,35 @@
 /**
- * 道友攻略站 · 主题切换模块
+ * 道友攻略站 · 主题切换模块 (默认浅色国风，可切深色)
  */
 
 export function initTheme(): void {
-  const saved = localStorage.getItem('daoyou-theme');
-  if (saved === 'light') {
-    document.documentElement.setAttribute('data-theme', 'light');
+  const root = document.documentElement;
+
+  // 初始：默认浅色；仅当保存为 dark 时应用
+  if (localStorage.getItem('daoyou-theme') === 'dark') {
+    root.setAttribute('data-theme', 'dark');
   }
 
-  // 创建主题切换按钮
-  const toggle = document.createElement('button');
-  toggle.className = 'theme-toggle';
-  toggle.setAttribute('aria-label', '切换亮色/暗色主题');
-  toggle.title = '切换主题';
-  toggle.textContent = saved === 'light' ? '☀' : '🌙';
+  const toggle = document.getElementById('theme-toggle') as HTMLButtonElement | null;
+  if (!toggle) return;
+
+  const sync = () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    // 图标由 CSS 依据 html[data-theme] 切换，这里只同步无障碍文案
+    toggle.title = isDark ? '切换到浅色' : '切换到深色';
+    toggle.setAttribute('aria-label', isDark ? '切换到浅色' : '切换到深色');
+  };
+  sync();
 
   toggle.addEventListener('click', () => {
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    if (isLight) {
-      document.documentElement.removeAttribute('data-theme');
-      localStorage.setItem('daoyou-theme', 'dark');
-      toggle.textContent = '🌙';
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      root.removeAttribute('data-theme');
       localStorage.setItem('daoyou-theme', 'light');
-      toggle.textContent = '☀';
-    }
-  });
-
-  const nav = document.getElementById('nav');
-  if (nav) {
-    const footer = nav.querySelector('.nav-footer');
-    if (footer) {
-      footer.appendChild(toggle);
     } else {
-      const nf = document.createElement('div');
-      nf.className = 'nav-footer';
-      nf.appendChild(toggle);
-      nav.appendChild(nf);
+      root.setAttribute('data-theme', 'dark');
+      localStorage.setItem('daoyou-theme', 'dark');
     }
-  }
+    sync();
+  });
 }
